@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7f4e7ab7-0705-4658-8e13-b3d5aade0ee1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="7f4e7ab7-0705-4658-8e13-b3d5aade0ee1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571649791201</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Test controller">
+      <created>1571650128592</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1571650128592</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +199,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Bonjour Sophie" />
     <MESSAGE value="J'ai fait .idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="J'ai fait .idea" />
+    <MESSAGE value="Test controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test controller" />
   </component>
 </project>
