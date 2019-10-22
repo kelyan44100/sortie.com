@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,7 +65,7 @@ class Sortie
     private $organisateur;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var Lieu
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
     private $lieux_no_lieu;
@@ -76,19 +77,19 @@ class Sortie
     private $etats_no_etat;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToMany(targetEntity="App\Entity\Inscription")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", cascade={"remove"}, mappedBy="sorties_no_sortie")
      */
     private $inscriptions_no_inscription;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var Site
      * @ORM\ManyToOne(targetEntity="App\Entity\Site")
      */
     private $sites_no_site;
 
     /**
-     * @return mixed
+     * @return Site
      */
     public function getSitesNoSite()
     {
@@ -96,15 +97,16 @@ class Sortie
     }
 
     /**
-     * @param mixed $sites_no_site
+     * @param Site $sites_no_site
+     * @return Void
      */
-    public function setSitesNoSite($sites_no_site): void
+    public function setSitesNoSite(Site $sites_no_site): Void
     {
         $this->sites_no_site = $sites_no_site;
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getInscriptionsNoInscription()
     {
@@ -112,7 +114,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $inscriptions_no_inscription
+     * @param ArrayCollection $inscriptions_no_inscription
      */
     public function setInscriptionsNoInscription($inscriptions_no_inscription): void
     {
@@ -214,12 +216,12 @@ class Sortie
         return $this;
     }
 
-    public function getLieuxNoLieu(): ?int
+    public function getLieuxNoLieu(): Lieu
     {
         return $this->lieux_no_lieu;
     }
 
-    public function setLieuxNoLieu(int $lieux_no_lieu): self
+    public function setLieuxNoLieu(Lieu $lieux_no_lieu): self
     {
         $this->lieux_no_lieu = $lieux_no_lieu;
 
@@ -269,4 +271,7 @@ class Sortie
     {
         $this->datecloture = $datecloture;
     }
+
+
+
 }
