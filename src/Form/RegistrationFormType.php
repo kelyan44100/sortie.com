@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Site;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -22,7 +24,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class, ['label'=>'Pseudo'])
-            ->add('email')
+            ->add('email',EmailType::class, ['label'=>'Email'])
             ->add('password', PasswordType::class, [
                      'constraints' => [
                     new NotBlank([
@@ -39,8 +41,13 @@ class RegistrationFormType extends AbstractType
             ->add('nom', TextType::class, ['label'=>'Nom'])
             ->add('prenom', TextType::class, ['label'=>'Prenom'])
             ->add('telephone', TelType::class, ['label'=>'Téléphone'])
-            ->add('actif', CheckboxType::class,[
-                'label'    => 'Actif'])
+            ->add('site',EntityType::class, [
+                'label'=>'Ville de rattachement',
+                'class' => Site::class,
+                //Attribut utilisé pour l'affichage
+                'choice_label'=> '$nom_site',])
+            ->add('actif', CheckboxType::class,['label' => 'Actif'])
+
         ;
     }
 

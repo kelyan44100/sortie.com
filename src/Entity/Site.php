@@ -26,6 +26,7 @@ class Site
      * @var ArrayCollection
      * @ORM\Column(type="integer")
      * @ORM\OneToMany(targetEntity="App\Entity\Sortie")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Sorties_no_sortie;
 
@@ -33,6 +34,7 @@ class Site
      * @var ArrayCollection
      * @ORM\Column(type="integer")
      * @ORM\OneToMany(targetEntity="App\Entity\Participant")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Participants_no_participant;
 

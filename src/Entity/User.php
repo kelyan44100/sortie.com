@@ -272,7 +272,7 @@ class User implements UserInterface
     /**
      * @return Site
      */
-    public function getSite(): Site
+    public function getSite(): ?Site
     {
         return $this->site;
     }

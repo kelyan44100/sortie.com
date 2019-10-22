@@ -15,7 +15,7 @@ class CreationSortieController extends Controller
      */
     public function index()
     {
-        return $this->render('creation_sortie/index.html.twig', [
+        return $this->render('creation_sortie/monProfil.html.twig', [
             'controller_name' => 'CreationSortieController',
         ]);
     }
@@ -41,7 +41,7 @@ class CreationSortieController extends Controller
 
             return $this->redirectToRoute('main');
         }
-        return $this->render('creation_sortie/index.html.twig', [
+        return $this->render('creation_sortie/monProfil.html.twig', [
             'formSortie' => $formSortie->createView()
         ]);
     }
