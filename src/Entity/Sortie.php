@@ -55,10 +55,6 @@ class Sortie
     private $description;
 
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $etatsortie;
 
     /**
      * @ORM\Column(type="string", length=250, nullable=true)
@@ -184,17 +180,6 @@ class Sortie
     }
 
 
-    public function getEtatsortie(): ?int
-    {
-        return $this->etatsortie;
-    }
-
-    public function setEtatsortie(int $etatsortie): self
-    {
-        $this->etatsortie = $etatsortie;
-
-        return $this;
-    }
 
     public function getUrlphoto(): ?string
     {
@@ -215,7 +200,7 @@ class Sortie
         return $this->lieux_no_lieu;
     }
 
-    public function setLieuxNoLieu(Lieu $lieux_no_lieu): self
+    public function setLieuxNoLieu(?Lieu $lieux_no_lieu): self
     {
         $this->lieux_no_lieu = $lieux_no_lieu;
 
@@ -227,7 +212,7 @@ class Sortie
         return $this->etats_no_etat;
     }
 
-    public function setEtatsNoEtat(int $etats_no_etat): self
+    public function setEtatsNoEtat(?Etat $etats_no_etat): self
     {
         $this->etats_no_etat = $etats_no_etat;
 
@@ -269,7 +254,7 @@ class Sortie
     /**
      * @return User
      */
-    public function getOrganisateur(): User
+    public function getOrganisateur(): ?User
     {
         return $this->organisateur;
     }
@@ -277,12 +262,12 @@ class Sortie
     /**
      * @param User $organisateur
      */
-    public function setOrganisateur(User $organisateur): void
+    public function setOrganisateur(?User $organisateur): void
     {
         $this->organisateur = $organisateur;
     }
 
 
-    
+
 
 }
