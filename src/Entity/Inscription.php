@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,8 +22,10 @@ class Inscription
      */
     private $date_inscription;
 
+
     /**
-     * @ORM\Column(type="integer")
+     * @var Sortie
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sortie", inversedBy="inscriptions_no_inscription")
      */
     private $sorties_no_sortie;
 
@@ -48,12 +51,12 @@ class Inscription
         return $this;
     }
 
-    public function getSortiesNoSortie(): ?int
+    public function getSortiesNoSortie(): Sortie
     {
         return $this->sorties_no_sortie;
     }
 
-    public function setSortiesNoSortie(int $sorties_no_sortie): self
+    public function setSortiesNoSortie(Sortie $sorties_no_sortie): self
     {
         $this->sorties_no_sortie = $sorties_no_sortie;
 

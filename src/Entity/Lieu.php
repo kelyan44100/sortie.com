@@ -37,7 +37,8 @@ class Lieu
     private $longitude;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var Lieu
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
     private $villes_no_ville;
 
@@ -94,12 +95,12 @@ class Lieu
         return $this;
     }
 
-    public function getVillesNoVille(): ?int
+    public function getVillesNoVille(): Lieu
     {
         return $this->villes_no_ville;
     }
 
-    public function setVillesNoVille(int $villes_no_ville): self
+    public function setVillesNoVille(Lieu $villes_no_ville): self
     {
         $this->villes_no_ville = $villes_no_ville;
 
