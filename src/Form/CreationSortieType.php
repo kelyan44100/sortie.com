@@ -29,7 +29,6 @@ class CreationSortieType extends AbstractType
             ->add('etats_no_etat')
             ->add('inscriptions_no_inscription')
             ->add('sites_no_site');
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
