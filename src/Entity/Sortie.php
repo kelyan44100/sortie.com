@@ -266,6 +266,23 @@ class Sortie
         $this->datecloture = $datecloture;
     }
 
+    /**
+     * @return User
+     */
+    public function getOrganisateur(): User
+    {
+        return $this->organisateur;
+    }
 
+    /**
+     * @param User $organisateur
+     */
+    public function setOrganisateur(User $organisateur): void
+    {
+        $this->organisateur = $organisateur;
+    }
+
+
+    
 
 }
