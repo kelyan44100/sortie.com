@@ -34,11 +34,47 @@ class User implements UserInterface
     private $pseudo;
 
     /**
+     * @ORM\Column(type="string", length=180)
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 30,
+     *      minMessage = "Your username must be at least {{ limit }} characters long",
+     *      maxMessage = "Your username cannot be longer than {{ limit }} characters"
+     * )
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=180)
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 30,
+     *      minMessage = "Your username must be at least {{ limit }} characters long",
+     *      maxMessage = "Your username cannot be longer than {{ limit }} characters"
+     * )
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=180)
+     * @Assert\Length(min = 10,  minMessage = "min_lenght")
+     *
+     *
+     */
+    private $telephone;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
+
+    /**
+     * @var array
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -53,36 +89,39 @@ class User implements UserInterface
      */
     private $password;
 
+
+
     /**
-     * @var array
-     * @ORM\Column(type="json_array")
+     * @var bool
+     * @ORM\Column( type="boolean", options={"default":true})
      */
-    private $roles = [];
-
-
+    private $actif;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
 
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
     /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
      */
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return (string) $this->email;
-    }
-
-    public function setUsername(string $email): self
-    {
-        $this->username = $email;
-
-        return $this;
     }
 
     /**
@@ -135,6 +174,69 @@ class User implements UserInterface
         $this->pseudo = $pseudo;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom): void
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param mixed $prenom
+     */
+    public function setPrenom($prenom): void
+    {
+        $this->prenom = $prenom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param mixed $telephone
+     */
+    public function setTelephone($telephone): void
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    /**
+     * @param bool $actif
+     */
+    public function setActif(bool $actif): void
+    {
+        $this->actif = $actif;
+    }
 
 
     /**
@@ -153,6 +255,4 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
-
 }
