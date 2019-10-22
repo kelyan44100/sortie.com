@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MonProfilController extends Controller
 {
@@ -25,7 +26,7 @@ class MonProfilController extends Controller
     /**
      * @Route("/monProfil/update/{id}", name="mon_profil_update", requirements={"id":"\d+"})
      */
-    public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, User $u){
+    public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, User $u,UserPasswordEncoderInterface $passwordEncoder){
 
         $user = $repo->find($u);
         //$nom_site->setNomSite($user->getSite());
@@ -34,6 +35,12 @@ class MonProfilController extends Controller
         if ($formMonProfil->isSubmitted() && $formMonProfil->isValid()){
             $error=false;
             if(!$error){
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $formMonProfil->get('password')->getData()
+                    )
+                );
                 $manager->persist($user);
                 $manager->flush();
                 $this->addFlash('success', 'Your profile successfully updated!' );

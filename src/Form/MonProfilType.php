@@ -48,11 +48,11 @@ class MonProfilType extends AbstractType
             ->add('site', EntityType::class, [
                 'class'=> Site::class,
                 //Attribut utilisé pour l'affichage
-                'choice_label' => 'site',
+                'choice_label' => 'nom_site',
                 //Fait une requête particulière
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->orderBy('c.site');
+                    return $er->createQueryBuilder('c');
+
                 }
             ])
             ->add('fileTemp', FileType::class, [
