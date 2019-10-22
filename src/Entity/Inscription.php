@@ -51,7 +51,7 @@ class Inscription
         return $this;
     }
 
-    public function getSortiesNoSortie(): Sortie
+    public function getSortiesNoSortie(): ?Sortie
     {
         return $this->sorties_no_sortie;
     }

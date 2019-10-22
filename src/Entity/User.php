@@ -70,6 +70,13 @@ class User implements UserInterface
      */
     private $email;
 
+
+    /**
+     * @var Sortie
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur")
+     */
+    private $sorties;
+
     /**
      * @var array
      * @ORM\Column(type="json")
@@ -88,6 +95,30 @@ class User implements UserInterface
      * )
      */
     private $password;
+
+
+    /**
+     * @var Site
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site")
+     */
+    private $site;
+
+
+    /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $file;
+
+
+    /**
+     * @Assert\File(
+     *     maxSize="2Mi",
+     *  uploadErrorMessage="Le fichier n'a pas été correctement téléchargé",
+     *     maxSizeMessage="Le fichier est trop lourd",
+     *     )
+     *
+     */
+    private $fileTemp;
 
 
 
@@ -223,12 +254,85 @@ class User implements UserInterface
     }
 
     /**
+     * @return Sortie
+     */
+    public function getSorties(): Sortie
+    {
+        return $this->sorties;
+    }
+
+    /**
+     * @param Sortie $sorties
+     */
+    public function setSorties(Sortie $sorties): void
+    {
+        $this->sorties = $sorties;
+    }
+
+    /**
+     * @return Site
+     */
+    public function getSite(): Site
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param Site $site
+     */
+    public function setSite(Site $site): void
+    {
+        $this->site = $site;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileTemp()
+    {
+        return $this->fileTemp;
+    }
+
+    /**
+     * @param mixed $fileTemp
+     */
+    public function setFileTemp($fileTemp): void
+    {
+        $this->fileTemp = $fileTemp;
+    }
+
+
+
+
+
+
+    /**
      * @return bool
      */
     public function isActif(): ?bool
     {
         return $this->actif;
     }
+
+
 
     /**
      * @param bool $actif

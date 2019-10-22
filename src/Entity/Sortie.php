@@ -38,6 +38,13 @@ class Sortie
     private $nbinscription;
 
     /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sorties")
+     */
+    private $organisateur;
+
+
+    /**
      * @ORM\Column(type="date")
      */
     private $datecloture;
@@ -58,21 +65,15 @@ class Sortie
      */
     private $urlphoto;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="App\Entity\Participant")
-     */
-    private $organisateur;
 
     /**
-     * @var \App\Entity\Lieu
+     * @var Lieu
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
     private $lieux_no_lieu;
 
     /**
-     *@var Etat
-     * @ORM\Column(type="integer")
+     * @var Etat
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
      */
     private $etats_no_etat;
@@ -207,17 +208,7 @@ class Sortie
         return $this;
     }
 
-    public function getOrganisateur(): ?int
-    {
-        return $this->organisateur;
-    }
 
-    public function setOrganisateur(int $organisateur): self
-    {
-        $this->organisateur = $organisateur;
-
-        return $this;
-    }
 
     public function getLieuxNoLieu(): ?Lieu
     {
