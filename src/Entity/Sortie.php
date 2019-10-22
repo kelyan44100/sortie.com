@@ -65,12 +65,13 @@ class Sortie
     private $organisateur;
 
     /**
-     * @var Lieu
+     * @var \App\Entity\Lieu
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
     private $lieux_no_lieu;
 
     /**
+     *@var Etat
      * @ORM\Column(type="integer")
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
      */
@@ -228,7 +229,7 @@ class Sortie
         return $this;
     }
 
-    public function getEtatsNoEtat(): ?int
+    public function getEtatsNoEtat(): Etat
     {
         return $this->etats_no_etat;
     }

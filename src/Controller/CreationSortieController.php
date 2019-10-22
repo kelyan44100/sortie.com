@@ -1,12 +1,8 @@
 <?php
 
 namespace App\Controller;
-
-use App\Entity\Serie;
 use App\Entity\Sortie;
 use App\Form\CreationSortieType;
-use App\Form\SerieType;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

@@ -3,30 +3,43 @@
 {% block title %}Hello CreationSortieController!{% endblock %}
 
 {% block body %}
-<h1>Création une Sortie</h1>
-    <div class="input-group-text">
-        {{ form_row(formSortie.nom) }}
+    <h1>Création une Sortie</h1>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                {{ form_label(formSortie.nom) }}
+                {{ form_widget(formSortie.nom, {'attr' : {'class' : 'form-control '}}) }}
+            </div>
+            <div class="col-sm-5 offset-sm-2">
+                {{ form_label(formSortie.nbinscription) }}
+                {{ form_widget(formSortie.nbinscription, {'attr' : {'class' : 'form-control '}}) }}
+            </div>
+            <div class="col-sm-5">
+                {{ form_label(formSortie.datedebut) }}
+                {{ form_widget(formSortie.datedebut) }}
+            </div>
+            <div class="col-sm-5 offset-sm-2">
+                {{ form_label(formSortie.datecloture) }}
+                {{ form_widget(formSortie.datecloture) }}
+            </div>
+            <div class="col-sm-5">
+                {{ form_label(formSortie.nbinscription) }}
+                {{ form_widget(formSortie.nbinscription, {'attr' : {'class' : 'form-control '}}) }}
+            </div>
+            <div class="col-sm-5 offset-sm-2">
+                {{ form_label(formSortie.duree) }}
+                {{ form_widget(formSortie.duree, {'attr' : {'class' : 'form-control '}}) }}
+            </div>
+            <div class="col-sm-5">
+                {{ form_label(formSortie.description) }}
+                {{ form_widget(formSortie.description, {'attr' : {'class' : 'form-control '}}) }}
+            </div>
+        </div>
     </div>
-    <br>
-    <div class="input-group-text">
-        {{ form_row(formSortie.datedebut) }}
-
-    </div>    <br>
-    <div class="input-group-text">
-        {{ form_row(formSortie.datecloture) }}
-
-    </div>    <br>
-    <div class="input-group-text">
-        {{ form_row(formSortie.nbinscription) }}
-
-    </div>    <br>
-    <div class="input-group-text">
-        {{ form_row(formSortie.duree) }}
-    </div>    <br>
-    <div class="input-group-text">
-        {{ form_row(formSortie.description) }}
-    </div>    <br>
-    <input type="submit" value="Créer"/>
+    <div class="text-center">
+        <input type="submit" value="Créer" class="btn btn-dark"/>
+        <input type="submit" value="Annuler" class="btn btn-dark"/>
+    </div>
 
 {% endblock %}
