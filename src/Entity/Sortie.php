@@ -89,6 +89,8 @@ class Sortie
      */
     private $sites_no_site;
 
+
+
     /**
      * @return Site
      */
@@ -217,7 +219,7 @@ class Sortie
         return $this;
     }
 
-    public function getLieuxNoLieu(): Lieu
+    public function getLieuxNoLieu(): ?Lieu
     {
         return $this->lieux_no_lieu;
     }
@@ -229,7 +231,7 @@ class Sortie
         return $this;
     }
 
-    public function getEtatsNoEtat(): Etat
+    public function getEtatsNoEtat(): ?Etat
     {
         return $this->etats_no_etat;
     }
