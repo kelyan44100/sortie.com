@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreationSortieController!{% endblock %}
+
+{% block body %}
+<h1>Création une Sortie</h1>
+    <div class="input-group-text">
+        {{ form_row(formSortie.nom) }}
+
+    </div>
+    <br>
+    <div class="input-group-text">
+        {{ form_row(formSortie.datedebut) }}
+
+    </div>    <br>
+    <div class="input-group-text">
+        {{ form_row(formSortie.datecloture) }}
+
+    </div>    <br>
+    <div class="input-group-text">
+        {{ form_row(formSortie.nbinscription) }}
+
+    </div>    <br>
+    <div class="input-group-text">
+        {{ form_row(formSortie.duree) }}
+    </div>    <br>
+    <div class="input-group-text">
+        {{ form_row(formSortie.description) }}
+    </div>    <br>
+    <input type="submit" value="Créer"/>
+
+{% endblock %}
