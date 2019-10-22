@@ -2,10 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Sortie;
 use App\Entity\Lieu;
+use App\Entity\Sortie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,21 +13,22 @@ class CreationSortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        $builder->add('lieuxNoLieu', EntityType::class, [
+            'class' => Lieu::class,
+            'choice_label' => 'NomLieu'
+        ])
             ->add('nom', null, ['label' => 'Nom : '])
             ->add('datedebut', null, ['label' => 'Date de début : '])
             ->add('duree', null, ['label' => 'Durée : '])
             ->add('nbinscription', null, ['label' => 'Nombre de participant : '])
             ->add('datecloture', null, ['label' => 'Date de fin : '])
             ->add('description', null, ['label' => 'Description : '])
-            ->add('etatsortie', null, ['label' => 'Statut : '])
             ->add('urlphoto', null, ['label' => 'Photo : '])
             ->add('organisateur', null, ['label' => 'Organisateur : '])
-            ->add('lieux_no_lieu')
+            ->add('lieux_no_lieu', EntityType::class, ['class' => Lieu::class])
             ->add('etats_no_etat')
             ->add('inscriptions_no_inscription')
-            ->add('sites_no_site')
-        ;
+            ->add('sites_no_site');
     }
 
     public function configureOptions(OptionsResolver $resolver)

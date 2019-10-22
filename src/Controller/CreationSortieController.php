@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\CreationSortieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,12 +27,13 @@ class CreationSortieController extends Controller
     public function add(Request $request, EntityManagerInterface $manager)
     {
         $Sortie = new Sortie();
+        $Lieu = new Lieu();
         $formSortie = $this->createForm(CreationSortieType::class, $Sortie);
         //Associe la requête et le FormType
         $formSortie->handleRequest($request);
 
         //Test de la validation du formulaire
-        if ($formSortie->isSubmitted()) {
+        if ($formSortie->isSubmitted() && $formSortie->isValid()) {
             dump($Sortie);
             $manager->persist($Sortie);
             $manager->flush();
