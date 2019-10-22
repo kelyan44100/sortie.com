@@ -22,7 +22,7 @@ class Sortie
     private $nom;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $datedebut;
 
@@ -37,9 +37,15 @@ class Sortie
     private $nbinscription;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $datecloture;
+
+    /**
+     * @ORM\Column(type="text", length=500, nullable=true)
+     */
+    private $description;
+
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -113,6 +119,22 @@ class Sortie
         $this->inscriptions_no_inscription = $inscriptions_no_inscription;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,17 +152,6 @@ class Sortie
         return $this;
     }
 
-    public function getDatedebut(): ?\DateTimeInterface
-    {
-        return $this->datedebut;
-    }
-
-    public function setDatedebut(\DateTimeInterface $datedebut): self
-    {
-        $this->datedebut = $datedebut;
-
-        return $this;
-    }
 
     public function getDuree(): ?int
     {
@@ -166,17 +177,6 @@ class Sortie
         return $this;
     }
 
-    public function getDatecloture(): ?\DateTimeInterface
-    {
-        return $this->datecloture;
-    }
-
-    public function setDatecloture(\DateTimeInterface $datecloture): self
-    {
-        $this->datecloture = $datecloture;
-
-        return $this;
-    }
 
     public function getEtatsortie(): ?int
     {
@@ -236,5 +236,37 @@ class Sortie
         $this->etats_no_etat = $etats_no_etat;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatedebut()
+    {
+        return $this->datedebut;
+    }
+
+    /**
+     * @param mixed $datedebut
+     */
+    public function setDatedebut($datedebut): void
+    {
+        $this->datedebut = $datedebut;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatecloture()
+    {
+        return $this->datecloture;
+    }
+
+    /**
+     * @param mixed $datecloture
+     */
+    public function setDatecloture($datecloture): void
+    {
+        $this->datecloture = $datecloture;
     }
 }
