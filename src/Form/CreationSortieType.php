@@ -15,7 +15,7 @@ class CreationSortieType extends AbstractType
     {
         $builder->add('lieuxNoLieu', EntityType::class, [
             'class' => Lieu::class,
-            'choice_label' => 'getNomLieu'
+            'choice_label' => 'NomLieu'
         ])
             ->add('nom', null, ['label' => 'Nom : '])
             ->add('datedebut', null, ['label' => 'Date de début : '])

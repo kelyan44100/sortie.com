@@ -33,7 +33,7 @@ class CreationSortieController extends Controller
         $formSortie->handleRequest($request);
 
         //Test de la validation du formulaire
-        if ($formSortie->isSubmitted()) {
+        if ($formSortie->isSubmitted() && $formSortie->isValid()) {
             dump($Sortie);
             $manager->persist($Sortie);
             $manager->flush();
