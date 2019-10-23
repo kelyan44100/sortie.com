@@ -3,63 +3,85 @@
 {% block title %}Hello CreationSortieController!{% endblock %}
 
 {% block body %}
-<h2>Création une Sortie</h2>
-{% form_theme formSortie 'bootstrap_4_layout.html.twig' %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            {{ form_label(formSortie.nom) }}
-            {{ form_widget(formSortie.nom) }}
+    <h2>Création une Sortie</h2>
+    {% form_theme formSortie 'bootstrap_4_layout.html.twig' %}
+    {{ form_start(formSortie) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                {{ form_label(formSortie.nom) }}
+                {{ form_widget(formSortie.nom) }}
+            </div>
 
-            {{ form_label(formSortie.datedebut) }}
-            {{ form_widget(formSortie.datedebut) }}
+            <div class="col-sm-5 offset-2">
 
-            {{ form_label(formSortie.datecloture) }}
-            {{ form_widget(formSortie.datecloture) }}
+                <label for="site" >Ville de rattachement</label>
+                <input type="text" value="{{ app.user.site}}"  id="site" class="form-control" readonly>
 
-            {{ form_label(formSortie.nbinscription) }}
-            {{ form_widget(formSortie.nbinscription) }}
+            </div>
 
-            {{ form_label(formSortie.duree) }}
-            {{ form_widget(formSortie.duree) }}
+            <div class="col-sm-5">
+                {{ form_label(formSortie.datedebut) }}
+                {{ form_widget(formSortie.datedebut) }}
+            </div>
 
-            {{ form_label(formSortie.description) }}
-            {{ form_widget(formSortie.description) }}
-        </div>
+            <div class="col-sm-5 offset-2">
+                <label>Ville :</label>
+                <select class="custom-select">
+                    {% for ville in villes %}
+                        <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
+            <div class="col-sm-5">
+                {{ form_label(formSortie.datecloture) }}
+                {{ form_widget(formSortie.datecloture) }}
+            </div>
+            <div class="col-sm-5 offset-2">
+                <p>Rue :</p>
+                <select class="custom-select">
+                    {% for lieu in lieux %}
+                        <option value="{{ lieu.rue }}">{{ lieu.rue }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <div class="col">
-            <p>Ville organisatrice</p>
-            <label>Ville :</label>
-            <select class="custom-select">
-                {% for ville in villes %}
-                    <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
-                {% endfor %}
-            </select>
-
+            <div class="col-sm-5">
+                {{ form_label(formSortie.nbinscription) }}
+                {{ form_widget(formSortie.nbinscription) }}
+            </div>
+            <div class="col-sm-5 offset-2">
+                <p>Code Postal :</p>
+            </div>
+            <div class="col-sm-5">
+                {{ form_label(formSortie.duree) }}
+                {{ form_widget(formSortie.duree) }}
+            </div>
+            <div class="col-sm-5 offset-2">
+                <p>Code Postal :</p>
+            </div>
+            <div class="col-sm-5">
+                {{ form_label(formSortie.description) }}
+                {{ form_widget(formSortie.description) }}
+            </div>
+            <div class="col-sm-5 offset-2">
+                <p>Latitude</p>
+            </div>
+            <div class="col-sm-5">
             {{ form_label(formSortie.lieu) }} :
             {{ form_widget(formSortie.lieu) }}
-
-            <p>Rue :</p>
-            <select class="custom-select">
-                {% for lieu in lieux %}
-                    <option value="{{ lieu.rue }}">{{ lieu.rue }}</option>
-                {% endfor %}
-            </select>
-            <p>Code Postal :</p>
-
-            <p>Latitude</p>
-
-            <p>Longitude</p>
-
+            </div>
+            <div class="col-sm-5 offset-2">
+                <p>Longitude</p>
+            </div>
         </div>
-
     </div>
-
 
     <div class="text-center">
         <input type="submit" value="Créer" class="btn btn-dark"/>
         <input type="submit" value="Annuler" class="btn btn-dark"/>
     </div>
+    {{ form_end(formSortie) }}
 
-    {% endblock %}
+{% endblock %}
