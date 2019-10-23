@@ -36,7 +36,7 @@ class Inscription
     private $participant;
 
     /**
-     * @return mixed
+     * @return
      */
     public function getId()
     {
@@ -45,7 +45,7 @@ class Inscription
 
 
     /**
-     * @return mixed
+     * @return
      */
     public function getDateInscription()
     {
@@ -53,7 +53,7 @@ class Inscription
     }
 
     /**
-     * @param mixed $date_inscription
+     * @param  $date_inscription
      */
     public function setDateInscription($date_inscription): void
     {

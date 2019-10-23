@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
@@ -23,7 +24,7 @@ class Sortie
     private $nom;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateDebut;
 
@@ -45,7 +46,7 @@ class Sortie
 
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateCloture;
 
@@ -132,7 +133,7 @@ class Sortie
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getDateDebut()
     {
@@ -140,7 +141,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $dateDebut
+     * @param \DateTime $dateDebut
      */
     public function setDateDebut($dateDebut): void
     {
@@ -196,7 +197,7 @@ class Sortie
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getDateCloture()
     {
@@ -204,7 +205,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $dateCloture
+     * @param \DateTime $dateCloture
      */
     public function setDateCloture($dateCloture): void
     {
@@ -212,7 +213,7 @@ class Sortie
     }
 
     /**
-     * @return mixed
+     * @return
      */
     public function getDescription()
     {
@@ -220,7 +221,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $description
+     * @param  $description
      */
     public function setDescription($description): void
     {
@@ -228,7 +229,7 @@ class Sortie
     }
 
     /**
-     * @return mixed
+     * @return
      */
     public function getFilePhoto()
     {
@@ -236,7 +237,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $filePhoto
+     * @param  $filePhoto
      */
     public function setFilePhoto($filePhoto): void
     {
@@ -244,7 +245,7 @@ class Sortie
     }
 
     /**
-     * @return mixed
+     * @return
      */
     public function getFileTempPhoto()
     {
@@ -252,7 +253,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $fileTempPhoto
+     * @param  $fileTempPhoto
      */
     public function setFileTempPhoto($fileTempPhoto): void
     {
