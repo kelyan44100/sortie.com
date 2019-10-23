@@ -9,38 +9,43 @@
         <div class="row">
             <div class="col-sm-5">
                 {{ form_label(formSortie.nom) }}
-                {{ form_widget(formSortie.nom, {'attr' : {'class' : 'form-control '}}) }}
-            </div>
-
-        <div class="col-sm-5 offset-sm-2">
-        {{  form_label(formSortie.lieux_no_lieu) }}
-            {{ form_widget(formSortie.lieux_no_lieu, {'attr' : {'class' : 'form-control '}}) }}
-    </div>
-            <div class="col-sm-5">
-                {{ form_label(formSortie.nbinscription) }}
-                {{ form_widget(formSortie.nbinscription, {'attr' : {'class' : 'form-control '}}) }}
+                {{ form_widget(formSortie.nom) }}
             </div>
             <div class="col-sm-5 offset-sm-2">
+                <label>Ville :</label>
+                <select class="custom-select">
+                    {% for ville in villes %}
+                        <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-sm-5 ">
                 {{ form_label(formSortie.datedebut) }}
                 {{ form_widget(formSortie.datedebut) }}
+            </div>
+            <div class="col-sm-5 offset-sm-2">
+                <label>
+                    {{ form_label(formSortie.lieuxNoLieu) }} :
+                </label>
+                {{ form_widget(formSortie.lieux_no_lieu) }}
             </div>
             <div class="col-sm-5 ">
                 {{ form_label(formSortie.datecloture) }}
                 {{ form_widget(formSortie.datecloture) }}
             </div>
-            <div class="col-sm-5 offset-sm-2">
+            <div class="col-sm-12">
                 {{ form_label(formSortie.nbinscription) }}
-                {{ form_widget(formSortie.nbinscription, {'attr' : {'class' : 'form-control '}}) }}
+                {{ form_widget(formSortie.nbinscription) }}
             </div>
-            <div class="col-sm-5 ">
+            <div class="col-sm-12 ">
                 {{ form_label(formSortie.duree) }}
-                {{ form_widget(formSortie.duree, {'attr' : {'class' : 'form-control '}}) }}
+                {{ form_widget(formSortie.duree) }}
             </div>
-            <div class="col-sm-5 offset-sm-2">
+            <div class="col-sm-12">
                 {{ form_label(formSortie.description) }}
-                {{ form_widget(formSortie.description, {'attr' : {'class' : 'form-control '}}) }}
+                {{ form_widget(formSortie.description) }}
             </div>
-            {{ form_row(formSortie.lieux_no_lieu) }}
+
         </div>
     </div>
     <div class="text-center">

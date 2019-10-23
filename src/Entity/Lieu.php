@@ -109,5 +109,6 @@ class Lieu
     public function __toString()
     {
         return $this->getNomLieu();
+
     }
 }

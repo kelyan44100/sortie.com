@@ -52,7 +52,6 @@ class MonProfilType extends AbstractType
                 //Fait une requête particulière
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c');
-
                 }
             ])
             ->add('fileTemp', FileType::class, [

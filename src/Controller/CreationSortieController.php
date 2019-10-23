@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\CreationSortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,8 +28,8 @@ class CreationSortieController extends Controller
     public function add(Request $request, EntityManagerInterface $manager)
     {
         $Sortie = new Sortie();
-        $Lieu = new Lieu();
         $formSortie = $this->createForm(CreationSortieType::class, $Sortie);
+        $villes = $manager->getRepository(Ville::class)->findAll();
         //Associe la requête et le FormType
         $formSortie->handleRequest($request);
 
@@ -44,7 +45,9 @@ class CreationSortieController extends Controller
             return $this->redirectToRoute('main');
         }
         return $this->render('creation_sortie/index.html.twig', [
-            'formSortie' => $formSortie->createView()
+            'formSortie' => $formSortie->createView(),
+            'villes' =>$villes
         ]);
     }
+
 }
