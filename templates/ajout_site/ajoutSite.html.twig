@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <h2 class="text-center mt-2">Gérer les sites</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% for site in sites %}
+                {{ site.nomSite }}
+                <a type="button" class="close red delete-item"  title="Supprimer le site" href="{{ path('site_supp', {'id' : site.id }) }}">
+                   <span aria-hidden="true">&times;</span>
+                 </a>
+                <br>
+            {% endfor %}
+        </div>
+        <div class="col-md-8">
+            {% form_theme siteForm 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(siteForm) }}
+            {{ form_row(siteForm.nom_site) }}
+            <button type="submit">Ajouter</button>
+            {{ form_end(siteForm) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
