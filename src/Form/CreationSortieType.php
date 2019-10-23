@@ -17,7 +17,7 @@ class CreationSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lieuxNoLieu', EntityType::class, [
+            ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'NomLieu',
             ])
@@ -27,12 +27,12 @@ class CreationSortieType extends AbstractType
             ->add('nbinscription', null, ['label' => 'Nombre de participant : '])
             ->add('datecloture', null, ['label' => 'Date de fin : '])
             ->add('description', null, ['label' => 'Description : '])
-            ->add('urlphoto', null, ['label' => 'Photo : '])
+            ->add('filePhoto', null, ['label' => 'Photo : '])
             ->add('organisateur', null, ['label' => 'Organisateur : '])
-            ->add('lieux_no_lieu', EntityType::class, ['class' => Lieu::class])
-            ->add('etats_no_etat')
-            ->add('inscriptions_no_inscription')
-            ->add('sites_no_site');
+            ->add('lieu', EntityType::class, ['class' => Lieu::class])
+            ->add('etat')
+            ->add('inscriptions')
+            ->add('site');
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -44,10 +44,18 @@ class CreationSortieType extends AbstractType
 
     public function villes(EntityManagerInterface $em){
         $repo = $em->getRepository(Ville::class);
-
         $villes = $repo->findAll();
 
         ["villes"=>$villes];
+
+    }
+    public function rueByLieu(EntityManagerInterface $em){
+        $repo = $em->getRepository(Lieu::class);
+        $lieux = $repo->findBy(
+        [],['rue']
+            );
+
+        ["lieux"=>$lieux];
 
     }
 }

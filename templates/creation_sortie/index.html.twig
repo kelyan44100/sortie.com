@@ -3,54 +3,63 @@
 {% block title %}Hello CreationSortieController!{% endblock %}
 
 {% block body %}
-    <h1>Création une Sortie</h1>
-    {% form_theme formSortie 'bootstrap_4_layout.html.twig' %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-5">
-                {{ form_label(formSortie.nom) }}
-                {{ form_widget(formSortie.nom) }}
-            </div>
-            <div class="col-sm-5 offset-sm-2">
-                <label>Ville :</label>
-                <select class="custom-select">
-                    {% for ville in villes %}
-                        <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-sm-5 ">
-                {{ form_label(formSortie.datedebut) }}
-                {{ form_widget(formSortie.datedebut) }}
-            </div>
-            <div class="col-sm-5 offset-sm-2">
-                <label>
-                    {{ form_label(formSortie.lieuxNoLieu) }} :
-                </label>
-                {{ form_widget(formSortie.lieux_no_lieu) }}
-            </div>
-            <div class="col-sm-5 ">
-                {{ form_label(formSortie.datecloture) }}
-                {{ form_widget(formSortie.datecloture) }}
-            </div>
-            <div class="col-sm-12">
-                {{ form_label(formSortie.nbinscription) }}
-                {{ form_widget(formSortie.nbinscription) }}
-            </div>
-            <div class="col-sm-12 ">
-                {{ form_label(formSortie.duree) }}
-                {{ form_widget(formSortie.duree) }}
-            </div>
-            <div class="col-sm-12">
-                {{ form_label(formSortie.description) }}
-                {{ form_widget(formSortie.description) }}
-            </div>
+<h2>Création une Sortie</h2>
+{% form_theme formSortie 'bootstrap_4_layout.html.twig' %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {{ form_label(formSortie.nom) }}
+            {{ form_widget(formSortie.nom) }}
+
+            {{ form_label(formSortie.datedebut) }}
+            {{ form_widget(formSortie.datedebut) }}
+
+            {{ form_label(formSortie.datecloture) }}
+            {{ form_widget(formSortie.datecloture) }}
+
+            {{ form_label(formSortie.nbinscription) }}
+            {{ form_widget(formSortie.nbinscription) }}
+
+            {{ form_label(formSortie.duree) }}
+            {{ form_widget(formSortie.duree) }}
+
+            {{ form_label(formSortie.description) }}
+            {{ form_widget(formSortie.description) }}
+        </div>
+
+
+        <div class="col">
+            <p>Ville organisatrice</p>
+            <label>Ville :</label>
+            <select class="custom-select">
+                {% for ville in villes %}
+                    <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
+                {% endfor %}
+            </select>
+
+            {{ form_label(formSortie.lieu) }} :
+            {{ form_widget(formSortie.lieu) }}
+
+            <p>Rue :</p>
+            <select class="custom-select">
+                {% for lieu in lieux %}
+                    <option value="{{ lieu.rue }}">{{ lieu.rue }}</option>
+                {% endfor %}
+            </select>
+            <p>Code Postal :</p>
+
+            <p>Latitude</p>
+
+            <p>Longitude</p>
 
         </div>
+
     </div>
+
+
     <div class="text-center">
         <input type="submit" value="Créer" class="btn btn-dark"/>
         <input type="submit" value="Annuler" class="btn btn-dark"/>
     </div>
 
-{% endblock %}
+    {% endblock %}

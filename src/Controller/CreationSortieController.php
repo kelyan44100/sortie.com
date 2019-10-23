@@ -30,6 +30,7 @@ class CreationSortieController extends Controller
         $Sortie = new Sortie();
         $formSortie = $this->createForm(CreationSortieType::class, $Sortie);
         $villes = $manager->getRepository(Ville::class)->findAll();
+        $lieux = $manager->getRepository(Lieu::class)->findBy([],['rue'=>'ASC']);
         //Associe la requête et le FormType
         $formSortie->handleRequest($request);
 
@@ -46,7 +47,8 @@ class CreationSortieController extends Controller
         }
         return $this->render('creation_sortie/index.html.twig', [
             'formSortie' => $formSortie->createView(),
-            'villes' =>$villes
+            'villes' =>$villes,
+            'lieux' =>$lieux
         ]);
     }
 

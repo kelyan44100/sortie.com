@@ -183,7 +183,7 @@ class Sortie
     /**
      * @return User
      */
-    public function getOrganisateur(): User
+    public function getOrganisateur(): ?User
     {
         return $this->organisateur;
     }
@@ -191,7 +191,7 @@ class Sortie
     /**
      * @param User $organisateur
      */
-    public function setOrganisateur(User $organisateur): void
+    public function setOrganisateur(?User $organisateur): void
     {
         $this->organisateur = $organisateur;
     }
@@ -263,7 +263,7 @@ class Sortie
     /**
      * @return Lieu
      */
-    public function getLieu(): Lieu
+    public function getLieu(): ?Lieu
     {
         return $this->lieu;
     }
@@ -271,7 +271,7 @@ class Sortie
     /**
      * @param Lieu $lieu
      */
-    public function setLieu(Lieu $lieu): void
+    public function setLieu(?Lieu $lieu): void
     {
         $this->lieu = $lieu;
     }
@@ -279,7 +279,7 @@ class Sortie
     /**
      * @return Etat
      */
-    public function getEtat(): Etat
+    public function getEtat(): ?Etat
     {
         return $this->etat;
     }
@@ -287,7 +287,7 @@ class Sortie
     /**
      * @param Etat $etat
      */
-    public function setEtat(Etat $etat): void
+    public function setEtat(?Etat $etat): void
     {
         $this->etat = $etat;
     }
@@ -311,7 +311,7 @@ class Sortie
     /**
      * @return Site
      */
-    public function getSite(): Site
+    public function getSite(): ?Site
     {
         return $this->site;
     }
@@ -319,7 +319,7 @@ class Sortie
     /**
      * @param Site $site
      */
-    public function setSite(Site $site): void
+    public function setSite(?Site $site): void
     {
         $this->site = $site;
     }
