@@ -25,7 +25,7 @@ class Sortie
     /**
      * @ORM\Column(type="date")
      */
-    private $datedebut;
+    private $dateDebut;
 
     /**
      * @ORM\Column(type="integer")
@@ -35,7 +35,7 @@ class Sortie
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $nbinscription;
+    private $nbInscription;
 
     /**
      * @var User
@@ -47,7 +47,7 @@ class Sortie
     /**
      * @ORM\Column(type="date")
      */
-    private $datecloture;
+    private $dateCloture;
 
     /**
      * @ORM\Column(type="text", length=500, nullable=true)
@@ -55,70 +55,160 @@ class Sortie
     private $description;
 
 
+    /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $filePhoto;
+
 
     /**
-     * @ORM\Column(type="string", length=250, nullable=true)
+     * @Assert\File(
+     *     maxSize="2Mi",
+     *  uploadErrorMessage="Le fichier n'a pas été correctement téléchargé",
+     *     maxSizeMessage="Le fichier est trop lourd",
+     *     )
+     *
      */
-    private $urlphoto;
+    private $fileTempPhoto;
+
 
 
     /**
      * @var Lieu
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
-    private $lieux_no_lieu;
+    private $lieu;
 
     /**
      * @var Etat
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
      */
-    private $etats_no_etat;
+    private $etat;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", cascade={"remove"}, mappedBy="sorties_no_sortie")
+     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", cascade={"remove"}, mappedBy="sortie")
      */
-    private $inscriptions_no_inscription;
+    private $inscriptions;
 
     /**
      * @var Site
-     * @ORM\ManyToOne(targetEntity="App\Entity\Site")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
      */
-    private $sites_no_site;
+    private $site;
 
+    /**
+     * Sortie constructor.
+     */
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
 
 
     /**
-     * @return Site
+     * @return mixed
      */
-    public function getSitesNoSite()
+    public function getId()
     {
-        return $this->sites_no_site;
+        return $this->id;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
     }
 
     /**
-     * @param Site $sites_no_site
-     * @return Void
+     * @param mixed $nom
      */
-    public function setSitesNoSite(Site $sites_no_site): Void
+    public function setNom($nom): void
     {
-        $this->sites_no_site = $sites_no_site;
+        $this->nom = $nom;
     }
 
     /**
-     * @return ArrayCollection
+     * @return mixed
      */
-    public function getInscriptionsNoInscription()
+    public function getDateDebut()
     {
-        return $this->inscriptions_no_inscription;
+        return $this->dateDebut;
     }
 
     /**
-     * @param ArrayCollection $inscriptions_no_inscription
+     * @param mixed $dateDebut
      */
-    public function setInscriptionsNoInscription($inscriptions_no_inscription): void
+    public function setDateDebut($dateDebut): void
     {
-        $this->inscriptions_no_inscription = $inscriptions_no_inscription;
+        $this->dateDebut = $dateDebut;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDuree()
+    {
+        return $this->duree;
+    }
+
+    /**
+     * @param mixed $duree
+     */
+    public function setDuree($duree): void
+    {
+        $this->duree = $duree;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbInscription()
+    {
+        return $this->nbInscription;
+    }
+
+    /**
+     * @param mixed $nbInscription
+     */
+    public function setNbInscription($nbInscription): void
+    {
+        $this->nbInscription = $nbInscription;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOrganisateur(): User
+    {
+        return $this->organisateur;
+    }
+
+    /**
+     * @param User $organisateur
+     */
+    public function setOrganisateur(User $organisateur): void
+    {
+        $this->organisateur = $organisateur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateCloture()
+    {
+        return $this->dateCloture;
+    }
+
+    /**
+     * @param mixed $dateCloture
+     */
+    public function setDateCloture($dateCloture): void
+    {
+        $this->dateCloture = $dateCloture;
     }
 
     /**
@@ -137,134 +227,100 @@ class Sortie
         $this->description = $description;
     }
 
-    public function getId(): ?int
+    /**
+     * @return mixed
+     */
+    public function getFilePhoto()
     {
-        return $this->id;
+        return $this->filePhoto;
     }
 
-    public function getNom(): ?string
+    /**
+     * @param mixed $filePhoto
+     */
+    public function setFilePhoto($filePhoto): void
     {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-
-    public function getDuree(): ?int
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(int $duree): self
-    {
-        $this->duree = $duree;
-
-        return $this;
-    }
-
-    public function getNbinscription(): ?int
-    {
-        return $this->nbinscription;
-    }
-
-    public function setNbinscription(int $nbinscription): self
-    {
-        $this->nbinscription = $nbinscription;
-
-        return $this;
-    }
-
-
-
-    public function getUrlphoto(): ?string
-    {
-        return $this->urlphoto;
-    }
-
-    public function setUrlphoto(?string $urlphoto): self
-    {
-        $this->urlphoto = $urlphoto;
-
-        return $this;
-    }
-
-
-
-    public function getLieuxNoLieu(): ?Lieu
-    {
-        return $this->lieux_no_lieu;
-    }
-
-    public function setLieuxNoLieu(?Lieu $lieux_no_lieu): self
-    {
-        $this->lieux_no_lieu = $lieux_no_lieu;
-
-        return $this;
-    }
-
-    public function getEtatsNoEtat(): ?Etat
-    {
-        return $this->etats_no_etat;
-    }
-
-    public function setEtatsNoEtat(?Etat $etats_no_etat): self
-    {
-        $this->etats_no_etat = $etats_no_etat;
-
-        return $this;
+        $this->filePhoto = $filePhoto;
     }
 
     /**
      * @return mixed
      */
-    public function getDatedebut()
+    public function getFileTempPhoto()
     {
-        return $this->datedebut;
+        return $this->fileTempPhoto;
     }
 
     /**
-     * @param mixed $datedebut
+     * @param mixed $fileTempPhoto
      */
-    public function setDatedebut($datedebut): void
+    public function setFileTempPhoto($fileTempPhoto): void
     {
-        $this->datedebut = $datedebut;
+        $this->fileTempPhoto = $fileTempPhoto;
     }
 
     /**
-     * @return mixed
+     * @return Lieu
      */
-    public function getDatecloture()
+    public function getLieu(): Lieu
     {
-        return $this->datecloture;
+        return $this->lieu;
     }
 
     /**
-     * @param mixed $datecloture
+     * @param Lieu $lieu
      */
-    public function setDatecloture($datecloture): void
+    public function setLieu(Lieu $lieu): void
     {
-        $this->datecloture = $datecloture;
+        $this->lieu = $lieu;
     }
 
     /**
-     * @return User
+     * @return Etat
      */
-    public function getOrganisateur(): ?User
+    public function getEtat(): Etat
     {
-        return $this->organisateur;
+        return $this->etat;
     }
 
     /**
-     * @param User $organisateur
+     * @param Etat $etat
      */
-    public function setOrganisateur(?User $organisateur): void
+    public function setEtat(Etat $etat): void
     {
-        $this->organisateur = $organisateur;
+        $this->etat = $etat;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getInscriptions(): ArrayCollection
+    {
+        return $this->inscriptions;
+    }
+
+    /**
+     * @param ArrayCollection $inscriptions
+     */
+    public function setInscriptions(ArrayCollection $inscriptions): void
+    {
+        $this->inscriptions = $inscriptions;
+    }
+
+    /**
+     * @return Site
+     */
+    public function getSite(): Site
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param Site $site
+     */
+    public function setSite(Site $site): void
+    {
+        $this->site = $site;
     }
 
 

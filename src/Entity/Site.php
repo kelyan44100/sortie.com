@@ -24,66 +24,40 @@ class Site
 
     /**
      * @var ArrayCollection
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="App\Entity\Sortie")
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="site")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $Sorties_no_sortie;
+    private $sorties;
 
     /**
-     * @var ArrayCollection
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant")
-     * @ORM\JoinColumn(nullable=true)
+     * @var  ArrayCollection
+     * @ORM\OneToMany(targetEntity="\App\Entity\User", mappedBy="site" )
      */
-    private $Participants_no_participant;
+    private $users;
 
-    /**
-     * Site constructor.
-     * @param $id
-     * @param $nom_site
-     * @param ArrayCollection $Sorties_no_sortie
-     * @param ArrayCollection $Participants_no_participant
-     */
-    public function __construct($id, $nom_site, ArrayCollection $Sorties_no_sortie, ArrayCollection $Participants_no_participant)
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->nom_site = $nom_site;
-        $this->Sorties_no_sortie = $Sorties_no_sortie;
-        $this->Participants_no_participant = $Participants_no_participant;
+        $this->sorties = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
-    public function getSortiesNoSortie()
+    public function getSorties()
     {
-        return $this->Sorties_no_sortie;
+        return $this->sorties;
     }
 
     /**
-     * @param mixed $Sorties_no_sortie
+     * @param $sorties
      */
-    public function setSortiesNoSortie($Sorties_no_sortie): void
+    public function setSorties($sorties): void
     {
-        $this->Sorties_no_sortie = $Sorties_no_sortie;
+        $this->sorties = $sorties;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getParticipantsNoParticipant()
-    {
-        return $this->Participants_no_participant;
-    }
-
-    /**
-     * @param mixed $Participants_no_participant
-     */
-    public function setParticipantsNoParticipant($Participants_no_participant): void
-    {
-        $this->Participants_no_participant = $Participants_no_participant;
-    }
 
     public function getId(): ?int
     {
@@ -105,6 +79,22 @@ class Site
     public function __toString()
     {
         return $this->getNomSite();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUsers(): ArrayCollection
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param ArrayCollection $users
+     */
+    public function setUsers(ArrayCollection $users): void
+    {
+        $this->users = $users;
     }
 
 

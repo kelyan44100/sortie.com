@@ -25,53 +25,72 @@ class Inscription
 
     /**
      * @var Sortie
-     * @ORM\ManyToOne(targetEntity="App\Entity\Sortie", inversedBy="inscriptions_no_inscription")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sortie", inversedBy="inscriptions")
      */
-    private $sorties_no_sortie;
+    private $sortie;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var User
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="inscriptions")
      */
-    private $participants_no_participant;
+    private $participant;
 
-    public function getId(): ?int
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getDateInscription(): ?\DateTimeInterface
+
+    /**
+     * @return mixed
+     */
+    public function getDateInscription()
     {
         return $this->date_inscription;
     }
 
-    public function setDateInscription(\DateTimeInterface $date_inscription): self
+    /**
+     * @param mixed $date_inscription
+     */
+    public function setDateInscription($date_inscription): void
     {
         $this->date_inscription = $date_inscription;
-
-        return $this;
     }
 
-    public function getSortiesNoSortie(): ?Sortie
+    /**
+     * @return Sortie
+     */
+    public function getSortie(): Sortie
     {
-        return $this->sorties_no_sortie;
+        return $this->sortie;
     }
 
-    public function setSortiesNoSortie(Sortie $sorties_no_sortie): self
+    /**
+     * @param Sortie $sortie
+     */
+    public function setSortie(Sortie $sortie): void
     {
-        $this->sorties_no_sortie = $sorties_no_sortie;
-
-        return $this;
+        $this->sortie = $sortie;
     }
 
-    public function getParticipantsNoParticipant(): ?int
+    /**
+     * @return User
+     */
+    public function getParticipant(): User
     {
-        return $this->participants_no_participant;
+        return $this->participant;
     }
 
-    public function setParticipantsNoParticipant(int $participants_no_participant): self
+    /**
+     * @param User $participant
+     */
+    public function setParticipant(User $participant): void
     {
-        $this->participants_no_participant = $participants_no_participant;
-
-        return $this;
+        $this->participant = $participant;
     }
+
+
 }

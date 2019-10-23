@@ -40,7 +40,7 @@ class Lieu
      * @var Ville
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
      */
-    private $villes_no_ville;
+    private $ville;
 
     public function getId(): ?int
     {
@@ -95,14 +95,14 @@ class Lieu
         return $this;
     }
 
-    public function getVillesNoVille(): Ville
+    public function getVille(): Ville
     {
-        return $this->villes_no_ville;
+        return $this->ville;
     }
 
-    public function setVillesNoVille(Ville $villes_no_ville): self
+    public function setVille(Ville $ville): self
     {
-        $this->villes_no_ville = $villes_no_ville;
+        $this->ville = $ville;
 
         return $this;
     }

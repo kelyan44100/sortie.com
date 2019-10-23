@@ -45,7 +45,7 @@ class RegistrationFormType extends AbstractType
                 'label'=>'Ville de rattachement',
                 'class' => Site::class,
                 //Attribut utilisé pour l'affichage
-                'choice_label'=> '$nom_site',])
+                'choice_label'=> 'site',])
             ->add('actif', CheckboxType::class,['label' => 'Actif'])
 
         ;

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -99,7 +100,7 @@ class User implements UserInterface
 
     /**
      * @var Site
-     * @ORM\ManyToOne(targetEntity="App\Entity\Site")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
      */
     private $site;
 
@@ -120,13 +121,26 @@ class User implements UserInterface
      */
     private $fileTemp;
 
-
-
     /**
      * @var bool
      * @ORM\Column( type="boolean", options={"default":true})
      */
     private $actif;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", mappedBy="participant")
+     */
+    private $inscriptions;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
