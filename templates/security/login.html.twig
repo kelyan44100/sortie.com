@@ -3,25 +3,25 @@
 {% block title %}Log in!{% endblock %}
 
 {% block main %}
-    <h2 class="text-center mt-2">Login</h2>
+    <h2 class="text-center mt-2">Se connecter</h2>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-6">
             <form action="{{ path('app_login') }}" method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
                 {% if app.user %}
-                    <div class="mb-3">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    <div class="mb-3 text-center">
+                        Bonjour {{ app.user.prenom }}, vous êtes connecté </br><a href="{{ path('app_logout') }}">se déconnecter</a>
                     </div>
                 {% endif %}
                 <div class="form-group">
-                    <label for="inputUsername" class="sr-only">Identifiant</label>
+                    <label for="inputUsername" >Identifiant</label>
                     <input type="text" value="{{ last_username }}" name="email" id="inputUsername" class="form-control" placeholder="Identifiant" required autofocus>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword" class="sr-only">Password</label>
+                    <label for="inputPassword" >Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
                 </div>
                 <input type="hidden" name="_csrf_token"
@@ -30,15 +30,14 @@
                     <input type="checkbox" id="remember_me" name="_remember_me" checked >
                     <label for="remember_me" id="remember_me">Se souvenir de moi</label>
                 </div>
-                <div class="align-self-center">
+                <div class="form-group">
+                    <a href="#">Mot de passe oublié</a>
+                </div>
+                <div class="text-center">
                 <button class="btn btn-outline-success" type="submit">Sign in</button>
                 </div>
             </form>
         </div>
     </div>
-    <div class="form-group">
-        <div class="text-center" >
-            <a href="#">Mot de passe oublié</a>
-        </div>
-    </div>
+
 {% endblock %}

@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    download_dir: '%kernel.project_dir%\files\'
+    web_photo: '%kernel.root_dir%/../public/uploads/photo/'
+    media_extension_photo: ['jpg','jpeg','png','gif']
 services:
     # default configuration for services in *this* file
     _defaults:

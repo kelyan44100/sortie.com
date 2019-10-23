@@ -7,6 +7,7 @@ use App\Form\MonProfilType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,18 +30,39 @@ class MonProfilController extends Controller
     public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, User $u,UserPasswordEncoderInterface $passwordEncoder){
 
         $user = $repo->find($u);
-        //$nom_site->setNomSite($user->getSite());
+
         $formMonProfil = $this->createForm(MonProfilType::class,$user);
         $formMonProfil->handleRequest($request);
+
         if ($formMonProfil->isSubmitted() && $formMonProfil->isValid()){
             $error=false;
+            $photo = $formMonProfil->get('fileTemp')->getData();
+
+
+            if($photo != null && !in_array(strtolower($photo->getClientOriginalExtension()),
+                    $this->getParameter('media_extension_photo'))){
+                $formMonProfil->get('fileTemp')->addError(
+                    new FormError('La photo n\'est pas au bon format : '. implode(', ', $this->getParameter('media_extension_photo'))));
+                $error = true;
+            }
+
             if(!$error){
+
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
                         $formMonProfil->get('password')->getData()
                     )
                 );
+
+                if(!is_null($photo)) {
+                    $filePhoto = sprintf('photo_%s.%s', md5(uniqid(mt_rand(), true)), strtolower($photo->getClientOriginalExtension()));
+                    $photo->move($this->getParameter('web_photo'), $filePhoto);
+
+                    $user->setFile($filePhoto);
+                    $manager->flush();
+                }
+
                 $manager->persist($user);
                 $manager->flush();
                 $this->addFlash('success', 'Your profile successfully updated!' );
@@ -50,14 +72,15 @@ class MonProfilController extends Controller
             }
         }
         return $this->render('mon_profil/updateMonProfil.html.twig', [
+            'user'=>$user,
             'formMonProfil'=>$formMonProfil->createView()
         ]);
     }
 
-    /**
+    /*/**
      * @Route("/monProfil/file/{id}", name="mon_profil_file")
      */
-    public function fichier(User $u){
+   /* public function fichier(User $u){
         $dir = $this->getParameter('download_dir');
         if(strlen(trim($u->getFile())) > 0 && file_exists($dir . $u->getFile())) {
 
@@ -77,5 +100,5 @@ class MonProfilController extends Controller
             throw $this->createNotFoundException("File not found");
         }
 
-    }
+    }*/
 }

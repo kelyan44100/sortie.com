@@ -55,8 +55,9 @@ class MonProfilType extends AbstractType
                 }
             ])
             ->add('fileTemp', FileType::class, [
-            'label'=> 'Ma photo',
-            'required' => false,
+                'label'=> 'Ma photo',
+                'mapped' => false,
+                'required' => false,
         ]);
     }
 

@@ -2,28 +2,33 @@ body{
     font-family: 'Roboto', sans-serif;
     color: black;
     background: bisque ;
-    position: relative;
-    min-height: 100%;
+    margin:0;
+    padding:0;
+    position:relative;
+    height: 100%;
 }
+
+#main {
+    padding: 10px 10px 60px;
+}
+
+
+#footer{
+    color: saddlebrown;
+    background: bisque ;
+    bottom:20px;
+    width:100%;
+    height:60px;
+}
+
 nav{
     background: burlywood ;
 }
+
 a{
     color: darkred;
 }
 
-footer{
-    color: saddlebrown;
-    text-align: center;
-    position: absolute;
-    bottom: 5%;
-    right: 0;
-    left: 0;
-
-}
-html{
-    height: 100%;
-}
 
 h1{
     background-image: url("../images/automne_rouge.png");
@@ -37,3 +42,4 @@ h2{
 label{
 color: #0b2e13;
 }
+

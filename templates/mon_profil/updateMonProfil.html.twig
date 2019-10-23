@@ -6,15 +6,37 @@
     <h2 class="text-center mt-2">Mon profil</h2>
     {% form_theme formMonProfil 'bootstrap_4_layout.html.twig' %}
     {{ form_start(formMonProfil) }}
-    {{ form_row(formMonProfil.pseudo) }}
-    {{ form_row(formMonProfil.prenom) }}
-    {{ form_row(formMonProfil.nom) }}
-    {{ form_row(formMonProfil.telephone) }}
-    {{ form_row(formMonProfil.password) }}
-    {{ form_row(formMonProfil.site, { 'attr': {'readonly': 'readonly'} }) }}
-    {{ form_row(formMonProfil.fileTemp) }}
-    <button class="btn btn-outline-success" type="submit">Enegistrer</button>
-    <a class="btn btn-outline-danger" type="button" href="{{ path('main')}}">Annuler</a>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.pseudo) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.email) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.prenom) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.nom) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.telephone) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.site, { 'attr': {'readonly': 'readonly'} }) }}
+        </div>
+
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.password) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(formMonProfil.fileTemp) }}
+        </div>
+    </div>
+        <div class="text-center">
+        <button class="btn btn-outline-success" type="submit">Enegistrer</button>
+        <a class="btn btn-outline-danger" type="button" href="{{ path('mon_profil')}}">Annuler</a>
+        </div>
 
     {{ form_end(formMonProfil) }}
 

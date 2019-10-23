@@ -4,24 +4,41 @@
 
 {% block main %}
     <h2 class="text-center mt-2">Register</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
-            {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.pseudo) }}
-            {{ form_row(registrationForm.nom) }}
-            {{ form_row(registrationForm.prenom) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.telephone) }}
-            {{ form_row(registrationForm.password) }}
-            {{ form_row(registrationForm.site) }}
-            {{ form_row(registrationForm.actif) }}
-            <div class="justify-content-center">
-                <button class="btn btn-outline-success" type="submit">Register</button>
-            </div>
-            {{ form_end(registrationForm) }}
-        </div>
-    </div>
 
+    {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+    {{ form_start(registrationForm) }}
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form_row(registrationForm.pseudo) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(registrationForm.nom) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(registrationForm.prenom) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(registrationForm.email) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(registrationForm.telephone) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(registrationForm.password) }}
+        </div>
+        <div class="form-check col-md-6">
+            {{ form_widget(registrationForm.actif,{'attr' : {'class' : 'form-check-input'}}) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form_row(registrationForm.site) }}
+        </div>
+
+    </div>
+        <div class="text-center">
+            <button class="btn btn-outline-success" type="submit">Register</button>
+        </div>
+
+    {{ form_end(registrationForm) }}
 
 {% endblock %}

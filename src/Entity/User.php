@@ -335,9 +335,6 @@ class User implements UserInterface
 
 
 
-
-
-
     /**
      * @return bool
      */
