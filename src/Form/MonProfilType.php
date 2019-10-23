@@ -45,15 +45,21 @@ class MonProfilType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('site', EntityType::class, [
+            /*->add('site', EntityType::class, [
                 'class'=> Site::class,
                 //Attribut utilisé pour l'affichage
-                'choice_label' => 'nom_site',
+                //'choice_label' => 'nom_site',
+                'choice_label' => function($site){
+                    return $site->getNomSite();
+                },
+                'attr' => [
+                  'readonly'=> 'readonly'
+                ],
                 //Fait une requête particulière
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c');
                 }
-            ])
+            ])*/
             ->add('fileTemp', FileType::class, [
                 'label'=> 'Ma photo',
                 'mapped' => false,
