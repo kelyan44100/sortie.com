@@ -9,16 +9,18 @@ body{
 }
 
 #main {
-    padding: 10px 10px 60px;
+    padding: 20px 10px 80px  ;
+
 }
 
 
 #footer{
     color: saddlebrown;
     background: bisque ;
-    bottom:20px;
+    bottom:30px;
     width:100%;
     height:60px;
+    padding: 20px;
 }
 
 nav{
