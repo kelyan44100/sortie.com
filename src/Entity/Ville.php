@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +26,12 @@ class Ville
      * @ORM\Column(type="string", length=10)
      */
     private $code_postal;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Lieu",  cascade={"persist", "remove"}, mappedBy="ville")
+     */
+    private $lieux;
 
     public function getId(): ?int
     {
@@ -54,4 +61,24 @@ class Ville
 
         return $this;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getLieux()
+    {
+        return $this->lieux;
+    }
+
+    /**
+     * @param ArrayCollection $lieux
+     */
+    public function setLieux(ArrayCollection $lieux): void
+    {
+        $this->lieux = $lieux;
+    }
+
+
+
+
 }

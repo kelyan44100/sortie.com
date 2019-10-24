@@ -2,21 +2,46 @@
 
 {% block main %}
 
-    <h2>Les sorties en cours</h2>
-
-    <div>
-        {% for sortie in sorties %}
-
-        <span>{{ sortie.nom }}</span>
-
+    <h6>Filtre des sorties</h6>
+    <select class="custom-select">
+        {% for site in sites %}
+            <option value="{{ site }}">{{ site }}</option>
+        {% endfor %}</select><br>
+    <p>Le nom de la sortie : </p>
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Nom de la sortie</th>
+            <th scope="col">Date de la sortie</th>
+            <th scope="col">Clôture</th>
+            <th scope="col">Places</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Inscrit</th>
+            <th scope="col">Organisateur</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for sortie in sorties %}
+        <tr scope="row">
+            <td> {{ sortie.nom }}</td>
+            <td> {{ sortie.dateDebut|date('Y-m-d') }}</td>
+            <td> {{ sortie.dateCloture|date('Y-m-d') }}</td>
+            <td> n/{{ sortie.nbInscription }}</td>
+            <td> {{ sortie.etat }}</td>
+            <td> oui / non</td>
+            <td> {{ sortie.organisateur }}</td>
+            <td> Modifier / afficher</td>
+        </tr>
         {% endfor %}
+    </table>
 
-    </div>
+
 
 
 {% endblock %}
 
 {% block title %}
-
 {% endblock %}
 

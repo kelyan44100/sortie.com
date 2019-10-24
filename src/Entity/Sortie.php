@@ -74,7 +74,6 @@ class Sortie
     private $fileTempPhoto;
 
 
-
     /**
      * @var Lieu
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
@@ -98,6 +97,7 @@ class Sortie
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
      */
     private $site;
+
 
     /**
      * Sortie constructor.
@@ -166,7 +166,6 @@ class Sortie
     }
 
 
-
     /**
      * @return mixed
      */
@@ -214,7 +213,6 @@ class Sortie
     {
         $this->organisateur = $organisateur;
     }
-
 
 
     /**
@@ -328,8 +326,4 @@ class Sortie
     {
         $this->site = $site;
     }
-
-
-
-
 }

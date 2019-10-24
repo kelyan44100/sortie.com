@@ -60,6 +60,12 @@ class AjoutVilleController extends Controller
 
     public function delete(Ville $ville, EntityManagerInterface $em){
 
+        // Ne supprime pas si au moins un lieu est associé à la ville en question
+        if(count($ville->getLieux()) > 0){
+            $this->addFlash('error', "Vous devez supprimer les lieux associés à cette ville d'abord");
+            return $this->redirectToRoute('ville_ajout');
+        }
+
         $em->remove($ville);
         $em->flush();
         $this->addFlash("success", "La ville a bien été supprimée de notre base");
