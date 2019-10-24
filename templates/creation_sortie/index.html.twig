@@ -14,15 +14,21 @@
             </div>
 
             <div class="form-group col-md-6">
-
                 <label for="site" >Ville organisatrice</label>
                 <input type="text" value="{{ app.user.site}}"  id="site" class="form-control" readonly>
-
             </div>
 
             <div class="form-group col-md-6">
-                {{ form_label(formSortie.datedebut) }}
-                {{ form_widget(formSortie.datedebut) }}
+                {{ form_label(formSortie.dateDebut) }}
+                {{ form_widget(formSortie.dateDebut) }}
+                {{ form_label(formSortie.dateCloture) }}
+                {{ form_widget(formSortie.dateCloture) }}
+                {{ form_label(formSortie.nbInscription) }}
+                {{ form_widget(formSortie.nbInscription) }}
+                {{ form_label(formSortie.duree) }}
+                {{ form_widget(formSortie.duree) }}
+                {{ form_label(formSortie.description) }}
+                {{ form_widget(formSortie.description) }}
             </div>
 
             <div class="form-group col-md-6">
@@ -32,46 +38,22 @@
                         <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
                     {% endfor %}
                 </select>
-            </div>
-
-            <div class="form-group col-md-6">
-                {{ form_label(formSortie.datecloture) }}
-                {{ form_widget(formSortie.datecloture) }}
-            </div>
-            <div class="form-group col-md-6">
-                <p>Rue :</p>
+                {{ form_label(formSortie.lieu) }}
+                {{ form_widget(formSortie.lieu) }}
+                <label for="lieu" >Rue :</label>
                 <select class="custom-select">
                     {% for lieu in lieux %}
                         <option value="{{ lieu.rue }}">{{ lieu.rue }}</option>
                     {% endfor %}
                 </select>
+                <label for="code_postal" >Code postal :</label>
+                <input type="text" value="" name="code_postal" id="code_postal" class="form-control">
+                <label for="latitude" >Latitude :</label>
+                <input type="text" value="" name="latitude" id="latitude" class="form-control">
+                <label for="longitude" >Longitude :</label>
+                <input type="text" value="" name="longitude" id="longitude" class="form-control">
             </div>
 
-            <div class="form-group col-md-6">
-                {{ form_label(formSortie.nbinscription) }}
-                {{ form_widget(formSortie.nbinscription) }}
-            </div>
-            <div class="form-group col-md-6">
-                <p>Code Postal :</p>
-            </div>
-            <div class="form-group col-md-6">
-                {{ form_label(formSortie.duree) }}
-                {{ form_widget(formSortie.duree) }}
-            </div>
-            <div class="form-group col-md-6">
-                {{ form_label(formSortie.description) }}
-                {{ form_widget(formSortie.description) }}
-            </div>
-            <div class="form-group col-md-6">
-                <p>Latitude</p>
-            </div>
-            <div class="form-group col-md-6">
-            {{ form_label(formSortie.lieu) }} :
-            {{ form_widget(formSortie.lieu) }}
-            </div>
-            <div class="form-group col-md-6">
-                <p>Longitude</p>
-            </div>
         </div>
     </div>
 
