@@ -30,7 +30,7 @@ class RegistrationController extends Controller
                     $form->get('password')->getData()
                 )
             );
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_ADMIN']);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
