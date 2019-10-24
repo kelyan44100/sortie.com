@@ -38,7 +38,7 @@ class Lieu implements \JsonSerializable
 
     /**
      * @var Ville
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="comments")
      */
     private $ville;
 
