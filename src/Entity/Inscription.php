@@ -92,5 +92,10 @@ class Inscription
         $this->participant = $participant;
     }
 
+    public function __toString()
+    {
+        return $this->getId();
+    }
+
 
 }

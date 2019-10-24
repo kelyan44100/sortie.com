@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscription;
+use App\Entity\Site;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,15 +20,21 @@ class AffichageSortieController extends Controller
      *
      * @return Response
      */
-    public function list(EntityManagerInterface $em){
-        $repo = $em->getRepository(Sortie::class);
+    public function list(EntityManagerInterface $em, $inscription = 0){
+        $sorties = $em->getRepository(Sortie::class)->findAll();
+        $sites = $em->getRepository(Site::class)->findAll();
 
-        $sorties = $repo->findAll();
+
+
+
+
+
 
         return $this->render("affichage_sortie/list.html.twig",
             [
-                "sorties" => $sorties
-            ]);
+                'sorties' => $sorties,
+                'sites' =>$sites,
 
+            ]);
     }
 }
