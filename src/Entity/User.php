@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -73,7 +74,7 @@ class User implements UserInterface
 
 
     /**
-     * @var Sortie
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur")
      */
     private $sorties;
@@ -139,6 +140,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
 
@@ -267,21 +269,7 @@ class User implements UserInterface
         $this->telephone = $telephone;
     }
 
-    /**
-     * @return Sortie
-     */
-    public function getSorties(): Sortie
-    {
-        return $this->sorties;
-    }
 
-    /**
-     * @param Sortie $sorties
-     */
-    public function setSorties(Sortie $sorties): void
-    {
-        $this->sorties = $sorties;
-    }
 
     /**
      * @return Site
@@ -352,6 +340,39 @@ class User implements UserInterface
     {
         $this->actif = $actif;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    /**
+     * @param ArrayCollection $inscriptions
+     */
+    public function setInscriptions(ArrayCollection $inscriptions): void
+    {
+        $this->inscriptions = $inscriptions;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    /**
+     * @param ArrayCollection $sorties
+     */
+    public function setSorties(ArrayCollection $sorties): void
+    {
+        $this->sorties = $sorties;
+    }
+
 
 
     /**
