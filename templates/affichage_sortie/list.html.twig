@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <h2>Les sorties en cours</h2>
+
+    <div>
+        {% for sortie in sorties %}
+
+        <span>{{ sortie.nom }}</span>
+
+        {% endfor %}
+
+    </div>
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

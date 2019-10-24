@@ -81,4 +81,34 @@
     </div>
     {{ form_end(formSortie) }}
 
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $(".country").change(function()
+            {
+                var country_id=$(this).val();
+                var post_id = 'id='+ country_id;
+
+                $.ajax
+                ({
+                    type: "POST",
+                    url: "ajax.php",
+                    data: post_id,
+                    cache: false,
+                    success: function(cities)
+                    {
+                        $(".city").html(cities);
+                    }
+                });
+
+            });
+        });
+    </script>
+
+
+
 {% endblock %}
