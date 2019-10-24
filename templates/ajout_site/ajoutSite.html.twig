@@ -3,38 +3,58 @@
 {% block main %}
 
     <h2 class="text-center mt-2">Gérer les sites</h2>
-    <table class="table">
-        <tbody>
-            {% for site in sites %}
-                <tr>
-                    <td>{{ site.nomSite }}</td>
-                    <td>
-                        <a type="button" class="close red delete-item"  title="Supprimer le site" href="{{ path('site_supp', {'id' : site.id }) }}">
-                           <span aria-hidden="true">&times;</span>
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            {% form_theme siteForm 'bootstrap_4_layout.html.twig' %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <table class="table table-bordered table-striped" >
+                <tbody >
+                    {% for site in sites %}
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="font-weight-bold col-9">
+                                        {{ site.nomSite }}
+                                    </div>
+                                    <div class="row col-3">
+                                        <div class="col-6">
+                                            <a class=" " title="Supprimer le site" href="#{#{{ path('site_modif', {'id' : site.id }) }}#}">
+                                                <ion-icon name="create"></ion-icon>
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a class=" " title="Supprimer le site" href="{{ path('site_supp', {'id' : site.id }) }}">
+                                                <ion-icon name="trash"></ion-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% form_theme siteForm 'bootstrap_4_layout.html.twig' %}
 
-            {{ form_start(siteForm) }}
-            <tr>
-               <td>
-                   {{ form_label(siteForm.nom_site) }}
-                   {{ form_widget((siteForm.nom_site)) }}
-               </td>
-            </tr>
-        <tr>
-            <td>
-                <button type="submit">Ajouter</button>
-            </td>
-        </tr>
-            {{ form_end(siteForm) }}
-
-        </tbody>
-
-    </table>
-
+                    {{ form_start(siteForm) }}
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-3 mt-2">
+                                    {{ form_label(siteForm.nom_site) }}
+                                </div>
+                               <div class="col-md-6 mt-2">
+                                    {{ form_widget((siteForm.nom_site)) }}
+                               </div>
+                                <div class="col-md-3 mt-2">
+                                    <div class="text-center">
+                                    <button class="btn btn-outline-success" type="submit">Ajouter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {{ form_end(siteForm) }}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
 
 {% block title %}
