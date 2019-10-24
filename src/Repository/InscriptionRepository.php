@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Inscription;
+use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use http\Client\Curl\User;
 
 /**
  * @method Inscription|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,16 @@ class InscriptionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Inscription::class);
+    }
+
+    public function findByUser($sortie){
+        $qb = $this->createQueryBuilder('i')
+        ->innerJoin('i.participant', 'p')
+        ->addSelect('p')
+        ->innerJoin('i.sortie', 's')
+        ->andWhere('s.id = :id')
+        ->setParameter('c.id', $sortie);
+        return $qb->getQuery()->getResult();
     }
 
     // /**

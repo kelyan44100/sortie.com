@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Inscription;
 use App\Entity\Site;
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class AffichageSortieController extends Controller
     public function list(EntityManagerInterface $em, $inscription = 0){
         $sorties = $em->getRepository(Sortie::class)->findAll();
         $sites = $em->getRepository(Site::class)->findAll();
-
+        $user =$em->getRepository(Inscription::class)->findByUser();
 
 
 
@@ -34,7 +35,7 @@ class AffichageSortieController extends Controller
             [
                 'sorties' => $sorties,
                 'sites' =>$sites,
-
+                'user' =>$user,
             ]);
     }
 }

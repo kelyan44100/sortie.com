@@ -4,6 +4,7 @@ namespace App\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -87,7 +88,7 @@ class Sortie
     private $etat;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Inscription", cascade={"remove"}, mappedBy="sortie")
      */
     private $inscriptions;
@@ -296,9 +297,9 @@ class Sortie
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getInscriptions(): ArrayCollection
+    public function getInscriptions(): Collection
     {
         return $this->inscriptions;
     }

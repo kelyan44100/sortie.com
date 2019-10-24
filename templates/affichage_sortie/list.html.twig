@@ -28,9 +28,9 @@
             <td> {{ sortie.nom }}</td>
             <td> {{ sortie.dateDebut|date('Y-m-d') }}</td>
             <td> {{ sortie.dateCloture|date('Y-m-d') }}</td>
-            <td> n/{{ sortie.nbInscription }}</td>
+            <td> {{sortie.inscriptions | length}}/{{ sortie.nbInscription }}</td>
             <td> {{ sortie.etat }}</td>
-            <td> oui / non</td>
+            <td> o</td>
             <td> {{ sortie.organisateur }}</td>
             <td> Modifier / afficher</td>
         </tr>
