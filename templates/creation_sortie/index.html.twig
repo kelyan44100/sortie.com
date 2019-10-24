@@ -14,8 +14,8 @@
             </div>
 
             <div class="form-group col-md-6">
-                <label for="site" >Ville organisatrice</label>
-                <input type="text" value="{{ app.user.site}}"  id="site" class="form-control" readonly>
+                                <label for="site" >Ville organisatrice</label>
+                                <input type="text" value="{{ app.user.site}}"  id="site" class="form-control" readonly>
             </div>
 
             <div class="form-group col-md-6">
@@ -33,29 +33,32 @@
 
             <div class="form-group col-md-6">
                 <label>Ville :</label>
-                <select class="custom-select">
+                <select class="custom-select" id="villes">
                     {% for ville in villes %}
                         <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
                     {% endfor %}
                 </select>
                 {{ form_label(formSortie.lieu) }}
-                {{ form_widget(formSortie.lieu) }}
-                <label for="lieu" >Rue :</label>
-                <select class="custom-select">
-                    {% for lieu in lieux %}
-                        <option value="{{ lieu.rue }}">{{ lieu.rue }}</option>
-                    {% endfor %}
+                <select class="custom-select" name="lieux" id="lieux">
+
                 </select>
-                <label for="code_postal" >Code postal :</label>
+
+                <label for="lieu">Rue :</label>
+                <select class="custom-select">
+
+                </select>
+                <label for="code_postal">Code postal :</label>
                 <input type="text" value="" name="code_postal" id="code_postal" class="form-control">
-                <label for="latitude" >Latitude :</label>
+                <label for="latitude">Latitude :</label>
                 <input type="text" value="" name="latitude" id="latitude" class="form-control">
-                <label for="longitude" >Longitude :</label>
+                <label for="longitude">Longitude :</label>
                 <input type="text" value="" name="longitude" id="longitude" class="form-control">
             </div>
 
         </div>
     </div>
+
+
 
     <div class="text-center mt-3">
         <input type="submit" value="Créer" class="btn btn-dark"/>
@@ -65,32 +68,19 @@
 
 
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function()
-        {
-            $(".country").change(function()
-            {
-                var country_id=$(this).val();
-                var post_id = 'id='+ country_id;
-
-                $.ajax
-                ({
-                    type: "POST",
-                    url: "ajax.php",
-                    data: post_id,
-                    cache: false,
-                    success: function(cities)
-                    {
-                        $(".city").html(cities);
-                    }
-                });
-
-            });
-        });
-    </script>
-
-
-
 {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $('#villes').change(function () {
+                $('#lieux').empty();
+                $.get('/ajax/' + $(this).val())
+                    .done(function (data) {
+                        $.each(data, function (key, lieu) {
+                            $('#lieux').append('<option value="' + lieu.id + '">' + lieu.nom_lieu + '</option>')
+                        });
+                    });
+            });
+        </script>
+    {% endblock %}

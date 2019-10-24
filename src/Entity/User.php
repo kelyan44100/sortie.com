@@ -282,7 +282,7 @@ class User implements UserInterface
     /**
      * @param Site $site
      */
-    public function setSite(Site $site): void
+    public function setSite(?Site $site): void
     {
         $this->site = $site;
     }

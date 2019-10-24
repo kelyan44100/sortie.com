@@ -123,7 +123,8 @@ class Lieu implements \JsonSerializable
     {
         return[
             'id' => $this->id,
-            'lieu' => $this->nom_lieu,
+            'nom_lieu' => $this->nom_lieu,
+            'rue' => $this->rue,
         ];
     }
 }
