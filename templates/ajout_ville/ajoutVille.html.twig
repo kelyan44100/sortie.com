@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <h2 class="text-center mt-2">Gérer les villes</h2>
+    <table class="table">
+        <tbody>
+        {% for ville in villes %}
+            <tr>
+                <td>{{ ville.nomville }}</td>
+                <td>
+                    <a type="button" class="close red delete-item"  title="Supprimer le ville" href="{{ path('ville_supp', {'id' : ville.id }) }}">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        {% form_theme villeForm 'bootstrap_4_layout.html.twig' %}
+
+        {{ form_start(villeForm) }}
+        <tr>
+            <td>
+                {{ form_label(villeForm.nom_ville) }}
+                {{ form_widget((villeForm.nom_ville)) }}
+            </td>
+            <td>
+                {{ form_label(villeForm.code_postal) }}
+                {{ form_widget((villeForm.code_postal)) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Ajouter</button>
+            </td>
+        </tr>
+        {{ form_end(villeForm) }}
+
+        </tbody>
+
+    </table>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
