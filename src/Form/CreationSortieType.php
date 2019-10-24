@@ -7,10 +7,12 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,12 +25,12 @@ class CreationSortieType extends AbstractType
                 'class' => Lieu::class,
                 'choice_label' => 'NomLieu',
             ])
-            ->add('nom', null, ['label' => 'Nom : '])
-            ->add('datedebut', null, ['label' => 'Date de début : '])
+            ->add('nom', TextType::class, ['label' => 'Nom : '])
+            ->add('datedebut', DateType::class, ['label' => 'Date de début : ', 'format' => 'dd-MM-yyyy'])
             ->add('duree', null, ['label' => 'Durée : '])
-            ->add('nbinscription', null, ['label' => 'Nombre de participant : '])
-            ->add('datecloture', null, ['label' => 'Date de fin : '])
-            ->add('description', null, ['label' => 'Description : ']);
+            ->add('nbinscription', NumberType::class, ['label' => 'Nombre de participants : '])
+            ->add('datecloture', DateType::class, ['label' => 'Date de fin : ', 'format' => 'dd-MM-yyyy'])
+            ->add('description', TextareaType::class, ['label' => 'Description : ']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

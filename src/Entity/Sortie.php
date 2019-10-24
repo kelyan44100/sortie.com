@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,7 +25,7 @@ class Sortie
     private $nom;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateDebut;
 
@@ -46,7 +47,7 @@ class Sortie
 
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateCloture;
 
@@ -108,7 +109,7 @@ class Sortie
 
 
     /**
-     * @return mixed
+     * @return
      */
     public function getId()
     {
@@ -117,7 +118,7 @@ class Sortie
 
 
     /**
-     * @return mixed
+     * @return
      */
     public function getNom()
     {
@@ -125,7 +126,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $nom
+     * @param $nom
      */
     public function setNom($nom): void
     {
@@ -133,7 +134,7 @@ class Sortie
     }
 
     /**
-     * @return \DateTime
+     * @return
      */
     public function getDateDebut()
     {
@@ -141,12 +142,30 @@ class Sortie
     }
 
     /**
-     * @param \DateTime $dateDebut
+     * @param  $dateDebut
      */
     public function setDateDebut($dateDebut): void
     {
         $this->dateDebut = $dateDebut;
     }
+
+    /**
+     * @return
+     */
+    public function getDateCloture()
+    {
+        return $this->dateCloture;
+    }
+
+    /**
+     * @param  $dateCloture
+     */
+    public function setDateCloture($dateCloture): void
+    {
+        $this->dateCloture = $dateCloture;
+    }
+
+
 
     /**
      * @return mixed
@@ -196,21 +215,7 @@ class Sortie
         $this->organisateur = $organisateur;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDateCloture()
-    {
-        return $this->dateCloture;
-    }
 
-    /**
-     * @param \DateTime $dateCloture
-     */
-    public function setDateCloture($dateCloture): void
-    {
-        $this->dateCloture = $dateCloture;
-    }
 
     /**
      * @return

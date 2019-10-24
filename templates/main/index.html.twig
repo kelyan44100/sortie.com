@@ -5,6 +5,7 @@
 {% block main %}
     <h2 class="text-center mt-2"> TEST </h2>
     <div class="text-center mt-5">
-<button href="">Créer une sortie</button>
+
+        <a class="btn btn-outline-success" type="button" href="{{ path('Creation_add', {'id': app.user.id})}}">Créer une sortie</a>
     </div>
 {% endblock %}

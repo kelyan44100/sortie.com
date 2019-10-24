@@ -3,29 +3,29 @@
 {% block title %}Hello CreationSortieController!{% endblock %}
 
 {% block body %}
-    <h2>Création une Sortie</h2>
+    <h2 class="text-center mt-2">Création une Sortie</h2>
     {% form_theme formSortie 'bootstrap_4_layout.html.twig' %}
     {{ form_start(formSortie) }}
     <div class="container">
-        <div class="row">
-            <div class="col-sm-5">
+        <div class="form-row">
+            <div class="form-group col-md-6">
                 {{ form_label(formSortie.nom) }}
                 {{ form_widget(formSortie.nom) }}
             </div>
 
-            <div class="col-sm-5 offset-2">
+            <div class="form-group col-md-6">
 
-                <label for="site" >Ville de rattachement</label>
+                <label for="site" >Ville organisatrice</label>
                 <input type="text" value="{{ app.user.site}}"  id="site" class="form-control" readonly>
 
             </div>
 
-            <div class="col-sm-5">
+            <div class="form-group col-md-6">
                 {{ form_label(formSortie.datedebut) }}
                 {{ form_widget(formSortie.datedebut) }}
             </div>
 
-            <div class="col-sm-5 offset-2">
+            <div class="form-group col-md-6">
                 <label>Ville :</label>
                 <select class="custom-select">
                     {% for ville in villes %}
@@ -34,11 +34,11 @@
                 </select>
             </div>
 
-            <div class="col-sm-5">
+            <div class="form-group col-md-6">
                 {{ form_label(formSortie.datecloture) }}
                 {{ form_widget(formSortie.datecloture) }}
             </div>
-            <div class="col-sm-5 offset-2">
+            <div class="form-group col-md-6">
                 <p>Rue :</p>
                 <select class="custom-select">
                     {% for lieu in lieux %}
@@ -47,38 +47,35 @@
                 </select>
             </div>
 
-            <div class="col-sm-5">
+            <div class="form-group col-md-6">
                 {{ form_label(formSortie.nbinscription) }}
                 {{ form_widget(formSortie.nbinscription) }}
             </div>
-            <div class="col-sm-5 offset-2">
+            <div class="form-group col-md-6">
                 <p>Code Postal :</p>
             </div>
-            <div class="col-sm-5">
+            <div class="form-group col-md-6">
                 {{ form_label(formSortie.duree) }}
                 {{ form_widget(formSortie.duree) }}
             </div>
-            <div class="col-sm-5 offset-2">
-                <p>Code Postal :</p>
-            </div>
-            <div class="col-sm-5">
+            <div class="form-group col-md-6">
                 {{ form_label(formSortie.description) }}
                 {{ form_widget(formSortie.description) }}
             </div>
-            <div class="col-sm-5 offset-2">
+            <div class="form-group col-md-6">
                 <p>Latitude</p>
             </div>
-            <div class="col-sm-5">
+            <div class="form-group col-md-6">
             {{ form_label(formSortie.lieu) }} :
             {{ form_widget(formSortie.lieu) }}
             </div>
-            <div class="col-sm-5 offset-2">
+            <div class="form-group col-md-6">
                 <p>Longitude</p>
             </div>
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="text-center mt-3">
         <input type="submit" value="Créer" class="btn btn-dark"/>
         <input type="submit" value="Annuler" class="btn btn-dark"/>
     </div>
