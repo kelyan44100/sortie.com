@@ -14,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreationSortieType extends AbstractType
@@ -26,11 +29,14 @@ class CreationSortieType extends AbstractType
                 'choice_label' => 'NomLieu',
             ])
             ->add('nom', TextType::class, ['label' => 'Nom : '])
-            ->add('datedebut', DateType::class, ['label' => 'Date de début : ', 'format' => 'dd-MM-yyyy'])
+            ->add('dateDebut', DateType::class, ['label' => 'Date de début : ', 'format' => 'dd-MM-yyyy'])
             ->add('duree', null, ['label' => 'Durée : '])
-            ->add('nbinscription', NumberType::class, ['label' => 'Nombre de participants : '])
-            ->add('datecloture', DateType::class, ['label' => 'Date de fin : ', 'format' => 'dd-MM-yyyy'])
+            ->add('nbInscription', NumberType::class, ['label' => 'Nombre de place : '])
+            ->add('dateCloture', DateType::class, ['label' => 'Date de fin : ', 'format' => 'dd-MM-yyyy'])
             ->add('description', TextareaType::class, ['label' => 'Description : ']);
+
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
