@@ -19,12 +19,12 @@
                             </div>
                             <div class="row col-3">
                                 <div class="col-6">
-                                    <a class=" " title="Supprimer le site" href="#{#{{ path('site_modif', {'id' : site.id }) }}#}">
+                                    <a class=" " title="Modifier la ville" href="{{ path('ville_update', {'id' : ville.id }) }}">
                                         <ion-icon name="create"></ion-icon>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a class=" " title="Supprimer le site" href="{{ path('ville_supp', {'id' : ville.id }) }}">
+                                    <a class=" " title="Supprimer la ville" href="{{ path('ville_supp', {'id' : ville.id }) }}">
                                         <ion-icon name="trash"></ion-icon>
                                     </a>
                                 </div>

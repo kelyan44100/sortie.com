@@ -77,6 +77,15 @@ class AjoutVilleController extends Controller
     }
 
 
+    /**
+     * @param Ville $ville
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @Route("/ville/update/{id}", name="ville_update", requirements={"id":"\d+"})
+     * @return RedirectResponse|Response
+     *
+     */
+
     public function update(Ville $ville, Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(VilleType::class, $ville);
@@ -86,10 +95,12 @@ class AjoutVilleController extends Controller
             $em->flush();
 
             $this->addFlash("success", "Ville modifiée");
-
+            return $this->redirectToRoute('ville_ajout');
 
         }
 
-        return $this->redirectToRoute("ajout_ville/ville_modif.html.twig");
+        return $this->render('ajout_ville/ville_modif.html.twig', [
+        'villeForm' => $form->createView()
+        ]);
     }
 }
