@@ -37,7 +37,7 @@ class CreationSortieController extends Controller
         $user = $repo->find($u);
         $Sortie = new Sortie();
         $formSortie = $this->createForm(CreationSortieType::class, $Sortie);
-        $villes = $manager->getRepository(Ville::class)->findAll();
+//        $villes = $manager->getRepository(Ville::class)->findAll();
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
         $sites = $manager->getRepository(Site::class)->findAll();
         //Associe la requête et le FormType
@@ -46,6 +46,7 @@ class CreationSortieController extends Controller
         //Test de la validation du formulaire
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
             dump($Sortie);
+//            $Sortie->setIdOrganisateur();
             $manager->persist($Sortie);
             $manager->flush();
 
