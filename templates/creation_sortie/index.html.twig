@@ -20,9 +20,9 @@
 
             <div class="form-group col-md-6">
                 {{ form_label(formSortie.dateDebut) }}
-                {{ form_widget(formSortie.dateDebut) }}
+                {{ form_widget(formSortie.dateDebut,{'attr': {'id': 'datepicker'}} ) }}
                 {{ form_label(formSortie.dateCloture) }}
-                {{ form_widget(formSortie.dateCloture) }}
+                {{ form_widget(formSortie.dateCloture, {'attr': {'id': 'datepicker'}})}}
                 {{ form_label(formSortie.nbInscription) }}
                 {{ form_widget(formSortie.nbInscription) }}
                 {{ form_label(formSortie.duree) }}
@@ -64,12 +64,7 @@
                     <input type="text" id="longitude" class="form-control" readonly>
                 </div>
 
-{#                <input type="text" value="" name="code_postal" id="code_postal" class="form-control">#}
-{#                <label for="latitude">Latitude :</label>#}
-{#                <input type="text" value="" name="latitude" id="latitude" class="form-control">#}
-{#                <label for="longitude">Longitude :</label>#}
-{#                <input type="text" value="" name="longitude" id="longitude" class="form-control">#}
-            </div>
+        </div>
 
         </div>
     </div>
@@ -88,6 +83,14 @@
 
     {% block javascripts %}
         {{ parent() }}
+        <!--Script pour calendrier creation sortie-->
+        <script>
+            $('#datepicker').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+        </script>
+
+
         <script>
             $('#villes').change(function () {
                 $('#creation_sortie_lieu').empty();

@@ -29,14 +29,15 @@ class CreationSortieType extends AbstractType
                 'choice_label' => 'NomLieu',
             ])
             ->add('nom', TextType::class, ['label' => 'Nom : '])
-            ->add('dateDebut', DateType::class, ['label' => 'Date de début : ', 'format' => 'dd-MM-yyyy'])
+            ->add('dateDebut', DateType::class, [
+                'label' => 'Date de début : ',
+                'widget' =>'single_text'])
             ->add('duree', null, ['label' => 'Durée : '])
             ->add('nbInscription', NumberType::class, ['label' => 'Nombre de place : '])
-            ->add('dateCloture', DateType::class, ['label' => 'Date de fin : ', 'format' => 'dd-MM-yyyy'])
+            ->add('dateCloture', DateType::class, [
+                'label' => 'Date de fin : ',
+                'widget' =>'single_text'])
             ->add('description', TextareaType::class, ['label' => 'Description : ']);
-
-
-
 
     }
 
