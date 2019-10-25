@@ -22,7 +22,8 @@ class AjoutVilleController extends Controller
      * @return Response
      */
 
-    public function add(Request$request, EntityManagerInterface $em){
+    public function add(Request $request, EntityManagerInterface $em)
+    {
 
         // Récupération des villes déjà existantes pour les afficher
         $repo = $em->getRepository(Ville::class);
@@ -35,11 +36,11 @@ class AjoutVilleController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($ville);
             $em->flush();
-            return $this->redirectToRoute('ville_ajout', array('villes'=>$villes));
+            return $this->redirectToRoute('ville_ajout', array('villes' => $villes));
 
         }
 
@@ -59,10 +60,11 @@ class AjoutVilleController extends Controller
      * @return RedirectResponse
      */
 
-    public function delete(Ville $ville, EntityManagerInterface $em){
+    public function delete(Ville $ville, EntityManagerInterface $em)
+    {
 
         // Ne supprime pas si au moins un lieu est associé à la ville en question
-        if(count($ville->getLieux()) > 0){
+        if (count($ville->getLieux()) > 0) {
             $this->addFlash('error', "Des lieux sont associés à cette ville, supprimez-les d'abord !");
             return $this->redirectToRoute('ville_ajout');
         }
@@ -75,10 +77,11 @@ class AjoutVilleController extends Controller
     }
 
 
-    public function update(Ville $ville, Request $request, EntityManagerInterface $em){
+    public function update(Ville $ville, Request $request, EntityManagerInterface $em)
+    {
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($ville);
             $em->flush();
 
@@ -87,8 +90,6 @@ class AjoutVilleController extends Controller
 
         }
 
-        return $this->redirectToRoute('ville_ajout');
-
+        return $this->redirectToRoute("ajout_ville/ville_modif.html.twig");
     }
-
 }
