@@ -22,9 +22,14 @@ class AffichageSortieController extends Controller
      * @return Response
      */
     public function list(EntityManagerInterface $em, $inscription = 0){
+        // récupération de toutes les sorties
         $sorties = $em->getRepository(Sortie::class)->findAll();
+        // récupération des sites pour la liste déroulante(fitre)
         $sites = $em->getRepository(Site::class)->findAll();
-        $user =$em->getRepository(Inscription::class)->findByUser();
+        //récupération de l'utilisateur connecté
+        $user = $this->getUser();
+       // $sorties=$this->getUser()->getSorties();
+        //$user =$em->getRepository(Inscription::class)->findByUser();
 
 
 

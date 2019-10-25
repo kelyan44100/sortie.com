@@ -21,7 +21,7 @@ class InscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Inscription::class);
     }
 
-    public function findByUser($sortie){
+    /*public function findByUser($sortie){
         $qb = $this->createQueryBuilder('i')
         ->innerJoin('i.participant', 'p')
         ->addSelect('p')
@@ -29,7 +29,7 @@ class InscriptionRepository extends ServiceEntityRepository
         ->andWhere('s.id = :id')
         ->setParameter('c.id', $sortie);
         return $qb->getQuery()->getResult();
-    }
+    }*/
 
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
