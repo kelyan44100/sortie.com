@@ -88,7 +88,7 @@ class Sortie
     private $etat;
 
     /**
-     * @var Collection
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Inscription", cascade={"remove"}, mappedBy="sortie")
      */
     private $inscriptions;
@@ -297,7 +297,7 @@ class Sortie
     }
 
     /**
-     * @return Collection
+     * @return ArrayCollection
      */
     public function getInscriptions(): Collection
     {

@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-auto mr-auto">
-            <h3>Filtrer les sorties</h3>
+            <h4>Filtrer les sorties</h4>
         </div>
         <div class="col-auto">
             Date du jour :  {{ "now"|date("d/m/Y") }}<br>
@@ -50,19 +50,19 @@
                 {# DIV FLITRES CHECKBOXES #}
                 <div class="col-lg-4 mt-4">
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="sortOrg">
+                        <input type="checkbox" class="form-check-input" id="sortOrg" name="sortOrg">
                         <label for="sortOrg" class="form-check-label">Sorties dont je suis l'organisateur/trice</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="sortInsc">
+                        <input type="checkbox" class="form-check-input" id="sortInsc" name="sortInsc">
                         <label for="sortInsc" class="form-check-label">Sorties auxquelles je suis inscrit/e</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="sortPasInsc">
+                        <input type="checkbox" class="form-check-input" id="sortPasInsc" name="sortPasInsc">
                         <label for="sortPasInsc" class="form-check-label">Sorties auxquelles je ne suis pas inscrit/e</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="sortPass">
+                        <input type="checkbox" class="form-check-input" id="sortPass" name="sortPass">
                         <label for="sortPass" class="form-check-label">Sorties passées</label>
                     </div>
                     <div class="text-center mt-4 mb-3">
@@ -115,6 +115,11 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="text-center mt-5">
+        {% if is_granted("ROLE_USER") %}
+            <a class="btn btn-outline-success" type="button" href="{{ path('Creation_add', {'id': app.user.id})}}">Créer une sortie</a>
+        {% endif %}
     </div>
 
 
