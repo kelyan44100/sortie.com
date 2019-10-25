@@ -111,10 +111,10 @@
                         <td> {{ sortie.organisateur }}</td>
                         <td>
                             <!-- La sortie est ouverte et le user n'est pas inscrit et il y a de la place -->
-                            {% if sortie.etat == 'Ouvert' and user not in sortie.participants and sortie.organisateur.id != user.id
-                                and sortie.participants|length < sortie.nbPlace %}
-                                <a href="{{ path('', {'id' : sortie.id} ) }}">Afficher</a>
-                                <a href="{{ path('', {'id' : sortie.id} ) }}">-S'inscrire</a>
+                            {% if sortie.etat == 'Ouvert' and user not in sortie.inscriptions and sortie.organisateur.id != user.id
+                                and sortie.inscriptions|length < sortie.nbInscription %}
+                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Afficher</a>
+                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">-S'inscrire</a>
                             {% endif %}
                             <!-- L'administrateur a tout les droits -->
                             {% if is_granted('ROLE_ADMIN') %}
