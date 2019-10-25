@@ -30,11 +30,20 @@
             <td> {{ sortie.dateCloture|date('Y-m-d') }}</td>
             <td> {{sortie.inscriptions | length}}/{{ sortie.nbInscription }}</td>
             <td> {{ sortie.etat }}</td>
-            <td> o</td>
+            <td>
+                {% for i in sortie.inscriptions  %}
+                {%  if (i.participant.id == user.id) %}
+                x
+                {% endif %}
+                {% endfor %}
+            </td>
             <td> {{ sortie.organisateur }}</td>
             <td> Modifier / afficher</td>
         </tr>
+
+
         {% endfor %}
+
     </table>
 
 

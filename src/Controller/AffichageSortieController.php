@@ -41,6 +41,7 @@ class AffichageSortieController extends Controller
                 'sorties' => $sorties,
                 'sites' =>$sites,
                 'user' =>$user,
+
             ]);
     }
 }
