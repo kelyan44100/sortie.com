@@ -45,6 +45,7 @@ class AjoutSiteController extends Controller
 
 
         return $this->render('ajout_site/ajoutSite.html.twig', [
+
             'sites' => $sites,
             'siteForm' => $form->createView()
         ]);
@@ -60,6 +61,12 @@ class AjoutSiteController extends Controller
      */
 
      public function delete(Site $site, EntityManagerInterface $em){
+
+         // Ne supprime pas si au moins une sortie est associée au site en question
+         if(count($site->getSorties()) > 0){
+             $this->addFlash('error', "Certaines sorties sont encore prévues pour ce site, impossible de le supprimer !");
+             return $this->redirectToRoute('site_ajout');
+         }
 
          $em->remove($site);
          $em->flush();
