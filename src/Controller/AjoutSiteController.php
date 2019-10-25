@@ -76,5 +76,32 @@ class AjoutSiteController extends Controller
      }
 
 
+    /**
+     * @param Site $site
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @Route("/site/update/{id}", name="site_update", requirements={"id":"\d+"})
+     * @return RedirectResponse|Response
+     *
+     */
+
+    public function update(Site $site, Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(SiteType::class, $site);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($site);
+            $em->flush();
+
+            $this->addFlash("success", "Site modifié");
+            return $this->redirectToRoute('site_ajout');
+
+        }
+
+        return $this->render('ajout_site/site_modif.html.twig', [
+            'siteForm' => $form->createView()
+        ]);
+    }
+
 
 }
