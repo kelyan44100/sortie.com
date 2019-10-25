@@ -125,6 +125,8 @@ class Lieu implements \JsonSerializable
             'id' => $this->id,
             'nom_lieu' => $this->nom_lieu,
             'rue' => $this->rue,
+            'maLati' => $this->latitude,
+            'maLongi' => $this->longitude,
         ];
     }
 }
