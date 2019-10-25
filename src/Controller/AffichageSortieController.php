@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Inscription;
 use App\Entity\Site;
 use App\Entity\Sortie;
@@ -28,11 +29,46 @@ class AffichageSortieController extends Controller
         $sites = $em->getRepository(Site::class)->findAll();
         //récupération de l'utilisateur connecté
         $user = $this->getUser();
-       // $sorties=$this->getUser()->getSorties();
-        //$user =$em->getRepository(Inscription::class)->findByUser();
 
+        //GESTION DES ETATS en fonction de la date
+        $today = new \DateTime('now');
+        foreach ($sorties as $sortie){
 
+           if ($sortie-> getDateCloture() < $today && $sortie-> getDateDebut()<$today){
+               //cloturée
+                $etat = $em ->getRepository(Etat::class)->find(3);
+                dump($etat);
+                $sortie->setEtat($etat);
+                $em->persist($sortie);
+            }
 
+            if ($sortie->getDateDebut()<$today ){
+                //passée
+                $etat = $em ->getRepository(Etat::class)->find(4);
+                $sortie->setEtat($etat);
+                dump($etat);
+                $em->persist($sortie);
+
+            }
+            if ($sortie->getDateDebut()>$today ){
+                //ouvert
+                $etat = $em ->getRepository(Etat::class)->find(1);
+                $sortie->setEtat($etat);
+                $em->persist($sortie);
+            }
+            if ($sortie->getDateDebut()==$today){
+                //En cours
+                $etat = $em ->getRepository(Etat::class)->find(2);
+                dump($etat);
+                $sortie->setEtat($etat);
+                $em->persist($sortie);
+            }
+            $em->flush();
+           // $sortie->getDateDebut()> $today->format('d/m/Y')
+        }
+
+        $em->persist($sortie);
+        $em->flush();
 
 
 

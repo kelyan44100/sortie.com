@@ -2,55 +2,122 @@
 
 {% block main %}
 
-    <h6>Filtre des sorties</h6>
-    <select class="custom-select">
-        {% for site in sites %}
-            <option value="{{ site }}">{{ site }}</option>
-        {% endfor %}</select><br>
-    <p>Le nom de la sortie : </p>
-    <table class="table table-hover table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Nom de la sortie</th>
-            <th scope="col">Date de la sortie</th>
-            <th scope="col">Clôture</th>
-            <th scope="col">Places</th>
-            <th scope="col">Etat</th>
-            <th scope="col">Inscrit</th>
-            <th scope="col">Organisateur</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            {% for sortie in sorties %}
-        <tr scope="row">
-            <td> {{ sortie.nom }}</td>
-            <td> {{ sortie.dateDebut|date('Y-m-d') }}</td>
-            <td> {{ sortie.dateCloture|date('Y-m-d') }}</td>
-            <td> {{sortie.inscriptions | length}}/{{ sortie.nbInscription }}</td>
-            <td> {{ sortie.etat }}</td>
-            <td>
-                {% for i in sortie.inscriptions  %}
-                {%  if (i.participant.id == user.id) %}
-                x
-                {% endif %}
+    <div class="row">
+        <div class="col-auto mr-auto">
+            <h3>Filtrer les sorties</h3>
+        </div>
+        <div class="col-auto">
+            Date du jour :  {{ "now"|date("d/m/Y") }}<br>
+            {% if is_granted("ROLE_USER") or is_granted("ROLE_ADMIN")  %}
+            Participant : {{ user.prenom }} {{ user.nom }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mt-3">
+        <form method="post" action="#" class="col-lg">
+            <div class="row mb-2">
+                {# DIV CHAMPS DE RECHERCHE #}
+                <div class="col-lg-8 ">
+                        <div class="form-group ">
+                            <label for="site-select" class="form-label">Site : </label>
+                            <select class="form-control" name="site-select" id="site-select">
+                                <option value="">-- Selectionnez un site --</option>
+                                {% for site in sites %}
+                                    <option value="{{ site.id }}">{{ site }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="search-bar" class="form-label">Le nom de la sortie contient : </label>
+                            <input type="search" class="form-control" name="search-bar" aria-label="Search">
+                        </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg">
+                                <label for="entre" class="col-lg form-label">Entre </label>
+                                <input type="date" class="form-control" id="entre">
+                            </div>
+                            <div class="col-lg">
+                                <label for="et" class="col-lg form-label">et</label>
+                                <input type="date" class="form-control" id="et">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# DIV FLITRES CHECKBOXES #}
+                <div class="col-lg-4 mt-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="sortOrg">
+                        <label for="sortOrg" class="form-check-label">Sorties dont je suis l'organisateur/trice</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="sortInsc">
+                        <label for="sortInsc" class="form-check-label">Sorties auxquelles je suis inscrit/e</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="sortPasInsc">
+                        <label for="sortPasInsc" class="form-check-label">Sorties auxquelles je ne suis pas inscrit/e</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="sortPass">
+                        <label for="sortPass" class="form-check-label">Sorties passées</label>
+                    </div>
+                    <div class="text-center mt-4 mb-3">
+                        <!-- Bouton Rechercher-->
+                        <button class="btn btn-success btn-lg">Rechercher</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </form>
+    </div>
+
+
+    <div class="row justify-content-center">
+        <div class="col" id="table">
+            <table class="table table-bordered table-striped"  >
+                <thead>
+                    <tr>
+                        <th scope="col">Nom de la sortie</th>
+                        <th scope="col">Date de la sortie</th>
+                        <th scope="col">Clôture</th>
+                        <th scope="col">Places</th>
+                        <th scope="col">Etat</th>
+                        <th scope="col">Inscrit</th>
+                        <th scope="col">Organisateur</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sortie in sorties %}
+                    <tr>
+                        <td> {{ sortie.nom }}</td>
+                        <td> {{ sortie.dateDebut|date('d/m/Y') }}</td>
+                        <td> {{ sortie.dateCloture|date('d/m/Y') }}</td>
+                        <td> {{sortie.inscriptions | length}}/{{ sortie.nbInscription }}</td>
+                        <td> {{ sortie.etat }}</td>
+                        <td>
+                            {% for i in sortie.inscriptions  %}
+                            {%  if (i.participant.id == user.id) %}
+                            x
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td> {{ sortie.organisateur }}</td>
+                        <td> Modifier / afficher</td>
+                    </tr>
                 {% endfor %}
-            </td>
-            <td> {{ sortie.organisateur }}</td>
-            <td> Modifier / afficher</td>
-        </tr>
-
-
-        {% endfor %}
-
-    </table>
-
-
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 {% endblock %}
 
-{% block title %}
-{% endblock %}
 
