@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
@@ -46,7 +47,47 @@ class CreationSortieController extends Controller
         //Test de la validation du formulaire
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
             dump($Sortie);
-//            $Sortie->setIdOrganisateur();
+            dump($Sortie->getOrganisateur());
+            $user = $this->getUser();
+            $Sortie->setOrganisateur($user);
+            $Site = $Sortie->getOrganisateur()->getSite();
+            $Sortie->setSite($Site);
+           
+
+
+
+            $today = (new \DateTime('now'))->setTime(0,0,0);
+            
+                if ($Sortie->getDateDebut()<= $Sortie-> getDateCloture() || (count($Sortie->getInscriptions()) < $Sortie->getNbInscription())){
+                    //ouvert
+                    $etat = $manager ->getRepository(Etat::class)->find(1);
+                    $Sortie->setEtat($etat);
+                    $manager->persist($Sortie);
+                }
+                if ($Sortie->getDateDebut()==$today){
+                    //En cours
+                    $etat = $manager ->getRepository(Etat::class)->find(2);
+                    $Sortie->setEtat($etat);
+                    $manager->persist($Sortie);
+                }
+                if ($Sortie-> getDateCloture() < $today || (count($Sortie->getInscriptions()) == $Sortie->getNbInscription())){
+                    //cloturée
+                    $etat = $manager ->getRepository(Etat::class)->find(3);
+                    $Sortie->setEtat($etat);
+                    $manager->persist($Sortie);
+                }
+                if (($Sortie->getDateDebut()<$today) && ($Sortie-> getDateCloture() < $today )){
+                    //passée
+                    $etat = $manager ->getRepository(Etat::class)->find(4);
+                    $Sortie->setEtat($etat);
+                    $manager->persist($Sortie);
+                }
+
+            
+            
+            
+            
+        
             $manager->persist($Sortie);
             $manager->flush();
 
