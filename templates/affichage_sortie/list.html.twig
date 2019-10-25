@@ -118,11 +118,11 @@
                             {% endif %}
                             <!-- L'administrateur a tout les droits -->
                             {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('sortie_detail', {'id' : sortie.id} ) }}">Afficher</a>
                                 <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Annuler</a>
                                 <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Modifier</a>
                                 <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Publier</a>
                             {% endif %}
-
                         </td>
                     </tr>
                 {% endfor %}

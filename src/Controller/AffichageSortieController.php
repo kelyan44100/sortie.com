@@ -70,4 +70,15 @@ class AffichageSortieController extends Controller
 
             ]);
     }
+
+    /**
+     *@Route("/sorties/{id}", name="sortie_detail", requirements={"id": "\d"})
+     */
+
+    public function detail(int $id, EntityManagerInterface $em){
+        $repo = $em->getRepository(Sortie::class);
+        $sortie = $repo->find($id);
+
+        return $this->render("sortie/detail.html.twig", ["sortie" => $sortie]);
+    }
 }
