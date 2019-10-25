@@ -14,8 +14,8 @@
             </div>
 
             <div class="form-group col-md-6">
-                                <label for="site" >Ville organisatrice</label>
-                                <input type="text" value="{{ app.user.site}}"  id="site" class="form-control" readonly>
+                <label for="site" >Ville organisatrice</label>
+                <input type="text" value="{{ app.user.site}}"  id="site" class="form-control" readonly>
             </div>
 
             <div class="form-group col-md-6">
@@ -46,22 +46,22 @@
 
                 <label for="maRue" >Rue :</label>
                 <div id="maRue">
-                    <input type="text" class="form-control" readonly>
+                    <input type="text" id="maRue" class="form-control" readonly>
                 </div>
 
                 <label for="code_postal">Code postal :</label>
                 <div id="monCP">
-                    <input type="text" class="form-control" readonly>
+                    <input type="text" id="code_postal" class="form-control" readonly>
                 </div>
 
                 <label for="latitude">Latitude :</label>
                 <div id="maLati">
-                    <input type="text" class="form-control" readonly>
+                    <input type="text" id="latitude" class="form-control" readonly>
                 </div>
 
                 <label for="longitude">Longitude :</label>
                 <div id="maLongi">
-                    <input type="text" class="form-control" readonly>
+                    <input type="text" id="longitude" class="form-control" readonly>
                 </div>
 
 {#                <input type="text" value="" name="code_postal" id="code_postal" class="form-control">#}
@@ -74,12 +74,9 @@
         </div>
     </div>
 
-
-
-
     <div class="text-center mt-3">
-        <input type="submit" value="Créer" class="btn btn-dark"/>
-        <input type="submit" value="Annuler" class="btn btn-dark"/>
+        <input type="submit"  value="Créer" class="btn btn-outline-success"/>
+        <a class="btn btn-outline-danger"  href="{{ path('main')}}">Annuler</a>
     </div>
 
     {{ form_row(formSortie._token) }}

@@ -101,7 +101,7 @@
                         <td> {{ sortie.dateCloture|date('d/m/Y') }}</td>
                         <td> {{sortie.inscriptions | length}}/{{ sortie.nbInscription }}</td>
                         <td> {{ sortie.etat }}</td>
-                        <td>
+                        <td class="text-center">
                             {% for i in sortie.inscriptions  %}
                             {%  if (i.participant.id == user.id) %}
                             x
@@ -109,7 +109,21 @@
                             {% endfor %}
                         </td>
                         <td> {{ sortie.organisateur }}</td>
-                        <td> Modifier / afficher</td>
+                        <td>
+                            <!-- La sortie est ouverte et le user n'est pas inscrit et il y a de la place -->
+                            {% if sortie.etat == 'Ouvert' and user not in sortie.participants and sortie.organisateur.id != user.id
+                                and sortie.participants|length < sortie.nbPlace %}
+                                <a href="{{ path('', {'id' : sortie.id} ) }}">Afficher</a>
+                                <a href="{{ path('', {'id' : sortie.id} ) }}">-S'inscrire</a>
+                            {% endif %}
+                            <!-- L'administrateur a tout les droits -->
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Annuler</a>
+                                <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Modifier</a>
+                                <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Publier</a>
+                            {% endif %}
+
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
