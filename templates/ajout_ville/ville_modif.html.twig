@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+<h2 class="text-center mt-2">Gérer les villes</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <table class="table table-bordered table-striped" >
+            <tbody>
+
+            {% form_theme villeForm 'bootstrap_4_layout.html.twig' %}
+
+            {{ form_start(villeForm) }}
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-5 mt-2">
+                            <label>Nom</label>
+                            {{ form_widget((villeForm.nom_ville)) }}
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            {{ form_label(villeForm.code_postal) }}
+                            {{ form_widget((villeForm.code_postal)) }}
+                        </div>
+                        <div class="col-md-3 pt-4">
+                            <div class="text-center">
+                                <button class="btn btn-outline-success" type="submit">Ajouter</button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {{ form_end(villeForm) }}
+
+            </tbody>
+
+        </table>
+
+        {% endblock %}
+
+        {% block title %}
+
+        {% endblock %}
+
