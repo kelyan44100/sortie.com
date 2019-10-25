@@ -34,25 +34,41 @@
             <div class="form-group col-md-6">
                 <label>Ville :</label>
                 <select class="custom-select" id="villes">
+                    <option>-------</option>
                     {% for ville in villes %}
                         <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
                     {% endfor %}
                 </select>
                 {{ form_label(formSortie.lieu) }}
-                <select class="custom-select" name="lieux" id="lieux">
+                <select class="custom-select" name="creation_sortie[lieu]" id="creation_sortie_lieu">
 
                 </select>
 
-                <label for="lieu">Rue :</label>
-                <select class="custom-select">
+                <label for="maRue" >Rue :</label>
+                <div id="maRue">
+                    <input type="text" class="form-control" readonly>
+                </div>
 
-                </select>
                 <label for="code_postal">Code postal :</label>
-                <input type="text" value="" name="code_postal" id="code_postal" class="form-control">
+                <div id="monCP">
+                    <input type="text" class="form-control" readonly>
+                </div>
+
                 <label for="latitude">Latitude :</label>
-                <input type="text" value="" name="latitude" id="latitude" class="form-control">
+                <div id="maLati">
+                    <input type="text" class="form-control" readonly>
+                </div>
+
                 <label for="longitude">Longitude :</label>
-                <input type="text" value="" name="longitude" id="longitude" class="form-control">
+                <div id="maLongi">
+                    <input type="text" class="form-control" readonly>
+                </div>
+
+{#                <input type="text" value="" name="code_postal" id="code_postal" class="form-control">#}
+{#                <label for="latitude">Latitude :</label>#}
+{#                <input type="text" value="" name="latitude" id="latitude" class="form-control">#}
+{#                <label for="longitude">Longitude :</label>#}
+{#                <input type="text" value="" name="longitude" id="longitude" class="form-control">#}
             </div>
 
         </div>
@@ -60,11 +76,12 @@
 
 
 
+
     <div class="text-center mt-3">
         <input type="submit" value="Créer" class="btn btn-dark"/>
         <input type="submit" value="Annuler" class="btn btn-dark"/>
     </div>
-    {{ form_end(formSortie) }}
+    {{ form_end(formSortie, {'render_rest': false}) }}
 
 
 
@@ -74,13 +91,76 @@
         {{ parent() }}
         <script>
             $('#villes').change(function () {
-                $('#lieux').empty();
+                $('#creation_sortie_lieu').empty();
+                $('#creation_sortie_lieu').append('<option>-------</option>')
                 $.get('/ajax/' + $(this).val())
                     .done(function (data) {
                         $.each(data, function (key, lieu) {
-                            $('#lieux').append('<option value="' + lieu.id + '">' + lieu.nom_lieu + '</option>')
+                            $('#creation_sortie_lieu').append('<option value="' + lieu.id + '">' + lieu.nom_lieu + '</option>')
                         });
                     });
             });
+
+
+            $('#creation_sortie_lieu').change(function () {
+                $.ajax({
+                    method: "GET",
+                    url: "http://sortir.local/ajax2/" + $(this).val(),
+                    success: function(data){
+                        //afficher
+                        console.log(data);
+                        $('#maRue').empty();
+                        var lieu = data.lieu;
+                        $('#maRue').append('<input type="text" class="form-control" name="rue" id="rue" value="' + data.rue + '" readonly>')
+                    }
+                });
+
+            });
+
+            $('#creation_sortie_lieu').change(function () {
+                $.ajax({
+                    method: "GET",
+                    url: "http://sortir.local/ajax3/" + $(this).val(),
+                    success: function(data){
+                        //afficher
+                        console.log(data);
+                        $('#monCP').empty();
+                        var ville = data.ville;
+                        $('#monCP').append('<input type="text" class="form-control" name="codePostal" id="codePostal" value="' + data.cp + '" readonly>')
+                    }
+                });
+
+            });
+
+            $('#creation_sortie_lieu').change(function () {
+                $.ajax({
+                    method: "GET",
+                    url: "http://sortir.local/ajax2/" + $(this).val(),
+                    success: function(data){
+                        //afficher
+                        console.log(data);
+                        $('#maLati').empty();
+                        var lieu = data.lieu;
+                        $('#maLati').append('<input type="text" class="form-control" name="latitude" id="latitude" value="' + data.maLati + '" readonly>')
+                    }
+                });
+
+            });
+
+            $('#creation_sortie_lieu').change(function () {
+                $.ajax({
+                    method: "GET",
+                    url: "http://sortir.local/ajax2/" + $(this).val(),
+                    success: function(data){
+                        //afficher
+                        console.log(data);
+                        $('#maLongi').empty();
+                        var lieu = data.lieu;
+                        $('#maLongi').append('<input type="text" class="form-control" name="longitude" id="longitude" value="' + data.maLongi + '" readonly>')
+                    }
+                });
+
+            });
+
         </script>
     {% endblock %}
