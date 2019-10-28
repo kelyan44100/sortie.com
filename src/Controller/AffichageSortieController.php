@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Inscription;
+use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Repository\InscriptionRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,10 +82,19 @@ class AffichageSortieController extends Controller
      *@Route("/sorties/{id}", name="sortie_detail", requirements={"id": "\d"})
      */
 
-    public function detail(int $id, EntityManagerInterface $em){
+    public function detail(int $id, InscriptionRepository $InscriptionRepository, EntityManagerInterface $em){
         $repo = $em->getRepository(Sortie::class);
         $sortie = $repo->find($id);
 
-        return $this->render("affichage_sortie/detail.html.twig", ["sortie" => $sortie]);
+        $inscriptions = $InscriptionRepository->findBy([
+            'sortie' => $sortie,
+        ]);
+
+        dump($inscriptions);
+
+        return $this->render("affichage_sortie/detail.html.twig", [
+            "sortie" => $sortie,
+            'inscriptions' =>$inscriptions
+        ]);
     }
 }
