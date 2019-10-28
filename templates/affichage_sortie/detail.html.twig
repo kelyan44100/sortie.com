@@ -3,16 +3,16 @@
 {% block main %}
     <h2>Détail de la sortie</h2>
     <div class="row justify-content-center">
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-3">
             <p> Nom de la sortie :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-3">
             {{ sortie.nom }}
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-3">
             <p> Ville organisatrice :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-3">
             {{ sortie.site }}
         </div>
         <div class="col-sm-6 col-lg-3">
@@ -80,13 +80,13 @@
             <h4>Liste des participants inscrits :</h4>
         </div>
         <div class="row justify-content-center">
-            <div class="col" id="table">
+            <div class="col-12" id="table">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
 
                         {% for i in inscriptions %}
-                            <th>{{ i.participant.nom }}</th>
+                            <td>{{ i.participant.nom }}</td>
                         {% endfor %}
 
                     </tr>
