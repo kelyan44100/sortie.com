@@ -36,27 +36,31 @@ class AffichageSortieController extends Controller
         //GESTION DES ETATS en fonction de la date
         $today = (new \DateTime('now'))->setTime(0,0,0);
         foreach ($sorties as $sortie){
-            if ($sortie->getDateDebut()<= $sortie-> getDateCloture() || (count($sortie->getInscriptions()) < $sortie->getNbInscription())){
+
+            if (($sortie->getDateDebut()>= $sortie-> getDateCloture()) && (count($sortie->getInscriptions()) < $sortie->getNbInscription()) && ($sortie-> getDateCloture()>$today)){
                 //ouvert
-                $etat = $em ->getRepository(Etat::class)->find(1);
+
+                $etat = $em ->getRepository(Etat::class)->findOneBy(['libelle'=>'Ouverte']);
                 $sortie->setEtat($etat);
                 $em->persist($sortie);
             }
-            if ($sortie->getDateDebut()==$today){
+            elseif (($sortie->getDateDebut()==$today) && (((count($sortie->getInscriptions()) > 0)) || (count($sortie->getInscriptions()) == $sortie->getNbInscription()))) {
+
                 //En cours
-                $etat = $em ->getRepository(Etat::class)->find(2);
+                $etat = $em ->getRepository(Etat::class)->findOneBy(['libelle'=>'En cours']);
                 $sortie->setEtat($etat);
                 $em->persist($sortie);
             }
-           if ($sortie-> getDateCloture() < $today || (count($sortie->getInscriptions()) == $sortie->getNbInscription())){
+           elseif (($sortie->getDateDebut()!==$today) && (count($sortie->getInscriptions()) !== 0) && (($sortie-> getDateCloture() < $today) || (count($sortie->getInscriptions()) == $sortie->getNbInscription()))){
                //cloturée
-                $etat = $em ->getRepository(Etat::class)->find(3);
+
+                $etat = $em ->getRepository(Etat::class)->findOneBy(['libelle'=>'Clôturée']);
                 $sortie->setEtat($etat);
                 $em->persist($sortie);
             }
-            if (($sortie->getDateDebut()<$today) && ($sortie-> getDateCloture() < $today )){
-                //passée
-                $etat = $em ->getRepository(Etat::class)->find(4);
+            else{
+                //Passée
+                $etat = $em ->getRepository(Etat::class)->findOneBy(['libelle'=>'Passée']);
                 $sortie->setEtat($etat);
                 $em->persist($sortie);
             }
