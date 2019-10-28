@@ -31,6 +31,7 @@ class InscriptionRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
     //  */

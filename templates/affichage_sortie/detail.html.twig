@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<h2>Détail de la sortie</h2>
+    <h2>Détail de la sortie</h2>
     <div class="row justify-content-center">
         <div class="col-sm-6 col-lg-3">
             <p> Nom de la sortie :</p>
@@ -77,22 +77,18 @@
             {{ sortie.lieu.longitude }}
         </div>
         <div class="col-sm-12" align="center">
-        <h4>Liste des participants inscrits :</h4>
+            <h4>Liste des participants inscrits :</h4>
         </div>
         <div class="row justify-content-center">
             <div class="col" id="table">
-                <table class="table table-bordered table-striped"  >
+                <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>
-                            {{ sortie.user }}
-                        </th>
-                        <th>
-                            Bonjour2
-                        </th>
-                        <th>
-                            Bonjour3
-                        </th>
+
+                        {% for i in inscriptions %}
+                            <th>{{ i.participant.nom }}</th>
+                        {% endfor %}
+
                     </tr>
                     </thead>
                 </table>
