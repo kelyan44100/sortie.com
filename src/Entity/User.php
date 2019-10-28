@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("email", message="Email déjà pris")
+ * @UniqueEntity("pseudo", message="Peudo déjà pris")
  */
 class User implements UserInterface
 {
