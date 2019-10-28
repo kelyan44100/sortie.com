@@ -121,7 +121,7 @@
                             {% endif %}
                             <!-- L'administrateur ou l'organisateur peuvent annuler une sortie créée ou ouverte -->
                             {% if (is_granted('ROLE_ADMIN') or sortie.organisateur.id == user.id) and (sortie.etat.id == 1 or sortie.etat.id == 2)  %}
-                                 <a href="#{{ path('modifier_Sortie', {'id' : sortie.id}) }}">- Modifier</a>
+                                 <a href="{{ path('modifier_Sortie', {'id' : sortie.id}) }}">- Modifier</a>
                                 <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">- Annuler</a>
                             {% endif %}
                         </td>

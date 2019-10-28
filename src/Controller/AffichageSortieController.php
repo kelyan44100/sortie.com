@@ -102,10 +102,10 @@ class AffichageSortieController extends Controller
     /**
      * @Route("/modifierSortie/{id}", name="modifier_Sortie", requirements={"id":"\d+"})
      */
-    public function modifierSortie(Request $request, EntityManagerInterface $manager, User $u, UserRepository $repo, VilleRepository $villeRepository)
+    public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, User $u, UserRepository $repo, VilleRepository $villeRepository)
     {
         $user = $repo->find($u);
-        $Sortie = new Sortie();
+
         $formSortie = $this->createForm(ModifierSortieType::class, $Sortie);
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
         $sites = $manager->getRepository(Site::class)->findAll();
