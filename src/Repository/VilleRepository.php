@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Ville;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @method Ville|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +21,23 @@ class VilleRepository extends ServiceEntityRepository
         parent::__construct($registry, Ville::class);
     }
 
+    public function findAllByPage(int $page = 1, int $nbMaxParPage = 3){
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        $qb = $this->createQueryBuilder('v')
+            ->addSelect('v')
+            ->orderBy('v.nom_ville','ASC');
+
+        $premierResultat = ($page - 1) * $nbMaxParPage;
+        $qb->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
+        $paginator = new Paginator($qb);
+
+        return $paginator;
+
+    }
     // /**
     //  * @return Ville[] Returns an array of Ville objects
     //  */

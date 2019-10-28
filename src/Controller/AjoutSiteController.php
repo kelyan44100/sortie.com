@@ -16,17 +16,23 @@ class AjoutSiteController extends Controller
 
 
     /**
-     * @Route("/site/ajout", name="site_ajout")
+     * @Route("/site/ajout/{page}", name="site_ajout", defaults={"page"=1})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
 
-    public function add(Request $request, EntityManagerInterface $em){
-
+    public function add(Request $request, EntityManagerInterface $em, $page){
+        $nbArticlesParPage = 5;
         // Récupération des sites déja existants pour les afficher
-        $repo = $em->getRepository(Site::class);
-        $sites = $repo->findAll();
+        $sites = $em->getRepository(Site::class)->findAllByPage($page, $nbArticlesParPage);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($sites) / $nbArticlesParPage),
+            'nomRoute' => 'site_ajout',
+            'paramsRoute' => array()
+        );
 
         //gestion du formulaire
         $site = new Site();
@@ -45,7 +51,7 @@ class AjoutSiteController extends Controller
 
 
         return $this->render('ajout_site/ajoutSite.html.twig', [
-
+            'pagination' => $pagination,
             'sites' => $sites,
             'siteForm' => $form->createView()
         ]);

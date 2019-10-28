@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    <h2 class="text-center mt-2">Gérer les villes</h2>
+    <h2 class="text-center py-3">Gérer les villes</h2>
 <div class="row justify-content-center">
     <div class="col-lg-8">
         <table class="table table-bordered table-striped" >
@@ -20,12 +20,12 @@
                             <div class="row col-3">
                                 <div class="col-6">
                                     <a class=" " title="Modifier la ville" href="{{ path('ville_update', {'id' : ville.id }) }}">
-                                        <ion-icon name="create"></ion-icon>
+                                        <ion-icon  size="large" name="create"></ion-icon>
                                     </a>
                                 </div>
                                 <div class="col-6">
                                     <a class=" " title="Supprimer la ville" href="{{ path('ville_supp', {'id' : ville.id }) }}">
-                                        <ion-icon name="trash"></ion-icon>
+                                        <ion-icon size="large" name="trash"></ion-icon>
                                     </a>
                                 </div>
                             </div>
@@ -33,6 +33,13 @@
                     </td>
                 </tr>
             {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-center">
+            {% include('inc/pagination.html.twig') %}
+        </div>
+        <table class="table table-bordered table-striped" >
+            <tbody>
             {% form_theme villeForm 'bootstrap_4_layout.html.twig' %}
 
             {{ form_start(villeForm) }}

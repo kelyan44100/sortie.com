@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Ville;
 use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,19 +17,23 @@ class AjoutVilleController extends Controller
 {
 
     /**
-     * @Route("/ville/ajout", name="ville_ajout")
+     * @Route("/ville/ajout/{page}", name="ville_ajout",defaults={"page"=1})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
 
-    public function add(Request $request, EntityManagerInterface $em)
+    public function add(Request $request, EntityManagerInterface $em, $page)
     {
-
+        $nbArticlesParPage = 5;
         // Récupération des villes déjà existantes pour les afficher
-        $repo = $em->getRepository(Ville::class);
-        $villes = $repo->findAll();
-
+        $villes = $em->getRepository(Ville::class)->findAllByPage($page, $nbArticlesParPage);
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($villes) / $nbArticlesParPage),
+            'nomRoute' => 'ville_ajout',
+            'paramsRoute' => array()
+        );
         // Gestion du formulaire
         $ville = new Ville();
 
@@ -47,6 +52,7 @@ class AjoutVilleController extends Controller
 
         return $this->render('ajout_ville/ajoutVille.html.twig', [
             'villes' => $villes,
+            'pagination' => $pagination,
             'villeForm' => $form->createView()
         ]);
 
