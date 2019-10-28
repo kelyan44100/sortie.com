@@ -79,6 +79,6 @@ class AffichageSortieController extends Controller
         $repo = $em->getRepository(Sortie::class);
         $sortie = $repo->find($id);
 
-        return $this->render("sortie/detail.html.twig", ["sortie" => $sortie]);
+        return $this->render("affichage_sortie/detail.html.twig", ["sortie" => $sortie]);
     }
 }
