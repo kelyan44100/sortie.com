@@ -68,6 +68,21 @@ class AffichageSortieController extends Controller
                 $em->persist($sortie);
             }
         }
+        //Récupération des toutes les filtres
+        $siteSelect = $siteRepository->find($request->request->get("site-select"));
+        $searchBar = $sortieRepository->find($request->request->get("search-bar"));
+
+
+
+        /* Filtres sur les sorties*/
+        if($request->request->get("site-select")){
+            // site sélectionné
+            $siteSelect = $siteRepository->find($request->request->get("site-select"));
+            $sorties = $sortieRepository->findBy(
+                ['site' => $siteSelect],
+                ['dateDebut' => 'DESC']
+            );
+        }
 
         return $this->render("affichage_sortie/list.html.twig",
             [
