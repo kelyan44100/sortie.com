@@ -69,27 +69,31 @@ class AffichageSortieController extends Controller
             }
         }
         //Récupération des toutes les filtres
-        $siteSelect = $siteRepository->find($request->request->get("site-select"));
+       /* $siteSelect = $siteRepository->find($request->request->get("site-select"));
         $searchBar = $sortieRepository->find($request->request->get("search-bar"));
-
+        $dateEntre = $sortieRepository->find($request->request->get("date-entre"));
+        $dateEt = $sortieRepository->find($request->request->get("date-et"));
+        $sortOrg = $sortieRepository->find($request->request->get("sortOrg"));
+        $sortInsc = $sortieRepository->find($request->request->get("sortInsc"));
+        $sortPasInsc = $sortieRepository->find($request->request->get("sortPasInsc"));
+        $sortPass = $sortieRepository->find($request->request->get("sortPass"));*/
 
 
         /* Filtres sur les sorties*/
         if($request->request->get("site-select")){
             // site sélectionné
             $siteSelect = $siteRepository->find($request->request->get("site-select"));
-            $sorties = $sortieRepository->findBy(
-                ['site' => $siteSelect],
-                ['dateDebut' => 'DESC']
-            );
+            $sorties = $sortieRepository->findBySite($siteSelect);
         }
+
+
+
 
         return $this->render("affichage_sortie/list.html.twig",
             [
                 'sorties' => $sorties,
                 'sites' => $sites,
                 'user' => $user,
-
             ]);
     }
 
