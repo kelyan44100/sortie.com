@@ -89,7 +89,7 @@ class Sortie
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", cascade={"remove"}, mappedBy="sortie")
+     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", cascade={"remove", "persist"}, mappedBy="sortie")
      */
     private $inscriptions;
 
