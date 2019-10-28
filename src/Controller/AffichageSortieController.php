@@ -75,25 +75,25 @@ class AffichageSortieController extends Controller
         $dateEt = $sortieRepository->find($request->request->get("date-et"));
         $sortOrg = $sortieRepository->find($request->request->get("sortOrg"));
         $sortInsc = $sortieRepository->find($request->request->get("sortInsc"));
-        $sortPasInsc = $sortieRepository->find($request->request->get("sortPasInsc"));
-        $sortPass = $sortieRepository->find($request->request->get("sortPass"));*/
+        $sortPasInsc = $sortieRepository->find($request->request->get("sortPasInsc"));*/
 
 
         /* Filtres sur les sorties*/
         if($request->request->get("site-select")){
             // site sélectionné
             $siteSelect = $siteRepository->find($request->request->get("site-select"));
-            $sorties = $sortieRepository->findBySite($siteSelect);
+            $sorties = $sortieRepository->findBy(
+                ['site' => $siteSelect],
+                ['dateDebut' => 'DESC']
+            );
         }
-
-
-
 
         return $this->render("affichage_sortie/list.html.twig",
             [
                 'sorties' => $sorties,
                 'sites' => $sites,
                 'user' => $user,
+
             ]);
     }
 

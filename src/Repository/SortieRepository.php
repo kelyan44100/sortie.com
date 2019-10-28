@@ -29,6 +29,16 @@ class SortieRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByNom($nomContient){
+        return $this->createQueryBuilder('s')
+            ->Where('s.nom LIKE :val')
+            ->setParameter('val', '%'.$nomContient.'%')
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
