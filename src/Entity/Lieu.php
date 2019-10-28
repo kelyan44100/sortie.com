@@ -95,7 +95,7 @@ class Lieu implements \JsonSerializable
         return $this;
     }
 
-    public function getVille(): Ville
+    public function getVille(): ?Ville
     {
         return $this->ville;
     }

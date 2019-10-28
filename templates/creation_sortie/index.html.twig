@@ -39,10 +39,21 @@
                         <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
                     {% endfor %}
                 </select>
-                {{ form_label(formSortie.lieu) }}
-                <select class="custom-select" name="creation_sortie[lieu]" id="creation_sortie_lieu">
 
-                </select>
+                {{ form_label(formSortie.lieu) }}
+                <div class="form-row">
+                    <div class=" form-group col-md-11">
+                        <select class="custom-select" name="creation_sortie[lieu]" id="creation_sortie_lieu">
+
+                        </select>
+                    </div>
+                    <div class=" form-group col-md-1">
+                        <a class="text-left  " title="Ajouter un lieu" href="{{ path('ajout_lieu') }}">
+
+                            <ion-icon size="large"name="add-circle"></ion-icon>
+                        </a>
+                    </div>
+                </div>
 
                 <label for="maRue" >Rue :</label>
                 <div id="maRue">
