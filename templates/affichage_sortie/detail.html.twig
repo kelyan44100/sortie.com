@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<h2>Détail de la sortie</h2>
+    <div class="row justify-content-center">
+        <div class="col-sm-6 col-lg-3">
+            <p> Nom de la sortie :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.nom }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Ville organisatrice :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.site }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Date de la sortie :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.dateDebut|date('d/m/Y') }}
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+            <p> Lieu :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.lieu.nomLieu }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Date limite d'inscription :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.dateCloture|date('d/m/Y') }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Rue :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.lieu.rue }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Nombre d'inscription :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.nbInscription }} Participant
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Code Postal :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.lieu.ville.CodePostal }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Durée de la sortie :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.duree }} minutes
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Latitude :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.lieu.latitude }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Longitude :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p> Description :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.description |  nl2br }}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            {{ sortie.lieu.longitude }}
+        </div>
+        <div class="col-sm-12" align="center">
+        <h4>Liste des participants inscrits :</h4>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col" id="table">
+                <table class="table table-bordered table-striped"  >
+                    <thead>
+                    <tr>
+                        <th>
+                            {{ sortie.user }}
+                        </th>
+                        <th>
+                            Bonjour2
+                        </th>
+                        <th>
+                            Bonjour3
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
+

@@ -110,41 +110,18 @@
                         </td>
                         <td> {{ sortie.organisateur }}</td>
                         <td>
-                            <!-- L'administrateur a tout les droits -->
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Annuler</a>
-                                <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Modifier</a>
-                                <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Publier</a>
-                            {% endif %}
-
-                            <!-- La sortie est ouverte et l'user n'est pas inscrit et il y a de la place -->
+                            <!-- La sortie est ouverte et le user n'est pas inscrit et il y a de la place -->
                             {% if sortie.etat == 'Ouvert' and user not in sortie.inscriptions and sortie.organisateur.id != user.id
                                 and sortie.inscriptions|length < sortie.nbInscription %}
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Afficher</a>
+                                <a href="{{ path('sortie_detail', {'id' : sortie.id} ) }}">Afficher</a>
                                 <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">-S'inscrire</a>
                             {% endif %}
-
-                            <!-- La sortie est ouverte et l'user est inscrit -->
-                            {% if sortie.etat == 'Ouvert' and user in sortie.inscriptions %}
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Afficher</a>
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">-Se désister</a>
-                            {% endif %}
-
-                            <!-- La sortie est ouverte et le user est organisateur -->
-                            {% if sortie.etat == 'Ouvert' and user.id == sortie.organisateur.id %}
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Afficher</a>
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">- Annuler</a>
-                            {% endif %}
-
-                            <!-- La sortie est en cours -->
-                            {% if sortie.etat == 'En cours' or sortie.etat == 'Passée' %}
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Afficher</a>
-                            {% endif %}
-
-                            <!-- La sortie est cloturée -->
-                            {% if sortie.etat == 'cloturée' or user in sortie.inscriptions %}
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">Afficher</a>
-                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">-Se désister</a>
+                            <!-- L'administrateur a tout les droits -->
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('sortie_detail', {'id' : sortie.id} ) }}">Afficher</a>
+                                <a href="{#{{ path('', {'id' : sortie.id} ) }}#}">-Annuler</a>
+                                <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Modifier</a>
+                                <a href="{#{{ path('', {'id' : sortie.id}) }}#}">-Publier</a>
                             {% endif %}
                         </td>
                     </tr>

@@ -86,7 +86,6 @@ class CreationSortieController extends Controller
             
             
             
-            
         
             $manager->persist($Sortie);
             $manager->flush();
