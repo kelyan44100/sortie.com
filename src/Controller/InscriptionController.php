@@ -2,12 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Inscription;
 use App\Entity\Sortie;
+use App\Form\FormAnnulationType;
+use App\Form\ModifierSortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -67,6 +72,30 @@ class InscriptionController extends Controller
 
         $this->addFlash("success", "Désistement réussi");
         return $this->redirectToRoute('sortie_list');
+    }
+
+    /**
+     * @Route("/annulerSortie/{id}", name="annuler_sortie", requirements={"\d+"})
+     * @param Sortie $sortie
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse|Response
+     */
+
+    public function annulerSortie( Sortie $sortie, Request $request, EntityManagerInterface $em){
+        $etat = $em->getRepository(Etat::class)->find(6);
+        $formAnnulation = $this->createForm(FormAnnulationType::class, $sortie);
+        $formAnnulation->handleRequest($request);
+        if($formAnnulation->isSubmitted() && $formAnnulation->isValid()){
+            $sortie->setEtat($etat);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('success', 'La sortie a été annulée');
+            return $this->redirectToRoute('sortie_list');
+        }
+
+        return $this->render('affichage_sortie/annulerSortie.html.twig', [
+            'formAnnulation' => $formAnnulation->createView()
+        ]);
     }
 
 }

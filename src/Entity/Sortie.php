@@ -59,6 +59,11 @@ class Sortie
 
 
     /**
+     * @ORM\Column(type="text", length=500, nullable=true)
+     */
+    private $motifAnnulation;
+
+    /**
      * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $filePhoto;
@@ -231,6 +236,24 @@ class Sortie
     {
         $this->description = $description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMotifAnnulation()
+    {
+        return $this->motifAnnulation;
+    }
+
+    /**
+     * @param mixed $motifAnnulation
+     */
+    public function setMotifAnnulation($motifAnnulation): void
+    {
+        $this->motifAnnulation = $motifAnnulation;
+    }
+
+
 
     /**
      * @return
