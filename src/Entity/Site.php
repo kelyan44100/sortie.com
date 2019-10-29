@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,6 +20,7 @@ class Site
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\Regex("/^[[:alpha:]]([-' ]?[[:alpha:]])*$/", message="Entrer un site valide!")
      */
     private $nom_site;
 
