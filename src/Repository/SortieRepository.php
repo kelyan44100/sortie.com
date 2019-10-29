@@ -96,9 +96,11 @@ class SortieRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('sortie');
         //dont je suis l'organisateur/trice
+        dump($organisateur);
         if ($organisateur != null) {
             $queryBuilder = $queryBuilder->andWhere('sortie.organisateur = :valOrganisateur')
-                ->setParameter('valOrganisateur', $organisateur);
+
+                ->setParameter('valOrganisateur', $userEnCours);
         }
         //auxquelles je suis inscrit/e
         if ($mesInscriptions != null) {
@@ -116,8 +118,8 @@ class SortieRepository extends ServiceEntityRepository
         }
         //Sorties passées
         if ($sortiesPassees != null) {
-            $queryBuilder = $queryBuilder->andWhere('sortie.dateDebut < :valDateDuJour')
-                ->setParameter('valDateDuJour', $this->getDateDuJour());
+            $queryBuilder = $queryBuilder ->innerjoin('sortie.etat', 'etat', 'WITH', 'etat.libelle = :valLibelle')
+                ->setParameter('valLibelle', "Passée");
         }
 
         $queryBuilder = $queryBuilder->orderBy('sortie.dateDebut', 'DESC')

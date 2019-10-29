@@ -50,7 +50,7 @@ class AffichageSortieController extends Controller
         $sortInsc = $request->request->get("sortInsc");
         $sortPasInsc = $request->request->get("sortPasInsc");
         $sortPass = $request->request->get("sortPass");
-        $userEncours = $this->getUser();
+
         //GESTION DES ETATS en fonction de la date
         $today = (new \DateTime('now'))->setTime(0, 0, 0);
         foreach ($sorties as $sortie) {
@@ -85,12 +85,11 @@ class AffichageSortieController extends Controller
         //Récupération des toutes les filtres
         if($request->request->get("site-select") or $request->request->get("search-bar") or $request->request->get("date-entre") or $request->request->get("date-et")
         or $request->request->get("sortOrg") or $request->request->get("sortInsc") or $request->request->get("sortPasInsc") or $request->request->get("sortPass")){
-            dump($request->request);
 
         /* Filtres sur les sorties*/
             $sorties = $sortieRepository->findSortieByCriteria($siteSelect, $searchBar, $dateEntre, $dateEt);
             if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass){
-                $sorties = $sortieRepository->findSortieByCheckbox($sortOrg, $sortInsc,$userEncours, $sortPasInsc, $sortPass);
+                $sorties = $sortieRepository->findSortieByCheckbox($sortOrg, $sortInsc,$user, $sortPasInsc, $sortPass);
             }
         }
 
