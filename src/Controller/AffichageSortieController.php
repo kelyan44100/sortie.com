@@ -26,9 +26,13 @@ class AffichageSortieController extends Controller
     /**
      * @param EntityManagerInterface $em
      *
+     * @param Request $request
+     * @param SiteRepository $siteRepository
+     * @param SortieRepository $sortieRepository
+     * @return Response
+     * @throws \Exception
      * @Route("/sorties/list/", name="sortie_list")
      *
-     * @return Response
      */
     public function list(EntityManagerInterface $em, Request $request, SiteRepository $siteRepository, SortieRepository $sortieRepository)
     {
