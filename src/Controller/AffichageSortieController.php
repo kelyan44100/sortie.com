@@ -38,7 +38,15 @@ class AffichageSortieController extends Controller
         $sites = $em->getRepository(Site::class)->findAll();
         //récupération de l'utilisateur connecté
         $user = $this->getUser();
-
+        $siteSelect = $request->request->get("site-select");
+        $searchBar = $request->request->get("search-bar");
+        $dateEntre = $request->request->get("date-entre");
+        $dateEt = $request->request->get("date-et");
+        $sortOrg = $request->request->get("sortOrg");
+        $sortInsc = $request->request->get("sortInsc");
+        $sortPasInsc = $request->request->get("sortPasInsc");
+        $sortPass = $request->request->get("sortPass");
+        $userEncours = $this->getUser();
         //GESTION DES ETATS en fonction de la date
         $today = (new \DateTime('now'))->setTime(0, 0, 0);
         foreach ($sorties as $sortie) {
@@ -69,23 +77,15 @@ class AffichageSortieController extends Controller
             }
         }
         //Récupération des toutes les filtres
-       /* $siteSelect = $siteRepository->find($request->request->get("site-select"));
-        $searchBar = $sortieRepository->find($request->request->get("search-bar"));
-        $dateEntre = $sortieRepository->find($request->request->get("date-entre"));
-        $dateEt = $sortieRepository->find($request->request->get("date-et"));
-        $sortOrg = $sortieRepository->find($request->request->get("sortOrg"));
-        $sortInsc = $sortieRepository->find($request->request->get("sortInsc"));
-        $sortPasInsc = $sortieRepository->find($request->request->get("sortPasInsc"));*/
-
+        if($request->request->get("site-select") or $request->request->get("search-bar") or $request->request->get("date-entre") or $request->request->get("date-et")
+        or $request->request->get("sortOrg") or $request->request->get("sortInsc") or $request->request->get("sortPasInsc") or $request->request->get("sortPass")){
+            dump($request->request);
 
         /* Filtres sur les sorties*/
-        if($request->request->get("site-select")){
-            // site sélectionné
-            $siteSelect = $siteRepository->find($request->request->get("site-select"));
-            $sorties = $sortieRepository->findBy(
-                ['site' => $siteSelect],
-                ['dateDebut' => 'DESC']
-            );
+            $sorties = $sortieRepository->findSortieByCriteria($siteSelect, $searchBar, $dateEntre, $dateEt);
+            if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass){
+                $sorties = $sortieRepository->findSortieByCheckbox($sortOrg, $sortInsc,$userEncours, $sortPasInsc, $sortPass);
+            }
         }
 
         return $this->render("affichage_sortie/list.html.twig",
@@ -93,6 +93,14 @@ class AffichageSortieController extends Controller
                 'sorties' => $sorties,
                 'sites' => $sites,
                 'user' => $user,
+                'select' => $siteSelect,
+                'searchBar' => $searchBar,
+                'dateEntre' => $dateEntre,
+                'dateEt' => $dateEt,
+                'sortOrg' => $sortOrg,
+                'sortInsc' => $sortInsc,
+                'sortPasInsc' => $sortPasInsc,
+                'sortPass' =>$sortPass,
 
             ]);
     }
