@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h2 class="text-center mt-2">Annuler une Sortie</h2>
+    {% form_theme formAnnulation 'bootstrap_4_layout.html.twig' %}
+    {{ form_start(formAnnulation) }}
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(formAnnulation.motifAnnulation) }}
+                {{ form_widget(formAnnulation.motifAnnulation) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <input type="submit"  value="Annuler" class="btn btn-outline-success"/>
+        <a class="btn btn-outline-danger"  href="{{ path('sortie_list')}}">Retour</a>
+    </div>
+    {{ form_end(formAnnulation) }}
+
+
+
+{% endblock %}
