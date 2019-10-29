@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MonProfilType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -28,23 +29,38 @@ class MonProfilType extends AbstractType
             ->add('nom', TextType::class, ['label'=>'Nom'])
             ->add('telephone', TelType::class, ['label'=>'Téléphone'])
             ->add('email',EmailType::class, ['label'=>'Email'])
-            ->add('password', RepeatedType::class, [
+//            ->add('password', RepeatedType::class, [
+//                'type' => PasswordType::class,
+//                'first_options'  => array('label' => 'Password'),
+//                'second_options' => array('label' => 'Vôtre ancien mot de passe'),
+//                'invalid_message' => 'Your passwords do not match!',
+//                'constraints' => [
+//                    new NotBlank([
+//                        'message' => 'Please enter a password',
+//                    ]),
+//                    new Length([
+//                        'min' => 6,
+//                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+//                        // max length allowed by Symfony for security reasons
+//                        'max' => 4096,
+//                    ]),
+//                ],
+//            ])
+            ->add('oldPassword', PasswordType::class, array(
+                'mapped' => false,
+            ))
+            ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Confirmation'),
-                'invalid_message' => 'Your passwords do not match!',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+                'first_options'  => array('label' => 'Nouveau mot de passe'),
+                'second_options' => array('label' => 'Confirmer vôtre mot de passe'),
+                'invalid_message' => 'Les deux mots de passe doivent être identiques',
+                'options' => array(
+                    'attr' => array(
+                        'class' => 'password-field'
+                    )
+                ),
+                'required' => true,
+            ))
             /*->add('site', EntityType::class, [
                 'class'=> Site::class,
                 //Attribut utilisé pour l'affichage

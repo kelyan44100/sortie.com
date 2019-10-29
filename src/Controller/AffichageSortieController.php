@@ -191,7 +191,7 @@ class AffichageSortieController extends Controller
             'sites' => $sites,
             'user' => $user,
             'villes' => $villeRepository->findAll(),
-            'estInscrit' => false
+
         ]);
     }
 }

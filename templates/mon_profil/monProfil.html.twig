@@ -5,7 +5,7 @@
 {% block main %}
     <h2 class="text-center mt-2">Mon profil</h2>
 
-        <form action="{{ path('mon_profil_update', {id: user.id}) }}" method="post">
+        <form action="{{ path('mon_profil_update') }}" method="post">
             <div class="text-center my-2">
             <img src="{{ asset('uploads/photo/'~ app.user.file) }}" alt="ma photo" class="img-thumbnail">
             </div>

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class MonProfilController extends Controller
 {
@@ -25,11 +26,11 @@ class MonProfilController extends Controller
 
 
     /**
-     * @Route("/monProfil/update/{id}", name="mon_profil_update", requirements={"id":"\d+"})
+     * @Route("/monProfil/update/", name="mon_profil_update")
      */
-    public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, User $u,UserPasswordEncoderInterface $passwordEncoder){
+    public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, UserPasswordEncoderInterface $passwordEncoder){
 
-        $user = $repo->find($u);
+        $user = $this->getUser();
 
         $formMonProfil = $this->createForm(MonProfilType::class,$user);
         $formMonProfil->handleRequest($request);
@@ -38,6 +39,15 @@ class MonProfilController extends Controller
             $error=false;
             $photo = $formMonProfil->get('fileTemp')->getData();
 
+
+            $oldPassword = $formMonProfil->get('oldPassword')->getData();
+
+
+            if (!$passwordEncoder->isPasswordValid($user, $oldPassword)) {
+
+                $error = true;
+                $formMonProfil->get('oldPassword')->addError(new FormError('Ancien mot de passe incorrect'));
+            }
 
             if($photo != null && !in_array(strtolower($photo->getClientOriginalExtension()),
                     $this->getParameter('media_extension_photo'))){
@@ -66,7 +76,7 @@ class MonProfilController extends Controller
                 $manager->persist($user);
                 $manager->flush();
                 $this->addFlash('success', 'Your profile successfully updated!' );
-                return $this->redirectToRoute('mon_profil');
+                //return $this->redirectToRoute('mon_profil');
             }else{
                 $this->addFlash('warning', 'One errors occurred, on profile update!' );
             }
@@ -76,6 +86,7 @@ class MonProfilController extends Controller
             'formMonProfil'=>$formMonProfil->createView()
         ]);
     }
+
 
     /*/**
      * @Route("/monProfil/file/{id}", name="mon_profil_file")
