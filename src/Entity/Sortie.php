@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
  */
@@ -37,6 +38,7 @@ class Sortie
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Regex("/^[0-9]*$/", message="Entrer une latitude valide!")
      */
     private $nbInscription;
 

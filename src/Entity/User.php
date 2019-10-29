@@ -25,6 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Regex("\^[a-zA-Z0-9_]{3,16}$\", message="Entrer un pseudo valide!")
      * @Assert\Length(
      *      min = 4,
      *      max = 30,
@@ -61,7 +62,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180)
      * @Assert\Length(min = 10,  minMessage = "min_lenght")
-     *
+     * @Assert\Regex("/\^(\d\d\s){4}(\d\d)$\/" , message="Entrer un numero de telephone valide!")
      *
      */
     private $telephone;
@@ -69,7 +70,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\Regex("/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/" , message="Entrer un email valide!")
      */
     private $email;
 

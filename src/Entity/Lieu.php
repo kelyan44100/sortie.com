@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
@@ -28,11 +29,13 @@ class Lieu implements \JsonSerializable
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Regex("/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/", message="Entrer une latitude valide!")
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * * @Assert\Regex("/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/", message="Entrer une longitude valide!")
      */
     private $longitude;
 

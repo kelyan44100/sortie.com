@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,11 +20,13 @@ class Ville implements \JsonSerializable
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\Regex("/^[[:alpha:]]([-' ]?[[:alpha:]])*$/", message="Entrer une ville valide!")
      */
     private $nom_ville;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Regex("/^[0-9]{5,5}$/", message="Entrer un code postal valide!")
      */
     private $code_postal;
 
