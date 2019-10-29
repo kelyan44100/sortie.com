@@ -123,8 +123,9 @@
                             {% if (sortie.etat.id == 2) and (estInscrit == 'false') and (sortie.organisateur.id != user.id)
                                 and (sortie.inscriptions|length < sortie.nbInscription) %}
                                 <a href="{{ path('sortie_inscription', {'id' : sortie.id} ) }}">- S'inscrire</a>
+                                {% elseif (sortie.etat.id == 2) and (sortie.organisateur.id != user.id) and (estInscrit == 'true')%}
+                                    <a href="{{ path('sortie_desinscription', {'id' : sortie.id} ) }}">- Se désister</a>
                             {% endif %}
-                            <a href="{{ path('sortie_desinscription', {'id' : sortie.id} ) }}">- Se désister</a>
                             <!-- L'organisateur peut publier la sortie si son état est "créée" -->
                             {% if  sortie.organisateur.id == user.id  and sortie.etat.id == 1 %}
                                 <a href="{#{{ path('', {'id' : sortie.id}) }}#}">- Publier</a>
