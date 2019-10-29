@@ -26,11 +26,11 @@ class MonProfilController extends Controller
 
 
     /**
-     * @Route("/monProfil/update/{id}", name="mon_profil_update", requirements={"id":"\d+"})
+     * @Route("/monProfil/update/", name="mon_profil_update")
      */
-    public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, User $u,UserPasswordEncoderInterface $passwordEncoder){
+    public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, UserPasswordEncoderInterface $passwordEncoder){
 
-        $user = $repo->find($u);
+        $user = $this->getUser();
 
         $formMonProfil = $this->createForm(MonProfilType::class,$user);
         $formMonProfil->handleRequest($request);
