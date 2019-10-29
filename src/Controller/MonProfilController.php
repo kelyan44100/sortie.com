@@ -43,6 +43,7 @@ class MonProfilController extends Controller
             $oldPassword = $formMonProfil->get('oldPassword')->getData();
 
 
+            dump($oldPassword);
             if (!$passwordEncoder->isPasswordValid($user, $oldPassword)) {
 
                 $error = true;
@@ -57,13 +58,14 @@ class MonProfilController extends Controller
             }
 
             if(!$error){
-
-                $user->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $user,
-                        $formMonProfil->get('password')->getData()
-                    )
-                );
+                if(!empty($formMonProfil->get('passwordPlain')->getData())) {
+                    $user->setPassword(
+                        $passwordEncoder->encodePassword(
+                            $user,
+                            $formMonProfil->get('passwordPlain')->getData()
+                        )
+                    );
+                }
 
                 if(!is_null($photo)) {
                     $filePhoto = sprintf('photo_%s.%s', md5(uniqid(mt_rand(), true)), strtolower($photo->getClientOriginalExtension()));
@@ -78,7 +80,7 @@ class MonProfilController extends Controller
                 $this->addFlash('success', 'Your profile successfully updated!' );
                 //return $this->redirectToRoute('mon_profil');
             }else{
-                $this->addFlash('warning', 'One errors occurred, on profile update!' );
+                $this->addFlash('warning', 'Une erreur est arriver' );
             }
         }
         return $this->render('mon_profil/updateMonProfil.html.twig', [
