@@ -24,11 +24,11 @@ class MonProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo', TextType::class, ['label'=>'Pseudo'])
-            ->add('prenom', TextType::class, ['label'=>'Prenom'])
-            ->add('nom', TextType::class, ['label'=>'Nom'])
-            ->add('telephone', TelType::class, ['label'=>'Téléphone'])
-            ->add('email',EmailType::class, ['label'=>'Email'])
+            ->add('pseudo', TextType::class, ['label'=>'Pseudo', "empty_data" => ''])
+            ->add('prenom', TextType::class, ['label'=>'Prenom', "empty_data" => ''])
+            ->add('nom', TextType::class, ['label'=>'Nom', "empty_data" => ''])
+            ->add('telephone', TelType::class, ['label'=>'Téléphone', "empty_data" => ''])
+            ->add('email',EmailType::class, ['label'=>'Email', "empty_data" => ''])
 //            ->add('password', RepeatedType::class, [
 //                'type' => PasswordType::class,
 //                'first_options'  => array('label' => 'Password'),
@@ -47,10 +47,13 @@ class MonProfilType extends AbstractType
 //                ],
 //            ])
             ->add('oldPassword', PasswordType::class, array(
+                'label' => 'Ancien MDP',
                 'mapped' => false,
             ))
-            ->add('password', RepeatedType::class, array(
+            ->add('passwordPlain', RepeatedType::class, array(
                 'type' => PasswordType::class,
+                'required' => false,
+                'mapped' => false,
                 'first_options'  => array('label' => 'Nouveau mot de passe'),
                 'second_options' => array('label' => 'Confirmer vôtre mot de passe'),
                 'invalid_message' => 'Les deux mots de passe doivent être identiques',
@@ -59,7 +62,7 @@ class MonProfilType extends AbstractType
                         'class' => 'password-field'
                     )
                 ),
-                'required' => true,
+
             ))
             /*->add('site', EntityType::class, [
                 'class'=> Site::class,
