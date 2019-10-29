@@ -30,7 +30,7 @@ class CreationSortieController extends Controller
     }
 
     /**
-     * @Route("/Creation/add/{id}", name="Creation_add", requirements={"id":"\d+"}, methods={POST})
+     * @Route("/Creation/add/{id}", name="Creation_add", requirements={"id":"\d+"})
      */
     public function add(Request $request, EntityManagerInterface $manager, User $u, UserRepository $repo, VilleRepository $villeRepository)
     {

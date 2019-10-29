@@ -23,7 +23,7 @@
                             <select class="form-control" name="site-select" id="site-select">
                                 <option value="">-- Selectionnez un site --</option>
                                 {% for site in sites %}
-                                    <option value="{{ site.id }}" {% if select %} selected = 'selected' {% endif %}>{{ site }}</option>
+                                    <option value="{{ site.id }}" {% if select == site.id %} selected = 'selected' {% endif %}>{{ site }}</option>
                                 {% endfor %}
                             </select>
                         </div>
