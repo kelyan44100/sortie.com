@@ -29,22 +29,18 @@ class AjaxController extends Controller
      */
     public function rueByLieu(Lieu $lieu, LieuRepository $lieuRepository){
 
-        $rue = $lieuRepository->findOneBy([
-            'id' => $lieu
-        ]);
+        $rue = $lieu;
 
-        return new JsonResponse($rue);
+        return new JsonResponse($lieu);
 
     }
 
     /**
      * @Route("/ajax3/{id}", name="ajax3")
      */
-    public function cpByLieu(Ville $ville, VilleRepository $villeRepository){
+    public function cpByLieu(Lieu $lieu, VilleRepository $villeRepository){
 
-        $cp = $villeRepository->findOneBy([
-            'id' => $ville
-        ]);
+        $cp = $lieu->getVille();
 
         return new JsonResponse($cp);
 

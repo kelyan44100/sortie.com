@@ -52,8 +52,6 @@ class CreationSortieController extends Controller
             $Sortie->setOrganisateur($user);
             $Site = $Sortie->getOrganisateur()->getSite();
             $Sortie->setSite($Site);
-           
-
 
 
             $today = (new \DateTime('now'))->setTime(0,0,0);
