@@ -50,7 +50,7 @@ class AffichageSortieController extends Controller
         //GESTION DES ETATS en fonction de la date
         $today = (new \DateTime('now'))->setTime(0, 0, 0);
         foreach ($sorties as $sortie) {
-
+            if($sortie->getEtat()->getLibelle() !== 'Annulée'){
             if (($sortie->getDateDebut() >= $sortie->getDateCloture()) && (count($sortie->getInscriptions()) < $sortie->getNbInscription()) && ($sortie->getDateCloture() > $today)) {
                 //ouvert
 
@@ -75,6 +75,8 @@ class AffichageSortieController extends Controller
                 $sortie->setEtat($etat);
                 $em->persist($sortie);
             }
+            $em->flush();
+        }
         }
         //Récupération des toutes les filtres
         if($request->request->get("site-select") or $request->request->get("search-bar") or $request->request->get("date-entre") or $request->request->get("date-et")
