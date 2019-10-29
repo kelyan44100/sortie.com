@@ -37,6 +37,7 @@ class CreationSortieController extends Controller
 
         $user = $repo->find($u);
         $Sortie = new Sortie();
+        $etat = $manager->getRepository(Etat::class)->find(1);
         $formSortie = $this->createForm(CreationSortieType::class, $Sortie);
 //        $villes = $manager->getRepository(Ville::class)->findAll();
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
@@ -46,41 +47,11 @@ class CreationSortieController extends Controller
 
         //Test de la validation du formulaire
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
-            dump($Sortie);
-            dump($Sortie->getOrganisateur());
             $user = $this->getUser();
             $Sortie->setOrganisateur($user);
             $Site = $Sortie->getOrganisateur()->getSite();
             $Sortie->setSite($Site);
-
-
-            $today = (new \DateTime('now'))->setTime(0,0,0);
-            
-                if ($Sortie->getDateDebut()<= $Sortie-> getDateCloture() || (count($Sortie->getInscriptions()) < $Sortie->getNbInscription())){
-                    //ouvert
-                    $etat = $manager ->getRepository(Etat::class)->find(1);
-                    $Sortie->setEtat($etat);
-                    $manager->persist($Sortie);
-                }
-                if ($Sortie->getDateDebut()==$today){
-                    //En cours
-                    $etat = $manager ->getRepository(Etat::class)->find(2);
-                    $Sortie->setEtat($etat);
-                    $manager->persist($Sortie);
-                }
-                if ($Sortie-> getDateCloture() < $today || (count($Sortie->getInscriptions()) == $Sortie->getNbInscription())){
-                    //cloturée
-                    $etat = $manager ->getRepository(Etat::class)->find(3);
-                    $Sortie->setEtat($etat);
-                    $manager->persist($Sortie);
-                }
-                if (($Sortie->getDateDebut()<$today) && ($Sortie-> getDateCloture() < $today )){
-                    //passée
-                    $etat = $manager ->getRepository(Etat::class)->find(4);
-                    $Sortie->setEtat($etat);
-                    $manager->persist($Sortie);
-                }
-
+            $Sortie->setEtat($etat);
 
         
             $manager->persist($Sortie);

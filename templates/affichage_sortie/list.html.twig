@@ -103,7 +103,7 @@
                 <tbody>
                 {% for sortie in sorties %}
                     <!-- n'affiche que les sorties non archivées -->
-                    {% if (sortie.dateDebut > oneMonthAgo) %}
+                    {% if (sortie.dateDebut > oneMonthAgo) and ((sortie.etat.id != 1) or (user.id == sortie.organisateur.id)) %}
                     <!-- verifie si l'utilisateur courant est inscrit à la sortie courante -->
                     {% set estInscrit = 'false' %}
                     {% for s in sortie.inscriptions %}
@@ -137,7 +137,7 @@
                             {% endif %}
                             <!-- L'organisateur peut publier la sortie si son état est "créée" -->
                             {% if  sortie.organisateur.id == user.id  and sortie.etat.id == 1 %}
-                                <a href="{#{{ path('', {'id' : sortie.id}) }}#}">- Publier</a>
+                                <a href="{{ path('publier_sortie', {'id' : sortie.id}) }}">- Publier</a>
                             {% endif %}
                             <!-- L'administrateur ou l'organisateur peuvent annuler une sortie créée ou ouverte -->
                             {% if (is_granted('ROLE_ADMIN') or sortie.organisateur.id == user.id) and (sortie.etat.id == 1 or sortie.etat.id == 2)  %}

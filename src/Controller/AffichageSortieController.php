@@ -8,6 +8,7 @@ use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\FormAnnulationType;
 use App\Form\ModifierSortieType;
 use App\Repository\InscriptionRepository;
 use App\Repository\SiteRepository;
@@ -16,6 +17,7 @@ use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,7 +59,7 @@ class AffichageSortieController extends Controller
         //GESTION DES ETATS en fonction de la date
         $today = (new \DateTime('now'))->setTime(0, 0, 0);
         foreach ($sorties as $sortie) {
-            if($sortie->getEtat()->getLibelle() !== 'Annulée'){
+            if(($sortie->getEtat()->getLibelle() !== 'Annulée') and ($sortie->getEtat()->getLibelle() !== 'Créée')){
             if (($sortie->getDateDebut() >= $sortie->getDateCloture()) && (count($sortie->getInscriptions()) < $sortie->getNbInscription()) && ($sortie->getDateCloture() > $today)) {
                 //ouvert
 
@@ -155,7 +157,6 @@ class AffichageSortieController extends Controller
         $sites = $manager->getRepository(Site::class)->findAll();
         //Associe la requête et le FormType
         $formSortie->handleRequest($request);
-
         //Test de la validation du formulaire
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
             dump($Sortie);
@@ -170,13 +171,13 @@ class AffichageSortieController extends Controller
 
             if ($Sortie->getDateDebut() <= $Sortie->getDateCloture() || (count($Sortie->getInscriptions()) < $Sortie->getNbInscription())) {
                 //ouvert
-                $etat = $manager->getRepository(Etat::class)->find(1);
+                $etat = $manager->getRepository(Etat::class)->find(2);
                 $Sortie->setEtat($etat);
                 $manager->persist($Sortie);
             }
             if ($Sortie->getDateDebut() == $today) {
                 //En cours
-                $etat = $manager->getRepository(Etat::class)->find(2);
+                $etat = $manager->getRepository(Etat::class)->find(4);
                 $Sortie->setEtat($etat);
                 $manager->persist($Sortie);
             }
@@ -188,7 +189,7 @@ class AffichageSortieController extends Controller
             }
             if (($Sortie->getDateDebut() < $today) && ($Sortie->getDateCloture() < $today)) {
                 //passée
-                $etat = $manager->getRepository(Etat::class)->find(4);
+                $etat = $manager->getRepository(Etat::class)->find(5);
                 $Sortie->setEtat($etat);
                 $manager->persist($Sortie);
             }
@@ -211,5 +212,42 @@ class AffichageSortieController extends Controller
 
 
         ]);
+    }
+
+    /**
+     * @Route("/annulerSortie/{id}", name="annuler_sortie", requirements={"\d+"})
+     * @param Sortie $sortie
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse|Response
+     */
+
+    public function annulerSortie( Sortie $sortie, Request $request, EntityManagerInterface $em){
+        $etat = $em->getRepository(Etat::class)->find(6);
+        $formAnnulation = $this->createForm(FormAnnulationType::class, $sortie);
+        $formAnnulation->handleRequest($request);
+        if($formAnnulation->isSubmitted() && $formAnnulation->isValid()){
+            $sortie->setEtat($etat);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('success', 'La sortie a été annulée');
+            return $this->redirectToRoute('sortie_list');
+        }
+
+        return $this->render('affichage_sortie/annulerSortie.html.twig', [
+            'formAnnulation' => $formAnnulation->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/sorties/publier/{id}", name="publier_sortie", requirements={"id": "\d+"})
+     */
+
+    public function publierSortie(Sortie $sortie, EntityManagerInterface $em){
+        $etat = $em->getRepository(Etat::class)->find(2);
+        $sortie->setEtat($etat);
+        $em->persist($sortie);
+        $em->flush();
+        $this->addFlash('success', 'Sortie publiée');
+        return $this->redirectToRoute('sortie_list');
     }
 }
