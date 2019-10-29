@@ -102,6 +102,8 @@
                 </thead>
                 <tbody>
                 {% for sortie in sorties %}
+                    <!-- n'affiche que les sorties non archivées -->
+                    {% if (sortie.dateDebut > oneMonthAgo) %}
                     <!-- verifie si l'utilisateur courant est inscrit à la sortie courante -->
                     {% set estInscrit = 'false' %}
                     {% for s in sortie.inscriptions %}
@@ -144,6 +146,7 @@
                             {% endif %}
                         </td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>

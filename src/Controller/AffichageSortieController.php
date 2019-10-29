@@ -51,6 +51,9 @@ class AffichageSortieController extends Controller
         $sortPasInsc = $request->request->get("sortPasInsc");
         $sortPass = $request->request->get("sortPass");
 
+        // Date d'archivage
+        $oneMonthAgo = ((new \DateTime('now -1 month'))->setTime(0,0,0));
+
         //GESTION DES ETATS en fonction de la date
         $today = (new \DateTime('now'))->setTime(0, 0, 0);
         foreach ($sorties as $sortie) {
@@ -106,6 +109,7 @@ class AffichageSortieController extends Controller
                 'sortInsc' => $sortInsc,
                 'sortPasInsc' => $sortPasInsc,
                 'sortPass' =>$sortPass,
+                'oneMonthAgo' => $oneMonthAgo
 
             ]);
     }
@@ -137,6 +141,8 @@ class AffichageSortieController extends Controller
     public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, User $u, UserRepository $repo, VilleRepository $villeRepository)
     {
         $user = $repo->find($u);
+
+
 
         $formSortie = $this->createForm(ModifierSortieType::class, $Sortie);
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
@@ -196,6 +202,7 @@ class AffichageSortieController extends Controller
             'sites' => $sites,
             'user' => $user,
             'villes' => $villeRepository->findAll(),
+
 
         ]);
     }

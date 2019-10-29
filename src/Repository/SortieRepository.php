@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -127,5 +128,16 @@ class SortieRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
         return $queryBuilder;
+    }
+
+
+    public function findByDateArchive(){
+        $oneMonthAgo = ((new \DateTime('now -1 month'))->setTime(0,0,0));
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.dateDebut <= :oneMonthAgo')
+            ->setParameter('oneMonthAgo', $oneMonthAgo)
+            ->getQuery()
+            ->getResult();
+        return $qb;
     }
 }

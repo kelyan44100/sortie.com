@@ -52,6 +52,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('site_ajout') }}">SITES</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('sortie_archives') }}">ARCHIVES</a>
+                        </li>
+
                     {% endif %}
                     {% if is_granted("ROLE_USER") or is_granted("ROLE_ADMIN")  %}
 
