@@ -89,12 +89,12 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Your password must not blank")
+     * @Assert\NotBlank(message="Ce chant est requis")
      * @Assert\Length(
      *      min = 6,
      *      max = 4096,
-     *      minMessage = "Your password must be at least {{ limit }} characters long",
-     *      maxMessage = "Your password cannot be longer than {{ limit }} characters"
+     *      minMessage = "Vôtre mot de passe doit contenir {{ limit }} au minimum",
+     *      maxMessage = "Vôtre mot de passe doit contenir {{ limit }} au maximum"
      * )
      */
     private $password;
