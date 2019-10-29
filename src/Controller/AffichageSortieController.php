@@ -85,12 +85,18 @@ class AffichageSortieController extends Controller
         //Récupération des toutes les filtres
         if($request->request->get("site-select") or $request->request->get("search-bar") or $request->request->get("date-entre") or $request->request->get("date-et")
         or $request->request->get("sortOrg") or $request->request->get("sortInsc") or $request->request->get("sortPasInsc") or $request->request->get("sortPass")){
-
+    dump($dateEntre);
         /* Filtres sur les sorties*/
             $sorties = $sortieRepository->findSortieByCriteria($siteSelect, $searchBar, $dateEntre, $dateEt);
-            if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass){
+            if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass ){
                 $sorties = $sortieRepository->findSortieByCheckbox($sortOrg, $sortInsc,$user, $sortPasInsc, $sortPass);
             }
+            if ($sortInsc and $sortPasInsc){
+                $sorties = $sortieRepository->findSortieByCheckbox($sortOrg, $sortInsc,$user, $sortPasInsc, $sortPass);
+            }
+            //($sortOrg and $sortInsc) or ($sortInsc and $sortPasInsc)
+            //            or ($sortPasInsc and $sortPass) or ($sortOrg and $sortPass) or ($sortOrg and $sortPasInsc) or ($sortInsc and $sortPass)
+            //            or ($sortOrg and $sortInsc and $sortPasInsc) or ($sortOrg and $sortInsc and $sortPass) or ($sortOrg and $sortInsc and $sortPasInsc and $sortPass)
         }
 
         return $this->render("affichage_sortie/list.html.twig",

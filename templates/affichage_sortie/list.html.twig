@@ -39,12 +39,12 @@
                             <div class="col-lg">
                                 <label for="entre" class="col-lg form-label">Entre </label>
                                 <input type="date" class="form-control" id="entre" name = "date-entre"
-                                value=" {% if dateEntre %} {% set selected = 'selected'%} {% endif %}">
+                                value=" {% if dateEntre  %} {{ dateEntre|date("d/m/Y") }} {% endif %}">
                             </div>
                             <div class="col-lg">
                                 <label for="et" class="col-lg form-label">et</label>
                                 <input type="date" class="form-control" id="et" name="date-et"
-                                value=" {% if dateEt %} {% set selected = 'selected'%} {% endif %}">
+                                value=" {% if dateEt %} {{ dateEt|date("d/m/Y") }} {% endif %}">
                             </div>
                         </div>
                     </div>
