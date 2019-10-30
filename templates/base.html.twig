@@ -23,7 +23,7 @@
 
 <body class="container">
     <header >
-        <h1 class="text-center font-weight-bolder my-0" ><a href="{{ path('main') }}" ><img alt="'logo" src={{ asset('images/icons8-chemin-96.png') }}></a>SORTIR.COM</h1>
+        <h1 class="text-center font-weight-bolder my-0" ><a href="{{ path('sortie_list') }}" ><img alt="'logo" src={{ asset('images/icons8-chemin-96.png') }}></a>SORTIR.COM</h1>
         <nav class="navbar navbar-expand-lg navbar-light my-0" id="nav">
             {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') or  is_granted('IS_AUTHENTICATED_FULLY')) %}
             <a class="navbar-brand">Bienvenue {{ app.user.Pseudo }} !</a>
