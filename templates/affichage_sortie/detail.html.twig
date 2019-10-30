@@ -2,6 +2,7 @@
 
 {% block main %}
     <h2 class="text-center py-3">Détail de la sortie</h2>
+    <h5 class="text-center pb-2">Etat de sortie : {{ sortie.etat }}</h5>
     <div class="row justify-content-center ml-2">
         <div class="col-12 col-sm-6 col-lg-3">
             <p class="font-weight-bolder"> Nom de la sortie :</p>
@@ -41,10 +42,16 @@
             {{ sortie.lieu.rue }}
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p class="font-weight-bolder"> Nombre d'inscription :</p>
+            <p class="font-weight-bolder"> Nombre d'inscriptions :</p>
         </div>
         <div class="col-sm-6 col-lg-3 mb-3">
-            {{ sortie.nbInscription }} Participants
+            {{ sortie.inscriptions|length }} Participants
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <p class="font-weight-bolder"> Nombre de places :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3 mb-3">
+            {{ sortie.nbInscription }} Places
         </div>
         <div class="col-sm-6 col-lg-3">
             <p class="font-weight-bolder"> Code Postal :</p>
@@ -98,20 +105,25 @@
     </div>
         <div class="row justify-content-center">
 
-                <div class="col-lg-6">
+                <div class="col-md-8">
                 <table class="table table-bordered table-striped">
                     <tbody>
                     {% for i in inscriptions %}
                         <tr>
-                            <td class="text-center">{{ i.participant.nom }} {{ i.participant.prenom }}</td>
+                            <td class="text-center">
+                                <a href="{{ path('profil_user', {'id' : i.participant.id} ) }}">
+                                {{ i.participant.nom }} {{ i.participant.prenom }}
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
                 </div>
-
         </div>
-
+    <div class="text-center my-3">
+        <a class="btn btn-outline-danger"  href="{{ path('sortie_list')}}">Retour</a>
+    </div>
 
 
 

@@ -26,7 +26,7 @@ class MonProfilController extends Controller
     }
 
     /**
-     * @Route("/profil/{id}", name="profil_organisateur", requirements={"id":"\d+"} )
+     * @Route("/profil/{id}", name="profil_user", requirements={"id":"\d+"} )
      */
     public function profil(EntityManagerInterface $em, User $u){
         $repo = $em->getRepository(User::class);
