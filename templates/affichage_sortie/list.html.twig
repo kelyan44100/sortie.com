@@ -154,7 +154,7 @@
     </div>
     <div class="text-center mt-5">
         {% if is_granted("ROLE_USER") %}
-            <a class="btn btn-success"  href="{{ path('Creation_add', {'id': app.user.id})}}">Créer une sortie</a>
+            <a class="btn btn-success"  href="{{ path('Creation_add')}}">Créer une sortie</a>
         {% endif %}
     </div>
 

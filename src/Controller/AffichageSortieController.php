@@ -150,9 +150,8 @@ class AffichageSortieController extends Controller
      */
     public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, UserRepository $repo, VilleRepository $villeRepository)
     {
+
         $user = $this->getUser();
-
-
 
         $formSortie = $this->createForm(ModifierSortieType::class, $Sortie);
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
