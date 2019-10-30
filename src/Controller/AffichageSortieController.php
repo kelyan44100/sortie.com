@@ -140,10 +140,17 @@ class AffichageSortieController extends Controller
 
     /**
      * @Route("/modifierSortie/{id}", name="modifier_Sortie", requirements={"id":"\d+"})
+     * @param Sortie $Sortie
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserRepository $repo
+     * @param VilleRepository $villeRepository
+     * @return RedirectResponse|Response
+     * @throws \Exception
      */
-    public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, User $u, UserRepository $repo, VilleRepository $villeRepository)
+    public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, UserRepository $repo, VilleRepository $villeRepository)
     {
-        $user = $repo->find($u);
+        $user = $this->getUser();
 
 
 
@@ -157,46 +164,16 @@ class AffichageSortieController extends Controller
             dump($Sortie);
             dump($Sortie->getOrganisateur());
             $user = $this->getUser();
-            $Sortie->setOrganisateur($user);
             $Site = $Sortie->getOrganisateur()->getSite();
             $Sortie->setSite($Site);
-
-
-            $today = (new \DateTime('now'))->setTime(0, 0, 0);
-
-            if ($Sortie->getDateDebut() <= $Sortie->getDateCloture() || (count($Sortie->getInscriptions()) < $Sortie->getNbInscription())) {
-                //ouvert
-                $etat = $manager->getRepository(Etat::class)->find(2);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-            if ($Sortie->getDateDebut() == $today) {
-                //En cours
-                $etat = $manager->getRepository(Etat::class)->find(4);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-            if ($Sortie->getDateCloture() < $today || (count($Sortie->getInscriptions()) == $Sortie->getNbInscription())) {
-                //cloturée
-                $etat = $manager->getRepository(Etat::class)->find(3);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-            if (($Sortie->getDateDebut() < $today) && ($Sortie->getDateCloture() < $today)) {
-                //passée
-                $etat = $manager->getRepository(Etat::class)->find(5);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-
 
             $manager->persist($Sortie);
             $manager->flush();
 
             //Messages gérés en session
-            $this->addFlash('success', 'La sortie à bien été modifié');
+            $this->addFlash('success', 'La sortie à bien été modifiée');
 
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('sortie_list');
         }
         return $this->render('affichage_sortie/modifierSortie.html.twig', [
             'formSortie' => $formSortie->createView(),
@@ -229,6 +206,7 @@ class AffichageSortieController extends Controller
         }
 
         return $this->render('affichage_sortie/annulerSortie.html.twig', [
+            'sortie' => $sortie,
             'formAnnulation' => $formAnnulation->createView()
         ]);
     }

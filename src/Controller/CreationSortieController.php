@@ -58,13 +58,13 @@ class CreationSortieController extends Controller
             $manager->flush();
 
             //Messages gérés en session
-            $this->addFlash('success', 'La série a été ajoutée');
+            $this->addFlash('success', 'La sortie a été ajoutée');
 
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('sortie_list');
         }
         return $this->render('creation_sortie/index.html.twig', [
             'formSortie' => $formSortie->createView(),
-//            'villes' => $villes,
+//          'villes' => $villes,
             'lieux' => $lieux,
             'sites' => $sites,
             'user' => $user,
