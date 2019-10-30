@@ -23,12 +23,19 @@
                                         <ion-icon  size="large" name="create"></ion-icon>
                                     </a>
                                 </div>
+                                {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')) and ville.lieux|length == 0 %}
                                 <div class="col-6">
-                                    <a class=" " title="Supprimer la ville" href="{{ path('ville_supp', {'id' : ville.id }) }}">
+                                    <a title="Supprimer la ville" href="{{ path('ville_supp', {'id' : ville.id }) }}">
                                         <ion-icon size="large" name="trash"></ion-icon>
                                     </a>
                                 </div>
+                                {% else %}
+                                    <span title="Supprimer la ville" >
+                                        <ion-icon size="large" name="trash"></ion-icon>
+                                    </span>
+                                {% endif %}
                             </div>
+
                         </div>
                     </td>
                 </tr>
@@ -67,6 +74,10 @@
             </tbody>
         </table>
     </div>
+    <span class="mt-5" title="Supprimer la ville" >
+        * <ion-icon  name="trash"></ion-icon>
+        Vous ne pouvez pas supprimer la ville si celle-ci est associée aux lieux!
+    </span>
 </div>
 {% endblock %}
 

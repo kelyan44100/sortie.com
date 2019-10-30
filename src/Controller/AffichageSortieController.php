@@ -205,6 +205,7 @@ class AffichageSortieController extends Controller
         }
 
         return $this->render('affichage_sortie/annulerSortie.html.twig', [
+            'sortie' => $sortie,
             'formAnnulation' => $formAnnulation->createView()
         ]);
     }

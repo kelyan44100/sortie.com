@@ -18,6 +18,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <!--script pour désactiver les checkbox-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
@@ -51,13 +53,13 @@
                     {% if is_granted("ROLE_ADMIN") %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_register') }}">S'INSCRIRE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('site_ajout') }}">SITES</a>
+                            <a class="nav-link" href="{{ path('app_register') }}">INSCRIPTION</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('sortie_archives') }}">ARCHIVES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('site_ajout') }}">SITES</a>
                         </li>
 
                     {% endif %}
