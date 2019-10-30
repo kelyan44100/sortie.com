@@ -177,9 +177,6 @@ class AffichageSortieController extends Controller
         $formSortie->handleRequest($request);
         //Test de la validation du formulaire
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
-            dump($Sortie);
-            dump($Sortie->getOrganisateur());
-            $user = $this->getUser();
             $Site = $Sortie->getOrganisateur()->getSite();
             $Sortie->setSite($Site);
 
@@ -187,7 +184,7 @@ class AffichageSortieController extends Controller
             $manager->flush();
 
             //Messages gérés en session
-            $this->addFlash('success', 'La sortie à bien été modifiée');
+            $this->addFlash('success', 'La sortie a bien été modifiée');
 
             return $this->redirectToRoute('sortie_list');
         }

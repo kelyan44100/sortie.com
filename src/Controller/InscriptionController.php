@@ -41,8 +41,6 @@ class InscriptionController extends Controller
         $inscription->setDateInscription($today);
 
         //update de la sortie
-        $nbInscriptions = $sortie->getNbInscription();
-        $sortie->setNbInscription($nbInscriptions+1);
 
         $em->persist($inscription);
         $em->flush();
