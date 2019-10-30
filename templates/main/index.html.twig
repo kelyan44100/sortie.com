@@ -8,5 +8,6 @@
         {% if is_granted("ROLE_USER") %}
         <a class="btn btn-outline-success" type="button" href="{{ path('Creation_add', {'id': app.user.id})}}">Créer une sortie</a>
         {% endif %}
+
     </div>
 {% endblock %}

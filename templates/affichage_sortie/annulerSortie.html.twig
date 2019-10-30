@@ -5,6 +5,7 @@
     <h2 class="text-center mt-2">Annuler une Sortie</h2>
 
         <div class="col-lg-8 justify-content-center">
+            {{ sortie.nom }}
             {% form_theme formAnnulation 'bootstrap_4_layout.html.twig' %}
             {{ form_start(formAnnulation) }}
 

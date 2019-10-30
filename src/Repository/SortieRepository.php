@@ -67,7 +67,7 @@ class SortieRepository extends ServiceEntityRepository
         return (new \DateTime('now'))->setTime(0, 0, 0);
     }
 
-    public function findSortieByCriteria($site, $nomContient, $dateEntre, $dateEt)
+    public function findSortieByCriteria($site, $nomContient, $dateEntre, $dateEt, $organisateur, $mesInscriptions, $userEnCours, $pasInscrit, $sortiesPassees)
     {
         $queryBuilder = $this->createQueryBuilder('sortie');
         //site
@@ -86,40 +86,32 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('valDateDebut', $dateEntre)
                 ->setParameter('valDateFin', $dateEt);
         }
-        $queryBuilder = $queryBuilder->orderBy('sortie.dateDebut', 'DESC')
-            //->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-        return $queryBuilder;
-    }
 
-    public function findSortieByCheckbox($organisateur, $mesInscriptions, $userEnCours, $pasInscrit, $sortiesPassees)
-    {
-        $queryBuilder = $this->createQueryBuilder('sortie');
         //dont je suis l'organisateur/trice
-        dump($organisateur);
         if ($organisateur != null) {
-            $queryBuilder = $queryBuilder->andWhere('sortie.organisateur = :valOrganisateur')
-
+            $queryBuilder->andWhere('sortie.organisateur = :valOrganisateur')
                 ->setParameter('valOrganisateur', $userEnCours);
         }
         //auxquelles je suis inscrit/e
         if ($mesInscriptions != null) {
-            $queryBuilder = $queryBuilder->innerJoin('sortie.inscriptions', 'inscriptions', 'WITH', 'inscriptions.participant = :valParticipant')
+            $queryBuilder->innerJoin('sortie.inscriptions', 'inscriptions', 'WITH', 'inscriptions.participant = :valParticipant')
                 ->setParameter('valParticipant', $userEnCours);
         }
         //auxquelles je ne suis pas inscrit/e
         if ($pasInscrit != null) {
             // Toutes les sorties de l'utilisateur
-            $queryBuilder2 = $this->createQueryBuilder('sortie2');
-            $queryBuilder2 = $queryBuilder2->select('sortie2.id');
-            $queryBuilder2 = $queryBuilder2->innerJoin('sortie2.inscriptions', 'inscriptions2', 'WITH', 'inscriptions2.participant = :valParticipant2');
-            $queryBuilder = $queryBuilder->andWhere($queryBuilder->expr()->notIn('sortie.id', $queryBuilder2->getDQL()));
-            $queryBuilder->setParameter('valParticipant2', $userEnCours);
+            $queryBuilder2 = $this->createQueryBuilder('sortie2')
+            ->select('sortie2.id')
+            ->innerJoin('sortie2.inscriptions', 'inscriptions2', 'WITH', 'inscriptions2.participant = :valParticipant2');
+            $queryBuilder->andWhere($queryBuilder->expr()->notIn('sortie.id', $queryBuilder2->getDQL()))
+            ->setParameter('valParticipant2', $userEnCours);
+            /*$queryBuilder
+                ->andWhere(':valParticipant NOT MEMBER OF sortie.inscriptions')
+                ->setParameter('valParticipant', $userEnCours);*/
         }
         //Sorties passées
         if ($sortiesPassees != null) {
-            $queryBuilder = $queryBuilder ->innerjoin('sortie.etat', 'etat', 'WITH', 'etat.libelle = :valLibelle')
+            $queryBuilder ->innerjoin('sortie.etat', 'etat', 'WITH', 'etat.libelle = :valLibelle')
                 ->setParameter('valLibelle', "Passée");
         }
 

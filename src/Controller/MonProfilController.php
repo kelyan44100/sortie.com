@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\MonProfilType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\File;
@@ -17,16 +18,24 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class MonProfilController extends Controller
 {
     /**
-     * @Route("/monProfil", name="mon_profil")
+     * @Route("/profil/monProfil", name="profil")
      */
     public function monProfil(){
         $user = $this->getUser();
-        return $this->render('mon_profil/monProfil.html.twig', ['user'=>$user] );
+        return $this->render('profil/monProfil.html.twig', ['user'=>$user] );
     }
 
+    /**
+     * @Route("/profil/{id}", name="profil_organisateur", requirements={"id":"\d+"} )
+     */
+    public function profil(EntityManagerInterface $em, User $u){
+        $repo = $em->getRepository(User::class);
+        $user = $repo->find($u);
+        return $this->render('profil/profil.html.twig', ['user'=>$user] );
+    }
 
     /**
-     * @Route("/monProfil/update/", name="mon_profil_update")
+     * @Route("/profil/monProfil/update/", name="mon_profil_update")
      */
     public function updateMonProfil(Request $request, ObjectManager $manager, UserRepository $repo, UserPasswordEncoderInterface $passwordEncoder){
 
@@ -78,12 +87,12 @@ class MonProfilController extends Controller
                 $manager->persist($user);
                 $manager->flush();
                 $this->addFlash('success', 'Your profile successfully updated!' );
-                //return $this->redirectToRoute('mon_profil');
+                //return $this->redirectToRoute('profil');
             }else{
                 $this->addFlash('warning', 'Une erreur est arriver' );
             }
         }
-        return $this->render('mon_profil/updateMonProfil.html.twig', [
+        return $this->render('profil/updateMonProfil.html.twig', [
             'user'=>$user,
             'formMonProfil'=>$formMonProfil->createView()
         ]);
