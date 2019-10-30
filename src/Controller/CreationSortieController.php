@@ -28,12 +28,12 @@ class CreationSortieController extends Controller
     }
 
     /**
-     * @Route("/Creation/add/{id}", name="Creation_add", requirements={"id":"\d+"})
+     * @Route("/Creation/add", name="Creation_add")
      */
-    public function add(Request $request, EntityManagerInterface $manager, User $u, UserRepository $repo, VilleRepository $villeRepository)
+    public function add(Request $request, EntityManagerInterface $manager, UserRepository $repo, VilleRepository $villeRepository)
     {
 
-        $user = $repo->find($u);
+        $user = $this->getUser();
         $Sortie = new Sortie();
         $etat = $manager->getRepository(Etat::class)->find(1);
         $formSortie = $this->createForm(CreationSortieType::class, $Sortie);

@@ -60,42 +60,42 @@ class AffichageSortieController extends Controller
         $today = (new \DateTime('now'))->setTime(0, 0, 0);
         foreach ($sorties as $sortie) {
             if(($sortie->getEtat()->getLibelle() !== 'Annulée') and ($sortie->getEtat()->getLibelle() !== 'Créée')){
-            if (($sortie->getDateDebut() >= $sortie->getDateCloture()) && (count($sortie->getInscriptions()) < $sortie->getNbInscription()) && ($sortie->getDateCloture() > $today)) {
-                //ouvert
+                if (($sortie->getDateDebut() >= $sortie->getDateCloture()) && (count($sortie->getInscriptions()) < $sortie->getNbInscription()) && ($sortie->getDateCloture() > $today)) {
+                    //ouvert
 
-                $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'Ouverte']);
-                $sortie->setEtat($etat);
-                $em->persist($sortie);
-            } elseif (($sortie->getDateDebut() == $today) && (((count($sortie->getInscriptions()) > 0)) || (count($sortie->getInscriptions()) == $sortie->getNbInscription()))) {
+                    $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'Ouverte']);
+                    $sortie->setEtat($etat);
+                    $em->persist($sortie);
+                } elseif (($sortie->getDateDebut() == $today) && (((count($sortie->getInscriptions()) > 0)) || (count($sortie->getInscriptions()) == $sortie->getNbInscription()))) {
 
-                //En cours
-                $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'En cours']);
-                $sortie->setEtat($etat);
-                $em->persist($sortie);
-            } elseif (($sortie->getDateDebut() !== $today) && (count($sortie->getInscriptions()) !== 0) && (($sortie->getDateCloture() <= $today) || (count($sortie->getInscriptions()) == $sortie->getNbInscription()))) {
-                //cloturée
+                    //En cours
+                    $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'En cours']);
+                    $sortie->setEtat($etat);
+                    $em->persist($sortie);
+                } elseif (($sortie->getDateDebut() !== $today) && (count($sortie->getInscriptions()) !== 0) && (($sortie->getDateCloture() <= $today) || (count($sortie->getInscriptions()) == $sortie->getNbInscription()))) {
+                    //cloturée
 
-                $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'Clôturée']);
-                $sortie->setEtat($etat);
-                $em->persist($sortie);
-            } else {
-                //Passée
-                $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'Passée']);
-                $sortie->setEtat($etat);
-                $em->persist($sortie);
+                    $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'Clôturée']);
+                    $sortie->setEtat($etat);
+                    $em->persist($sortie);
+                } else {
+                    //Passée
+                    $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'Passée']);
+                    $sortie->setEtat($etat);
+                    $em->persist($sortie);
+                }
+                $em->flush();
             }
-            $em->flush();
-        }
         }
         //Récupération des toutes les filtres
         if($request->request->get("site-select") or $request->request->get("search-bar") or $request->request->get("date-entre") or $request->request->get("date-et")
-        or $request->request->get("sortOrg") or $request->request->get("sortInsc") or $request->request->get("sortPasInsc") or $request->request->get("sortPass")){
-        dump($dateEntre);
-        /* Filtres sur les sorties*/
+            or $request->request->get("sortOrg") or $request->request->get("sortInsc") or $request->request->get("sortPasInsc") or $request->request->get("sortPass")){
+            dump($dateEntre);
+            /* Filtres sur les sorties*/
             $sorties = $sortieRepository->findSortieByCriteria($siteSelect, $searchBar, $dateEntre, $dateEt, $sortOrg, $sortInsc,$user, $sortPasInsc, $sortPass);
-           /* if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass ){
-                $sorties = $sortieRepository->findSortieByCheckbox();
-            }*/
+            /* if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass ){
+                 $sorties = $sortieRepository->findSortieByCheckbox();
+             }*/
 
         }
 
@@ -123,6 +123,19 @@ class AffichageSortieController extends Controller
 
     public function detail(int $id, InscriptionRepository $InscriptionRepository, EntityManagerInterface $em)
     {
+        $user = $this->getUser();
+        $roles = $user->getRoles();
+//        $admin = $this->isGranted("ROLE_ADMIN");
+
+//        foreach($roles as $r){
+//            if($r == '[\"ROLE_ADMIN\"]'){
+//                $admin = true;
+//            }
+//    }
+
+
+
+
         $repo = $em->getRepository(Sortie::class);
         $sortie = $repo->find($id);
 
@@ -150,9 +163,12 @@ class AffichageSortieController extends Controller
      */
     public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, UserRepository $repo, VilleRepository $villeRepository)
     {
+
         $user = $this->getUser();
 
-
+        if(($user->getId() != $Sortie->getOrganisateur()->getId()) and (!$this->isGranted("ROLE_ADMIN"))){
+            return $this->redirectToRoute('sortie_list');
+        }
 
         $formSortie = $this->createForm(ModifierSortieType::class, $Sortie);
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
