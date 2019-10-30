@@ -151,8 +151,8 @@
                                         <ion-icon name="checkmark-circle-outline"></ion-icon>
                                     </a>
                                 {% endif %}
-                                <!-- L'administrateur ou l'organisateur peuvent annuler une sortie créée ou ouverte -->
-                                {% if (is_granted('ROLE_ADMIN') or sortie.organisateur.id == user.id) and (sortie.etat.id == 1 or sortie.etat.id == )  %}
+                                <!-- L'administrateur ou l'organisateur peuvent modifiée une sortie créée ou ouverte -->
+                                {% if ((is_granted('ROLE_ADMIN') or sortie.organisateur.id == user.id) and (sortie.etat.id == 1))  %}
                                     <a title="Modifier" href="{{ path('modifier_Sortie', {'id' : sortie.id}) }}">
                                         <ion-icon name="create"></ion-icon>
                                     </a>
