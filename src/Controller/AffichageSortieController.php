@@ -8,6 +8,7 @@ use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Entity\Ville;
 use App\Form\FormAnnulationType;
 use App\Form\ModifierSortieType;
 use App\Repository\InscriptionRepository;
@@ -153,7 +154,7 @@ class AffichageSortieController extends Controller
 
     /**
      * @Route("/modifierSortie/{id}", name="modifier_Sortie", requirements={"id":"\d+"})
-     * @param Sortie $Sortie
+     * @param Sortie $sortie
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param UserRepository $repo
@@ -161,26 +162,30 @@ class AffichageSortieController extends Controller
      * @return RedirectResponse|Response
      * @throws \Exception
      */
-    public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, UserRepository $repo, VilleRepository $villeRepository)
+    public function modifierSortie(Sortie $sortie, Request $request, EntityManagerInterface $manager, VilleRepository $villeRepository)
     {
 
         $user = $this->getUser();
 
-        if(($user->getId() != $Sortie->getOrganisateur()->getId()) and (!$this->isGranted("ROLE_ADMIN"))){
+        if(($user->getId() != $sortie->getOrganisateur()->getId()) and (!$this->isGranted("ROLE_ADMIN"))){
             return $this->redirectToRoute('sortie_list');
         }
 
-        $formSortie = $this->createForm(ModifierSortieType::class, $Sortie);
+        $formSortie = $this->createForm(ModifierSortieType::class, $sortie);
+        $villes =$manager->getRepository(Ville::class)->findAll();
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
         $sites = $manager->getRepository(Site::class)->findAll();
         //Associe la requête et le FormType
         $formSortie->handleRequest($request);
         //Test de la validation du formulaire
-        if ($formSortie->isSubmitted() && $formSortie->isValid()) {
-            $Site = $Sortie->getOrganisateur()->getSite();
-            $Sortie->setSite($Site);
 
-            $manager->persist($Sortie);
+        dump($request->request);
+        if ($formSortie->isSubmitted() && $formSortie->isValid()) {
+            $Site = $sortie->getOrganisateur()->getSite();
+            $sortie->setSite($Site);
+            //$lieu = $request->request->get("creation_sortie[lieu]");
+            //$sortie->setLieu($lieu);
+            $manager->persist($sortie);
             $manager->flush();
 
             //Messages gérés en session
@@ -193,7 +198,7 @@ class AffichageSortieController extends Controller
             'lieux' => $lieux,
             'sites' => $sites,
             'user' => $user,
-            'villes' => $villeRepository->findAll(),
+            'villes' => $villes,
 
 
         ]);

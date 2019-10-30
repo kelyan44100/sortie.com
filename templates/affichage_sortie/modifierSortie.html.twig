@@ -23,21 +23,22 @@
                 {{ form_row(formSortie.dateCloture, {'attr': {'id': 'datepicker'}})}}
                 {{ form_row(formSortie.nbInscription) }}
                 {{ form_row(formSortie.duree) }}
-                {{ form_row(formSortie.description) }}
+                {{ form_row(formSortie.description,{'attr': {'class': 'textarea'}} ) }}
             </div>
 
             <div class="form-group col-md-6">
-                <label>Ville :</label>
+                <label for="villes">Ville :</label>
                 <select class="custom-select" id="villes">
                     <option>-------</option>
                     {% for ville in villes %}
                         <option value="{{ ville.id }}">{{ ville.nomVille }}</option>
                     {% endfor %}
                 </select>
-                {{ form_label(formSortie.lieu) }}
-                <div class="form-row">
+
+                <label class="mt-3" for="modifier_sortie_lieu">Lieu :</label>
+                <div class="form-row ">
                     <div class=" form-group col-md-11">
-                        <select class="custom-select" name="creation_sortie[lieu]" id="creation_sortie_lieu">
+                        <select class="custom-select" name="modifier_sortie[lieu]" id="modifier_sortie_lieu">
                             <option>-------</option>
                         </select>
                     </div>
@@ -48,27 +49,30 @@
                         </a>
                     </div>
                 </div>
-
-                <label for="maRue" >Rue :</label>
-                <div id="maRue">
-                    <input type="text" id="maRue" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="maRue" >Rue :</label>
+                    <div id="maRue">
+                        <input type="text" id="maRue" class="form-control" readonly>
+                    </div>
                 </div>
-
-                <label for="code_postal">Code postal :</label>
-                <div id="monCP">
-                    <input type="text" id="code_postal" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="code_postal">Code postal :</label>
+                    <div id="monCP">
+                        <input type="text" id="code_postal" class="form-control" readonly>
+                    </div>
                 </div>
-
-                <label for="latitude">Latitude :</label>
-                <div id="maLati">
-                    <input type="text" id="latitude" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="latitude">Latitude :</label>
+                    <div id="maLati">
+                        <input type="text" id="latitude" class="form-control" readonly>
+                    </div>
                 </div>
-
-                <label for="longitude">Longitude :</label>
-                <div id="maLongi">
-                    <input type="text" id="longitude" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="longitude">Longitude :</label>
+                    <div id="maLongi">
+                        <input type="text" id="longitude" class="form-control" readonly>
+                    </div>
                 </div>
-
         </div>
 
         </div>
@@ -98,18 +102,18 @@
 
         <script>
             $('#villes').change(function () {
-                $('#creation_sortie_lieu').empty();
-                $('#creation_sortie_lieu').append('<option>-------</option>')
+                $('#modifier_sortie_lieu').empty();
+                $('#modifier_sortie_lieu').append('<option>-------</option>')
                 $.get('/ajax/' + $(this).val())
                     .done(function (data) {
                         $.each(data, function (key, lieu) {
-                            $('#creation_sortie_lieu').append('<option value="' + lieu.id + '">' + lieu.nom_lieu + '</option>')
+                            $('#modifier_sortie_lieu').append('<option value="' + lieu.id + '">' + lieu.nom_lieu + '</option>')
                         });
                     });
             });
 
 
-            $('#creation_sortie_lieu').change(function () {
+            $('#modifier_sortie_lieu').change(function () {
                 $.ajax({
                     method: "GET",
                     url: "http://sortir.local/ajax2/" + $(this).val(),
@@ -124,7 +128,7 @@
 
             });
 
-            $('#creation_sortie_lieu').change(function () {
+            $('#modifier_sortie_lieu').change(function () {
                 $.ajax({
                     method: "GET",
                     url: "http://sortir.local/ajax3/" + $(this).val(),
@@ -139,7 +143,7 @@
 
             });
 
-            $('#creation_sortie_lieu').change(function () {
+            $('#modifier_sortie_lieu').change(function () {
                 $.ajax({
                     method: "GET",
                     url: "http://sortir.local/ajax2/" + $(this).val(),
@@ -154,7 +158,7 @@
 
             });
 
-            $('#creation_sortie_lieu').change(function () {
+            $('#modifier_sortie_lieu').change(function () {
                 $.ajax({
                     method: "GET",
                     url: "http://sortir.local/ajax2/" + $(this).val(),

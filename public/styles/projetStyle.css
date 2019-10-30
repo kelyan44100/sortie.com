@@ -12,7 +12,10 @@ body{
     padding: 20px 10px 80px  ;
 
 }
-
+.textarea {
+    padding: 40px;
+    letter-spacing: 1px;
+}
 
 #footer{
     color: saddlebrown;

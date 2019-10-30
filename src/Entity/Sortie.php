@@ -87,6 +87,7 @@ class Sortie
 
     /**
      * @var Lieu
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
     private $lieu;

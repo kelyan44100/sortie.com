@@ -31,7 +31,7 @@ class ModifierSortieType extends AbstractType
             ->add('dateDebut', DateType::class, [
                 'label' => 'Date de début : ',
                 'widget' =>'single_text'])
-            ->add('duree', null, ['label' => 'Durée : '])
+
             ->add('duree', ChoiceType::class, ['label' => 'Durée : ',
                 'choices' => [
                     '30 minutes' => '30',

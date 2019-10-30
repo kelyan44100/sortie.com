@@ -29,25 +29,9 @@ class MonProfilType extends AbstractType
             ->add('nom', TextType::class, ['label'=>'Nom', "empty_data" => ''])
             ->add('telephone', TelType::class, ['label'=>'Téléphone', "empty_data" => ''])
             ->add('email',EmailType::class, ['label'=>'Email', "empty_data" => ''])
-//            ->add('password', RepeatedType::class, [
-//                'type' => PasswordType::class,
-//                'first_options'  => array('label' => 'Password'),
-//                'second_options' => array('label' => 'Vôtre ancien mot de passe'),
-//                'invalid_message' => 'Your passwords do not match!',
-//                'constraints' => [
-//                    new NotBlank([
-//                        'message' => 'Please enter a password',
-//                    ]),
-//                    new Length([
-//                        'min' => 6,
-//                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-//                        // max length allowed by Symfony for security reasons
-//                        'max' => 4096,
-//                    ]),
-//                ],
-//            ])
+
             ->add('oldPassword', PasswordType::class, array(
-                'label' => 'Ancien MDP',
+                'label' => 'Ancien mot de passe',
                 'mapped' => false,
             ))
             ->add('passwordPlain', RepeatedType::class, array(
@@ -55,7 +39,7 @@ class MonProfilType extends AbstractType
                 'required' => false,
                 'mapped' => false,
                 'first_options'  => array('label' => 'Nouveau mot de passe'),
-                'second_options' => array('label' => 'Confirmer vôtre mot de passe'),
+                'second_options' => array('label' => 'Confirmation mot de passe'),
                 'invalid_message' => 'Les deux mots de passe doivent être identiques',
                 'options' => array(
                     'attr' => array(
@@ -64,21 +48,7 @@ class MonProfilType extends AbstractType
                 ),
 
             ))
-            /*->add('site', EntityType::class, [
-                'class'=> Site::class,
-                //Attribut utilisé pour l'affichage
-                //'choice_label' => 'nom_site',
-                'choice_label' => function($site){
-                    return $site->getNomSite();
-                },
-                'attr' => [
-                  'readonly'=> 'readonly'
-                ],
-                //Fait une requête particulière
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c');
-                }
-            ])*/
+
             ->add('fileTemp', FileType::class, [
                 'label'=> 'Ma photo',
                 'mapped' => false,

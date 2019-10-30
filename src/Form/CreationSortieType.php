@@ -34,7 +34,7 @@ class CreationSortieType extends AbstractType
             ->add('dateDebut', DateType::class, [
                 'label' => 'Date de début de la sortie : ',
                 'widget' =>'single_text'])
-            ->add('duree', null, ['label' => 'Durée : '])
+
             ->add('duree', ChoiceType::class, [
                 'label' => "Durée : ",
                 'choices' => [
