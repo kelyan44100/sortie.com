@@ -51,13 +51,13 @@
                     {% if is_granted("ROLE_ADMIN") %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_register') }}">S'INSCRIRE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('site_ajout') }}">SITES</a>
+                            <a class="nav-link" href="{{ path('app_register') }}">INSCRIPTION</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('sortie_archives') }}">ARCHIVES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('site_ajout') }}">SITES</a>
                         </li>
 
                     {% endif %}

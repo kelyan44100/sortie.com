@@ -21,9 +21,15 @@
                                             </a>
                                         </div>
                                         <div class="col-6">
-                                            <a class=" " title="Supprimer le site" href="{{ path('site_supp', {'id' : site.id }) }}">
-                                                <ion-icon size="large" name="trash"></ion-icon>
-                                            </a>
+                                            {% if is_granted('ROLE_ADMIN') and site.sorties|length == 0 %}
+                                                <a  title="Supprimer le site" href="{{ path('site_supp', {'id' : site.id }) }}">
+                                                    <ion-icon size="large" name="trash"></ion-icon>
+                                                </a>
+                                            {% else %}
+                                                <span  title="Supprimer le site" >
+                                                    <ion-icon size="large" name="trash"></ion-icon>
+                                                </span>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -61,6 +67,10 @@
                 </tbody>
             </table>
         </div>
+        <span class="mt-5" title="Supprimer la ville" >
+        * <ion-icon  name="trash"></ion-icon>
+        Vous ne pouvez pas supprimer le site s'il y a des utilisateurs rattachés à celui-ci !
+    </span>
     </div>
 {% endblock %}
 
