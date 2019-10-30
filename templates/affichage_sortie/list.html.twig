@@ -138,7 +138,7 @@
                                     <ion-icon name="log-in"></ion-icon>
                                 </a>
 
-                            {% elseif (sortie.etat.id == 2) and (sortie.organisateur.id != user.id) and (estInscrit == 'true')%}
+                            {% elseif ((sortie.etat.id == 2) or (sortie.etat.id == 3)) and (sortie.organisateur.id != user.id) and (estInscrit == 'true')%}
                                 <a title="Se désister" href="{{ path('sortie_desinscription', {'id' : sortie.id} ) }}">
                                     <ion-icon name="log-out"></ion-icon>
                                 </a>
