@@ -22,7 +22,8 @@ class Sortie
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @Assert\Length(max = 30,  maxMessage = "30 caractères maximum")
+     * @ORM\Column(type="string")
      */
     private $nom;
 
@@ -39,7 +40,7 @@ class Sortie
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Regex("/^[0-9]*$/", message="Entrer une latitude valide!")
+     * @Assert\Regex("/^[0-9]*$/", message="Entrez une latitude valide!")
      */
     private $nbInscription;
 
@@ -58,12 +59,14 @@ class Sortie
     private $dateCloture;
 
     /**
+     * @Assert\Length(max = 500,  maxMessage = "Description trop longue, 500 caractères max")
      * @ORM\Column(type="text", length=500, nullable=true)
      */
     private $description;
 
 
     /**
+     *@Assert\Length(max = 500,  maxMessage = "Description trop longue, 500 caractères max")
      * @ORM\Column(type="text", length=500, nullable=true)
      */
     private $motifAnnulation;
