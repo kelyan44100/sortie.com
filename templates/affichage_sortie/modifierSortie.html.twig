@@ -19,16 +19,11 @@
             </div>
 
             <div class="form-group col-md-6">
-                {{ form_label(formSortie.dateDebut) }}
-                {{ form_widget(formSortie.dateDebut,{'attr': {'id': 'datepicker'}} ) }}
-                {{ form_label(formSortie.dateCloture) }}
-                {{ form_widget(formSortie.dateCloture, {'attr': {'id': 'datepicker'}})}}
-                {{ form_label(formSortie.nbInscription) }}
-                {{ form_widget(formSortie.nbInscription) }}
-                {{ form_label(formSortie.duree) }}
-                {{ form_widget(formSortie.duree) }}
-                {{ form_label(formSortie.description) }}
-                {{ form_widget(formSortie.description) }}
+                {{ form_row(formSortie.dateDebut,{'attr': {'id': 'datepicker'}} ) }}
+                {{ form_row(formSortie.dateCloture, {'attr': {'id': 'datepicker'}})}}
+                {{ form_row(formSortie.nbInscription) }}
+                {{ form_row(formSortie.duree) }}
+                {{ form_row(formSortie.description) }}
             </div>
 
             <div class="form-group col-md-6">

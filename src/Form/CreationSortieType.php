@@ -50,9 +50,9 @@ class CreationSortieType extends AbstractType
                     '>5h' => '3000',
                 ]
             ])
-            ->add('nbInscription', NumberType::class, ['label' => 'Nombre de place : '])
+            ->add('nbInscription', NumberType::class, ['label' => 'Nombre de places : '])
             ->add('dateCloture', DateType::class, [
-                'label' => 'Date de fin d\'inscription : ',
+                'label' => 'Date de clôture des inscriptions  : ',
                 'widget' =>'single_text'])
             ->add('description', TextareaType::class, ['label' => 'Description : ']);
 

@@ -9,6 +9,7 @@ use App\Entity\Ville;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -24,15 +25,30 @@ class ModifierSortieType extends AbstractType
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'NomLieu',
+                'label' => 'Lieu : '
             ])
             ->add('nom', TextType::class, ['label' => 'Nom : '])
             ->add('dateDebut', DateType::class, [
                 'label' => 'Date de début : ',
                 'widget' =>'single_text'])
             ->add('duree', null, ['label' => 'Durée : '])
-            ->add('nbInscription', NumberType::class, ['label' => 'Nombre de place : '])
+            ->add('duree', ChoiceType::class, ['label' => 'Durée : ',
+                'choices' => [
+                    '30 minutes' => '30',
+                    '60 minutes' => '60',
+                    '1h30' => '90',
+                    '2h' => '120',
+                    '2h30' => '150',
+                    '3h' => '180',
+                    '3h30' => '210',
+                    '4h' => '240',
+                    '5h' => '300',
+                    '>5h' => '3000',
+                ]
+            ])
+            ->add('nbInscription', NumberType::class, ['label' => 'Nombre de places : '])
             ->add('dateCloture', DateType::class, [
-                'label' => 'Date de fin : ',
+                'label' => 'Date de clôture des inscriptions : ',
                 'widget' =>'single_text'])
             ->add('description', TextareaType::class, ['label' => 'Description : ']);
 
