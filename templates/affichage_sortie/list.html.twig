@@ -39,12 +39,12 @@
                             <div class="col-lg">
                                 <label for="entre" class="col-lg form-label">Entre </label>
                                 <input type="date" class="form-control" id="entre" name = "date-entre"
-                                value=" {% if dateEntre  %} {{ dateEntre|date("d/m/Y") }} {% endif %}">
+                                value=" {% if (dateEntre is defined) and (dateEntre is not empty) %} {{ dateEntre|date("d/m/Y") }} {% endif %}">
                             </div>
                             <div class="col-lg">
                                 <label for="et" class="col-lg form-label">et</label>
                                 <input type="date" class="form-control" id="et" name="date-et"
-                                value=" {% if dateEt %} {{ dateEt|date("d/m/Y") }} {% endif %}">
+                                value=" {% if dateEt is not null %} {{ dateEt|date("d/m/Y") }} {% endif %}">
                             </div>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                             {% endif %}
                             {% endfor %}
                         </td>
-                        <td> {{ sortie.organisateur }}</td>
+                        <td> <a href="{{ path('profil_organisateur', {'id' : sortie.organisateur.id} ) }}"> {{ sortie.organisateur }} </a></td>
                         <td>
                             <a href="{{ path('sortie_detail', {'id' : sortie.id} ) }}">Afficher</a>
                             <!-- La sortie est ouverte et le user n'est pas inscrit ni organisateur et il y a de la place -->

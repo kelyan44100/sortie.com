@@ -1,102 +1,111 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <h2>Détail de la sortie</h2>
-    <div class="row justify-content-center">
+    <h2 class="text-center py-3">Détail de la sortie</h2>
+    <div class="row justify-content-center ml-2">
         <div class="col-12 col-sm-6 col-lg-3">
-            <p> Nom de la sortie :</p>
+            <p class="font-weight-bolder"> Nom de la sortie :</p>
         </div>
-        <div class="col-12 col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-3 mb-3">
             {{ sortie.nom }}
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
-            <p> Ville organisatrice :</p>
+            <p class="font-weight-bolder"> Ville organisatrice :</p>
         </div>
-        <div class="col-12 col-sm-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-3 mb-3">
             {{ sortie.site }}
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p> Date de la sortie :</p>
+            <p class="font-weight-bolder"> Date de la sortie :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.dateDebut|date('d/m/Y') }}
         </div>
 
         <div class="col-sm-6 col-lg-3">
-            <p> Lieu :</p>
+            <p class="font-weight-bolder"> Lieu :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.lieu.nomLieu }}
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p> Date limite d'inscription :</p>
+            <p class="font-weight-bolder"> Date limite d'inscription :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.dateCloture|date('d/m/Y') }}
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p> Rue :</p>
+            <p class="font-weight-bolder"> Rue :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.lieu.rue }}
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p> Nombre d'inscription :</p>
+            <p class="font-weight-bolder"> Nombre d'inscription :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3 mb-3">
+            {{ sortie.nbInscription }} Participants
         </div>
         <div class="col-sm-6 col-lg-3">
-            {{ sortie.nbInscription }} Participant
+            <p class="font-weight-bolder"> Code Postal :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <p> Code Postal :</p>
-        </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.lieu.ville.CodePostal }}
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p> Durée de la sortie :</p>
+            <p class="font-weight-bolder"> Durée de la sortie :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.duree }} minutes
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p> Latitude :</p>
+            <p class="font-weight-bolder"> Latitude :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.lieu.latitude }}
         </div>
         <div class="col-sm-6 col-lg-3">
-            <p> Longitude :</p>
+            <p class="font-weight-bolder"> Longitude :</p>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <p> Description :</p>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            {{ sortie.description |  nl2br }}
-        </div>
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-3 mb-3">
             {{ sortie.lieu.longitude }}
         </div>
-        <div class="col-sm-12" align="center">
+        <div class="col-sm-6 col-lg-3">
+            <p class="font-weight-bolder"> Description :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3 mb-3">
+            {{ sortie.description |  nl2br }}
+        </div>
+        {% if sortie.motifAnnulation is not null %}
+        <div class="col-sm-6 col-lg-3">
+            <p class="font-weight-bolder text-danger"> Motif d'annulation :</p>
+        </div>
+        <div class="col-sm-6 col-lg-3 mb-3 text-danger">
+            {{ sortie.motifAnnulation|  nl2br }}
+        </div>
+        {% endif %}
+        <div class="col-md-8 my-3" align="center">
             <h4>Liste des participants inscrits :</h4>
         </div>
+    </div>
         <div class="row justify-content-center">
-            <div class="col-12" id="table">
+
+                <div class="col-lg-6">
                 <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-
-                        {% for i in inscriptions %}
-                            <td>{{ i.participant.nom }}.{{ i.participant.prenom }}</td>
-                        {% endfor %}
-
-                    </tr>
-                    </thead>
+                    <tbody>
+                    {% for i in inscriptions %}
+                        <tr>
+                            <td class="text-center">{{ i.participant.nom }} {{ i.participant.prenom }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
                 </table>
-            </div>
+                </div>
+
         </div>
 
 
-    </div>
+
 
 
 {% endblock %}
