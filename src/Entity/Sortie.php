@@ -87,7 +87,6 @@ class Sortie
 
     /**
      * @var Lieu
-     * @Assert\IsTrue(message="Champ obligatoire")
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
     private $lieu;

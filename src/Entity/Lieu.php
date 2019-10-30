@@ -18,8 +18,6 @@ class Lieu implements \JsonSerializable
     private $id;
 
     /**
-     * @Assert\NotNull(message="Champ obligatoire")
-     * @Assert\NotBlank(message="Champ obligatoire")
      * @ORM\Column(type="string", length=30)
      */
     private $nom_lieu;
