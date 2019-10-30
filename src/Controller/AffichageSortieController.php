@@ -140,10 +140,18 @@ class AffichageSortieController extends Controller
 
     /**
      * @Route("/modifierSortie/{id}", name="modifier_Sortie", requirements={"id":"\d+"})
+     * @param Sortie $Sortie
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param User $u
+     * @param UserRepository $repo
+     * @param VilleRepository $villeRepository
+     * @return RedirectResponse|Response
+     * @throws \Exception
      */
-    public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, User $u, UserRepository $repo, VilleRepository $villeRepository)
+    public function modifierSortie(Sortie $Sortie, Request $request, EntityManagerInterface $manager, UserRepository $repo, VilleRepository $villeRepository)
     {
-        $user = $repo->find($u);
+        $user = $this->getUser();
 
 
 
@@ -196,7 +204,7 @@ class AffichageSortieController extends Controller
             //Messages gérés en session
             $this->addFlash('success', 'La sortie à bien été modifié');
 
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('sortie_list');
         }
         return $this->render('affichage_sortie/modifierSortie.html.twig', [
             'formSortie' => $formSortie->createView(),
