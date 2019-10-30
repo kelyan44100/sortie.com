@@ -143,7 +143,6 @@ class AffichageSortieController extends Controller
      * @param Sortie $Sortie
      * @param Request $request
      * @param EntityManagerInterface $manager
-     * @param User $u
      * @param UserRepository $repo
      * @param VilleRepository $villeRepository
      * @return RedirectResponse|Response
@@ -165,44 +164,14 @@ class AffichageSortieController extends Controller
             dump($Sortie);
             dump($Sortie->getOrganisateur());
             $user = $this->getUser();
-            $Sortie->setOrganisateur($user);
             $Site = $Sortie->getOrganisateur()->getSite();
             $Sortie->setSite($Site);
-
-
-            $today = (new \DateTime('now'))->setTime(0, 0, 0);
-
-            if ($Sortie->getDateDebut() <= $Sortie->getDateCloture() || (count($Sortie->getInscriptions()) < $Sortie->getNbInscription())) {
-                //ouvert
-                $etat = $manager->getRepository(Etat::class)->find(2);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-            if ($Sortie->getDateDebut() == $today) {
-                //En cours
-                $etat = $manager->getRepository(Etat::class)->find(4);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-            if ($Sortie->getDateCloture() < $today || (count($Sortie->getInscriptions()) == $Sortie->getNbInscription())) {
-                //cloturée
-                $etat = $manager->getRepository(Etat::class)->find(3);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-            if (($Sortie->getDateDebut() < $today) && ($Sortie->getDateCloture() < $today)) {
-                //passée
-                $etat = $manager->getRepository(Etat::class)->find(5);
-                $Sortie->setEtat($etat);
-                $manager->persist($Sortie);
-            }
-
 
             $manager->persist($Sortie);
             $manager->flush();
 
             //Messages gérés en session
-            $this->addFlash('success', 'La sortie à bien été modifié');
+            $this->addFlash('success', 'La sortie à bien été modifiée');
 
             return $this->redirectToRoute('sortie_list');
         }
