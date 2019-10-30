@@ -34,7 +34,7 @@ class RegistrationController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash("success", "Account has been created!");
+            $this->addFlash("success", "Inscription réussie!");
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_login');

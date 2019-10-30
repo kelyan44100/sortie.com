@@ -29,8 +29,8 @@ class User implements UserInterface
      * @Assert\Length(
      *      min = 4,
      *      max = 30,
-     *      minMessage = "Your username must be at least {{ limit }} characters long",
-     *      maxMessage = "Your username cannot be longer than {{ limit }} characters"
+     *      minMessage = "Le pseudo doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "Le pseudo doit contenir au maximum {{ limit }} caractères"
      * )
 
      *
@@ -42,8 +42,8 @@ class User implements UserInterface
      * @Assert\Length(
      *      min = 4,
      *      max = 30,
-     *      minMessage = "Your username must be at least {{ limit }} characters long",
-     *      maxMessage = "Your username cannot be longer than {{ limit }} characters"
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit contenir au maximum {{ limit }} caractères"
      * )
      */
     private $nom;
@@ -51,25 +51,25 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180)
      * @Assert\Length(
-     *      min = 4,
+     *      min = 2,
      *      max = 30,
-     *      minMessage = "Your username must be at least {{ limit }} characters long",
-     *      maxMessage = "Your username cannot be longer than {{ limit }} characters"
+     *      minMessage = "Le prénom doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "Le prénom doit contenir au maximum {{ limit }} caractères"
      * )
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=180)
-     * @Assert\Length(min = 10,  minMessage = "min_lenght")
+     * @Assert\Length(min = 10,  minMessage = "Numéro de téléphone invalide")
      *
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/" , message="Entrer un email valide!")
+     * @Assert\NotBlank(message="Veuillez renseigner une adresse e-mail")
+     * @Assert\Regex("/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/" , message="Veuillez renseigner un email valide")
      */
     private $email;
 
@@ -89,12 +89,12 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Ce chant est requis")
+     * @Assert\NotBlank(message="Ce champs est requis")
      * @Assert\Length(
      *      min = 6,
      *      max = 4096,
-     *      minMessage = "Vôtre mot de passe doit contenir {{ limit }} au minimum",
-     *      maxMessage = "Vôtre mot de passe doit contenir {{ limit }} au maximum"
+     *      minMessage = "Votre mot de passe doit contenir {{ limit }} caractères au minimum",
+     *      maxMessage = "Votre mot de passe doit contenir {{ limit }} caractères au maximum"
      * )
      */
     private $password;
