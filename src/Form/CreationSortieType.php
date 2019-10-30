@@ -28,14 +28,15 @@ class CreationSortieType extends AbstractType
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'NomLieu',
+                'label' => 'Lieu : '
             ])
             ->add('nom', TextType::class, ['label' => 'Nom : '])
             ->add('dateDebut', DateType::class, [
-                'label' => 'Date de début de la sortie: ',
+                'label' => 'Date de début de la sortie : ',
                 'widget' =>'single_text'])
             ->add('duree', null, ['label' => 'Durée : '])
             ->add('duree', ChoiceType::class, [
-                'label' => "Durée",
+                'label' => "Durée : ",
                 'choices' => [
                     '30 minutes' => '30',
                     '60 minutes' => '60',
@@ -51,7 +52,7 @@ class CreationSortieType extends AbstractType
             ])
             ->add('nbInscription', NumberType::class, ['label' => 'Nombre de place : '])
             ->add('dateCloture', DateType::class, [
-                'label' => 'Date de fin d\'inscription: ',
+                'label' => 'Date de fin d\'inscription : ',
                 'widget' =>'single_text'])
             ->add('description', TextareaType::class, ['label' => 'Description : ']);
 

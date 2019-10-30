@@ -18,6 +18,8 @@ class Lieu implements \JsonSerializable
     private $id;
 
     /**
+     * @Assert\NotNull(message="Champ obligatoire")
+     * @Assert\NotBlank(message="Champ obligatoire")
      * @ORM\Column(type="string", length=30)
      */
     private $nom_lieu;
@@ -29,13 +31,13 @@ class Lieu implements \JsonSerializable
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Assert\Regex("/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/", message="Entrer une latitude valide!")
+     * @Assert\Regex("/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/", message="Entrez une latitude valide!")
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * * @Assert\Regex("/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/", message="Entrer une longitude valide!")
+     * @Assert\Regex("/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/", message="Entrez une longitude valide!")
      */
     private $longitude;
 

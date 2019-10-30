@@ -8,12 +8,10 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Form\CreationSortieType;
-use App\Repository\LieuRepository;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,7 +37,6 @@ class CreationSortieController extends Controller
         $Sortie = new Sortie();
         $etat = $manager->getRepository(Etat::class)->find(1);
         $formSortie = $this->createForm(CreationSortieType::class, $Sortie);
-//        $villes = $manager->getRepository(Ville::class)->findAll();
         $lieux = $manager->getRepository(Lieu::class)->findBy([], ['rue' => 'ASC']);
         $sites = $manager->getRepository(Site::class)->findAll();
         //Associe la requête et le FormType

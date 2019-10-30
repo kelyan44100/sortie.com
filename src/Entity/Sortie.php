@@ -27,6 +27,7 @@ class Sortie
     private $nom;
 
     /**
+     *@Assert\GreaterThan("today", message="La sortie ne peut pas se dérouler dans le passé")
      * @ORM\Column(type="date")
      */
     private $dateDebut;
@@ -50,6 +51,8 @@ class Sortie
 
 
     /**
+     * @Assert\LessThanOrEqual(propertyPath="dateDebut", message="Les inscriptions doivent se clôturer au plus tard le jour de la sortie")
+     *
      * @ORM\Column(type="date")
      */
     private $dateCloture;
@@ -84,6 +87,7 @@ class Sortie
 
     /**
      * @var Lieu
+     * @Assert\IsTrue(message="Champ obligatoire")
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu")
      */
     private $lieu;
@@ -167,6 +171,7 @@ class Sortie
 
     /**
      * @param  $dateCloture
+     *
      */
     public function setDateCloture($dateCloture): void
     {
