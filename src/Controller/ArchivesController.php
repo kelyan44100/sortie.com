@@ -19,6 +19,13 @@ class ArchivesController extends Controller
      * @Route("/sorties/archives/", name="sortie_archives")
      */
     public function list(EntityManagerInterface $em){
+
+        $user = $this->getUser();
+
+        if(!$this->isGranted("ROLE_ADMIN")){
+            return $this->redirectToRoute('sortie_list');
+        }
+
         //récupération des sorties archivées
         $sorties = $em->getRepository(Sortie::class)->findByDateArchive();
 
