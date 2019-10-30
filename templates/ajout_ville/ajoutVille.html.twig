@@ -23,17 +23,20 @@
                                         <ion-icon  size="large" name="create"></ion-icon>
                                     </a>
                                 </div>
-                                {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')) and ville.lieux|length == 0 %}
                                 <div class="col-6">
-                                    <a title="Supprimer la ville" href="{{ path('ville_supp', {'id' : ville.id }) }}">
+                                {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')) and ville.lieux|length == 0 %}
+
+                                    <a title="Supprimer la ville" href="{{ path('ville_supp', {'id' : ville.id }) }}"
+                                       onclick="return confirm('{{ ville.nomville }} : Etes-vous sûr de vouloir supprimer cette ville ?');">
                                         <ion-icon size="large" name="trash"></ion-icon>
                                     </a>
-                                </div>
+
                                 {% else %}
                                     <span title="Supprimer la ville" >
                                         <ion-icon size="large" name="trash"></ion-icon>
                                     </span>
                                 {% endif %}
+                                </div>
                             </div>
 
                         </div>

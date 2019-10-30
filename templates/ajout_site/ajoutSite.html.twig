@@ -16,13 +16,15 @@
                                     </div>
                                     <div class="row col-3">
                                         <div class="col-6">
-                                            <a class=" " title="Modifier le site" href="{{ path('site_update', {'id' : site.id }) }}">
+                                            <a title="Modifier le site" href="{{ path('site_update', {'id' : site.id }) }}">
                                                 <ion-icon size="large" name="create"></ion-icon>
                                             </a>
                                         </div>
                                         <div class="col-6">
-                                            {% if is_granted('ROLE_ADMIN') and site.sorties|length == 0 %}
-                                                <a  title="Supprimer le site" href="{{ path('site_supp', {'id' : site.id }) }}">
+                                            {% if  site.users|length ==0 %}
+                                                <a  title="Supprimer le site"
+                                                    href="{{ path('site_supp', {'id' : site.id }) }}"
+                                                    onclick="return confirm('{{ site.nomSite }} : Etes-vous sûr de vouloir supprimer ce site ?');">
                                                     <ion-icon size="large" name="trash"></ion-icon>
                                                 </a>
                                             {% else %}
@@ -31,6 +33,7 @@
                                                 </span>
                                             {% endif %}
                                         </div>
+
                                     </div>
                                 </div>
                             </td>
@@ -38,6 +41,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+
             <div class="text-center">
                 {% include('inc/pagination.html.twig') %}
             </div>
@@ -72,9 +76,11 @@
         Vous ne pouvez pas supprimer le site s'il y a des utilisateurs rattachés à celui-ci !
     </span>
     </div>
+
 {% endblock %}
 
-{% block title %}
+{% block javascripts %}
 
+    <script src="{{ asset('js/script.js') }}"></script>
 {% endblock %}
 

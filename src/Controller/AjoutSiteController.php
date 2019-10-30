@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Site;
+use App\Entity\Sortie;
 use App\Form\SiteType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,7 +27,6 @@ class AjoutSiteController extends Controller
         $nbArticlesParPage = 5;
         // Récupération des sites déja existants pour les afficher
         $sites = $em->getRepository(Site::class)->findAllByPage($page, $nbArticlesParPage);
-
         $pagination = array(
             'page' => $page,
             'nbPages' => ceil(count($sites) / $nbArticlesParPage),

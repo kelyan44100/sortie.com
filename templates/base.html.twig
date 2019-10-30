@@ -27,14 +27,10 @@
 
 <body class="container">
     <header >
-        {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') or  is_granted('IS_AUTHENTICATED_FULLY')) %}
-        <h1 class="text-center font-weight-bolder my-0" ><a href="{{ path('sortie_list') }}" ><img alt="'logo" src={{ asset('images/icons8-chemin-96.png') }}></a>SORTIR.COM</h1>
-        {% else %}
         <h1 class="text-center font-weight-bolder my-0" ><a href="{{ path('main') }}" ><img alt="'logo" src={{ asset('images/icons8-chemin-96.png') }}></a>SORTIR.COM</h1>
-        {% endif %}
-        <nav class="navbar navbar-expand-lg navbar-light my-0" id="nav">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-0" id="nav">
             {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') or  is_granted('IS_AUTHENTICATED_FULLY')) %}
-            <a class="navbar-brand">Bienvenue {{ app.user.Pseudo }} !</a>
+            <a class="navbar-brand text-white">Bienvenue {{ app.user.Pseudo }} !</a>
             {% endif %}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -44,41 +40,41 @@
                 <ul class="navbar-nav">
 
                     {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') or  is_granted('IS_AUTHENTICATED_FULLY')) %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('sortie_list')}}">ACCUEIL</a>
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" href="{{path('sortie_list')}}">ACCUEIL</a>
                     </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_login')}}">ACCUEIL</a>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="{{path('app_login')}}">ACCUEIL</a>
                         </li>
                     {% endif %}
                     {% if is_granted("ROLE_ADMIN") %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_register') }}">INSCRIPTION</a>
+                            <a class="nav-link text-white" href="{{ path('app_register') }}">INSCRIPTION</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('sortie_archives') }}">ARCHIVES</a>
+                            <a class="nav-link text-white" href="{{ path('sortie_archives') }}">ARCHIVES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('site_ajout') }}">SITES</a>
+                            <a class="nav-link text-white" href="{{ path('site_ajout') }}">SITES</a>
                         </li>
 
                     {% endif %}
                     {% if is_granted("ROLE_USER") or is_granted("ROLE_ADMIN")  %}
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('ville_ajout') }}">VILLES</a>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="{{ path('ville_ajout') }}">VILLES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('profil') }}">MON PROFIL</a>
+                            <a class="nav-link text-white" href="{{ path('profil') }}">MON PROFIL</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}">SE DECONNECTER</a>
+                            <a class="nav-link text-white" href="{{ path('app_logout') }}">SE DECONNECTER</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}">SE CONNECTER</a>
+                            <a class="nav-link text-white" href="{{ path('app_login') }}">SE CONNECTER</a>
                         </li>
                     {% endif %}
                 </ul>
