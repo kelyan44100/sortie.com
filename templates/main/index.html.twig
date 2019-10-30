@@ -3,11 +3,10 @@
 {% block title %}{% endblock %}
 
 {% block main %}
-    <h2 class="text-center mt-2"> TEST </h2>
-    <div class="text-center mt-5">
-        {% if is_granted("ROLE_USER") %}
-        <a class="btn btn-outline-success" type="button" href="{{ path('Creation_add', {'id': app.user.id})}}">Créer une sortie</a>
-        {% endif %}
-
+    <h4 class="col-md text-center mt-2"> Toutes les activités et sorties proposées et organisées par ENI </h4>
+    <p class="text-center">Pour vous inscrire, contactez l'école ENI!</p>
+    <div class="text-center mt-2">
+        <img alt="logo" class="img-fluid" src={{ asset('images/sorties2.png') }}>
     </div>
+
 {% endblock %}
