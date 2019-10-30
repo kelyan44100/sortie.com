@@ -90,12 +90,9 @@ class AffichageSortieController extends Controller
         //Récupération des toutes les filtres
         if($request->request->get("site-select") or $request->request->get("search-bar") or $request->request->get("date-entre") or $request->request->get("date-et")
         or $request->request->get("sortOrg") or $request->request->get("sortInsc") or $request->request->get("sortPasInsc") or $request->request->get("sortPass")){
-        dump($dateEntre);
+
         /* Filtres sur les sorties*/
             $sorties = $sortieRepository->findSortieByCriteria($siteSelect, $searchBar, $dateEntre, $dateEt, $sortOrg, $sortInsc,$user, $sortPasInsc, $sortPass);
-           /* if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass ){
-                $sorties = $sortieRepository->findSortieByCheckbox();
-            }*/
 
         }
 

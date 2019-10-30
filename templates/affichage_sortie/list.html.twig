@@ -30,21 +30,19 @@
                         <div class="form-group ">
                             <label for="search-bar" class="form-label">Le nom de la sortie contient : </label>
                             <input type="search" class="form-control" name="search-bar"
-                                   value="{% if searchBar %} {{ searchBar }} {% endif %}"  id="search-bar" aria-label="Search">
+                               value="{% if searchBar %} {{ searchBar }} {% endif %}"  id="search-bar" aria-label="Search">
                         </div>
-
-
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg">
                                 <label for="entre" class="col-lg form-label">Entre </label>
                                 <input type="date" class="form-control" id="entre" name = "date-entre"
-                                value=" {% if (dateEntre is defined) and (dateEntre is not empty) %} {{ dateEntre|date("d/m/Y") }} {% endif %}">
+                                value="{% if (dateEntre is defined) and (dateEntre is not null) %}{{ dateEntre }}{% endif %}">
                             </div>
                             <div class="col-lg">
                                 <label for="et" class="col-lg form-label">et</label>
                                 <input type="date" class="form-control" id="et" name="date-et"
-                                value=" {% if dateEt is not null %} {{ dateEt|date("d/m/Y") }} {% endif %}">
+                                value="{% if (dateEntre is defined) and (dateEntre is not null) %}{{ dateEt }}{% endif %}">
                             </div>
                         </div>
                     </div>
@@ -59,19 +57,17 @@
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="sortInsc" name="sortInsc"
-
                             {% if sortInsc %} checked = 'checked'{% endif %}>
                         <label for="sortInsc" class="form-check-label">Sorties auxquelles je suis inscrit/e</label>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="sortPasInsc" name="sortPasInsc"
-
-                                {% if sortPasInsc %} checked = 'checked'{% endif %}>
+                            {% if sortPasInsc %} checked = 'checked'{% endif %}>
                         <label for="sortPasInsc" class="form-check-label">Sorties auxquelles je ne suis pas inscrit/e</label>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="sortPass" name="sortPass"
-                                {% if sortPass %} checked = 'checked'{% endif %}>
+                            {% if sortPass %} checked = 'checked'{% endif %}>
                         <label for="sortPass" class="form-check-label">Sorties passées</label>
                     </div>
                     <div class="text-center mt-4 mb-3">
@@ -89,7 +85,7 @@
 
     <div class="row justify-content-center">
         <div class="col" id="table">
-            <table class="table table-bordered table-striped"  >
+            <table class="table table-bordered table-striped table-responsive-md"  >
                 <thead>
                     <tr>
                         <th scope="col">Nom de la sortie</th>
@@ -129,22 +125,40 @@
                         </td>
                         <td> <a href="{{ path('profil_organisateur', {'id' : sortie.organisateur.id} ) }}"> {{ sortie.organisateur }} </a></td>
                         <td>
-                            <a href="{{ path('sortie_detail', {'id' : sortie.id} ) }}">Afficher</a>
+
+
+                            <a title="Afficher" href="{{ path('sortie_detail', {'id' : sortie.id} ) }}">
+                                <ion-icon name="more"></ion-icon>
+                            </a>
                             <!-- La sortie est ouverte et le user n'est pas inscrit ni organisateur et il y a de la place -->
                             {% if (sortie.etat.id == 2) and (estInscrit == 'false') and (sortie.organisateur.id != user.id)
                                 and (sortie.inscriptions|length < sortie.nbInscription) %}
-                                <a href="{{ path('sortie_inscription', {'id' : sortie.id} ) }}">- S'inscrire</a>
-                                {% elseif (sortie.etat.id == 2) and (sortie.organisateur.id != user.id) and (estInscrit == 'true')%}
-                                    <a href="{{ path('sortie_desinscription', {'id' : sortie.id} ) }}">- Se désister</a>
+
+                                <a title="S'inscrire" href="{{ path('sortie_inscription', {'id' : sortie.id} ) }}">
+                                    <ion-icon name="log-in"></ion-icon>
+                                </a>
+
+                            {% elseif (sortie.etat.id == 2) and (sortie.organisateur.id != user.id) and (estInscrit == 'true')%}
+                                <a title="Se désister" href="{{ path('sortie_desinscription', {'id' : sortie.id} ) }}">
+                                    <ion-icon name="log-out"></ion-icon>
+                                </a>
+
                             {% endif %}
+
                             <!-- L'organisateur peut publier la sortie si son état est "créée" -->
                             {% if  sortie.organisateur.id == user.id  and sortie.etat.id == 1 %}
-                                <a href="{{ path('publier_sortie', {'id' : sortie.id}) }}">- Publier</a>
+                                <a title="Publier" href="{{ path('publier_sortie', {'id' : sortie.id}) }}">
+                                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                </a>
                             {% endif %}
                             <!-- L'administrateur ou l'organisateur peuvent annuler une sortie créée ou ouverte -->
                             {% if (is_granted('ROLE_ADMIN') or sortie.organisateur.id == user.id) and (sortie.etat.id == 1 or sortie.etat.id == 2)  %}
-                                <a href="{{ path('modifier_Sortie', {'id' : sortie.id}) }}">- Modifier</a>
-                                <a href="{{ path('annuler_sortie', {'id' : sortie.id} ) }}">- Annuler</a>
+                                <a title="Modifier" href="{{ path('modifier_Sortie', {'id' : sortie.id}) }}">
+                                    <ion-icon name="create"></ion-icon>
+                                </a>
+                                <a title="Annuler" href="{{ path('annuler_sortie', {'id' : sortie.id} ) }}">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </a>
                             {% endif %}
                         </td>
                     </tr>
