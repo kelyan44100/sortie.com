@@ -8,12 +8,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class InscriptionFixtures extends Fixture
 {
-    public const INSCRIPTION_REFERENCE1 = 'inscription-ref1';
-    public const INSCRIPTION_REFERENCE2 = 'inscription-ref2';
-    public const INSCRIPTION_REFERENCE3 = 'inscription-ref3';
-    public const INSCRIPTION_REFERENCE4 = 'inscription-ref4';
-    public const INSCRIPTION_REFERENCE5 = 'inscription-ref5';
-    public const INSCRIPTION_REFERENCE6 = 'inscription-ref6';
 
     public function load(ObjectManager $manager)
     {
@@ -37,7 +31,23 @@ class InscriptionFixtures extends Fixture
         $ins3->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
         $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE2);
         $ins3->setSortie($sortie);
+        $participant=$this->getReference(UserFixtures::USER_REFERENCE1);
+        $ins3->setParticipant($participant);
+        $manager->persist($ins3);
+
+        $ins3 = new Inscription();
+        $ins3->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
+        $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE2);
+        $ins3->setSortie($sortie);
         $participant=$this->getReference(UserFixtures::USER_REFERENCE3);
+        $ins3->setParticipant($participant);
+        $manager->persist($ins3);
+
+        $ins3 = new Inscription();
+        $ins3->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
+        $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE2);
+        $ins3->setSortie($sortie);
+        $participant=$this->getReference(UserFixtures::USER_REFERENCE4);
         $ins3->setParticipant($participant);
         $manager->persist($ins3);
 
@@ -59,9 +69,49 @@ class InscriptionFixtures extends Fixture
 
         $ins5 = new Inscription();
         $ins5->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
+        $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE5);
+        $ins5->setSortie($sortie);
+        $participant=$this->getReference(UserFixtures::USER_REFERENCE1);
+        $ins5->setParticipant($participant);
+        $manager->persist($ins1);
+
+        $ins5 = new Inscription();
+        $ins5->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
+        $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE5);
+        $ins5->setSortie($sortie);
+        $participant=$this->getReference(UserFixtures::USER_REFERENCE2);
+        $ins5->setParticipant($participant);
+        $manager->persist($ins1);
+
+        $ins5 = new Inscription();
+        $ins5->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
+        $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE5);
+        $ins5->setSortie($sortie);
+        $participant=$this->getReference(UserFixtures::USER_REFERENCE3);
+        $ins5->setParticipant($participant);
+        $manager->persist($ins1);
+
+        $ins5 = new Inscription();
+        $ins5->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
         $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE8);
         $ins5->setSortie($sortie);
         $participant=$this->getReference(UserFixtures::USER_REFERENCE1);
+        $ins5->setParticipant($participant);
+        $manager->persist($ins5);
+
+        $ins5 = new Inscription();
+        $ins5->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
+        $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE8);
+        $ins5->setSortie($sortie);
+        $participant=$this->getReference(UserFixtures::USER_REFERENCE2);
+        $ins5->setParticipant($participant);
+        $manager->persist($ins5);
+
+        $ins5 = new Inscription();
+        $ins5->setDateInscription((new \DateTime('now'))->setTime(0,0,0));
+        $sortie=$this->getReference(SortieFixtures::SORTIE_REFERENCE8);
+        $ins5->setSortie($sortie);
+        $participant=$this->getReference(UserFixtures::USER_REFERENCE3);
         $ins5->setParticipant($participant);
         $manager->persist($ins5);
 

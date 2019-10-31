@@ -23,11 +23,11 @@
                 {{ form_row(formSortie.dateCloture, {'attr': {'id': 'datepicker'}})}}
                 {{ form_row(formSortie.nbInscription) }}
                 {{ form_row(formSortie.duree) }}
-                {{ form_row(formSortie.description) }}
+                {{ form_row(formSortie.description, {'attr': {'class': 'textarea'}} ) }}
             </div>
 
             <div class="form-group col-md-6">
-                <label>Ville :</label>
+                <label for="villes">Ville :</label>
                 <select class="custom-select" id="villes">
                     <option>-------</option>
                     {% for ville in villes %}
@@ -35,7 +35,7 @@
                     {% endfor %}
                 </select>
 
-                {{ form_label(formSortie.lieu) }}
+                <label class="mt-3" for="creation_sortie_lieu">Lieu :</label>
                 <div class="form-row">
                     <div class=" form-group col-md-11">
                         <select class="custom-select" name="creation_sortie[lieu]" id="creation_sortie_lieu">
@@ -44,30 +44,34 @@
                     </div>
                     <div class=" form-group col-md-1">
                         <a class="text-left  " title="Ajouter un lieu" href="{{ path('ajout_lieu') }}">
-
                             <ion-icon size="large" name="add-circle"></ion-icon>
                         </a>
                     </div>
                 </div>
 
-                <label for="maRue" >Rue :</label>
-                <div id="maRue">
-                    <input type="text" id="maRue" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="maRue" >Rue :</label>
+                    <div id="maRue">
+                        <input type="text" id="maRue" class="form-control" readonly>
+                    </div>
                 </div>
-
-                <label for="code_postal">Code postal :</label>
-                <div id="monCP">
-                    <input type="text" id="code_postal" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="code_postal">Code postal :</label>
+                    <div id="monCP">
+                        <input type="text" id="code_postal" class="form-control" readonly>
+                    </div>
                 </div>
-
-                <label for="latitude">Latitude :</label>
-                <div id="maLati">
-                    <input type="text" id="latitude" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="latitude">Latitude :</label>
+                    <div id="maLati">
+                        <input type="text" id="latitude" class="form-control" readonly>
+                    </div>
                 </div>
-
-                <label for="longitude">Longitude :</label>
-                <div id="maLongi">
-                    <input type="text" id="longitude" class="form-control" readonly>
+                <div class="form-group">
+                    <label for="longitude">Longitude :</label>
+                    <div id="maLongi">
+                        <input type="text" id="longitude" class="form-control" readonly>
+                    </div>
                 </div>
 
         </div>

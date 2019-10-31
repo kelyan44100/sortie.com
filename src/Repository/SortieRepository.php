@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
@@ -20,56 +22,29 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function findBySite($site){
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.site = :val')
-            ->setParameter('val', $site)
-            ->orderBy('s.dateDebut', 'DECS')
-            ->getQuery()
-            ->getResult()
-            ;
+    public function findAllByPage(int $page = 1, int $nbMaxParPage = 3){
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+        $qb = $this->createQueryBuilder('s')
+            ->addSelect('s')
+            ->orderBy('s.dateDebut','DESC');
+
+        $premierResultat = ($page - 1) * $nbMaxParPage;
+        $qb->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
+        $paginator = new Paginator($qb);
+
+        return $paginator;
     }
 
-    public function findByNom(String $nomContient){
-        return $this->createQueryBuilder('s')
-            ->where('s.nom LIKE :search')
-            ->setParameter('search', '%'.$nomContient.'%')
-            ->orderBy('s.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    public function findByEntresDates($dateEntre, $dateEt){
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.dateDebut BETWEEN :dateEntre and :dateEt')
-            ->setParameter('dateEntre', $dateEntre)
-            ->setParameter('dateEt', $dateEt)
-            //->orderBy('s.dateDebut', 'DECS')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    public function findByOrganisateur($org){
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.organisateur = :org')
-            ->setParameter('org', $org)
-            ->orderBy('s.dateDebut', 'DECS')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-
-    public function getDateDuJour()
+    public function findSortieByCriteriaByPage($site, $nomContient, $dateEntre, $dateEt, $organisateur, $mesInscriptions, $userEnCours, $pasInscrit, $sortiesPassees, int $page = 1, int $nbMaxParPage = 3)
     {
-        return (new \DateTime('now'))->setTime(0, 0, 0);
-    }
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
 
-    public function findSortieByCriteria($site, $nomContient, $dateEntre, $dateEt, $organisateur, $mesInscriptions, $userEnCours, $pasInscrit, $sortiesPassees)
-    {
-        $queryBuilder = $this->createQueryBuilder('sortie');
+        $queryBuilder = $this->createQueryBuilder('sortie')
+                        ->addSelect('sortie');
         //site
         if($site != null){
             $queryBuilder = $queryBuilder->andWhere('sortie.site = :val')
@@ -115,11 +90,12 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('valLibelle', "Passée");
         }
 
-        $queryBuilder = $queryBuilder->orderBy('sortie.dateDebut', 'DESC')
-            //->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-        return $queryBuilder;
+        $queryBuilder->orderBy('sortie.dateDebut', 'DESC');
+
+        $premierResultat = ($page - 1) * $nbMaxParPage;
+        $queryBuilder->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
+        $paginator = new Paginator($queryBuilder);
+        return $paginator;
     }
 
 

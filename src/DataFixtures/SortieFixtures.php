@@ -25,11 +25,11 @@ class SortieFixtures extends Fixture
         $sortie1 = new Sortie();
         $sortie1->setNom('Bar bar');
         $sortie1->setDateDebut((new \DateTime('now +3 days'))->setTime(0,0,0));
-        $sortie1->setDuree(3);
+        $sortie1->setDuree(180);
         $sortie1->setDateCloture((new \DateTime('now +1 day'))->setTime(0,0,0));
-        $sortie1->setNbInscription(2);
+        $sortie1->setNbInscription(4);
         $sortie1->setDescription('Boire un coup dans un bar');
-        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE3);
+        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE2);
         $sortie1->setEtat($etat);
         $lieu = $this->getReference(LieuFixtures::LIEU_REFERENCE1);
         $sortie1->setLieu($lieu);
@@ -41,9 +41,9 @@ class SortieFixtures extends Fixture
         $sortie2 = new Sortie();
         $sortie2->setNom('Parc Astérix');
         $sortie2->setDateDebut((new \DateTime('now +13 days'))->setTime(0,0,0));
-        $sortie2->setDuree(2);
+        $sortie2->setDuree(3000);
         $sortie2->setDateCloture((new \DateTime('now +5 days'))->setTime(0,0,0));
-        $sortie2->setNbInscription(3);
+        $sortie2->setNbInscription(10);
         $sortie2->setDescription('Parc d\'attraction');
         $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE2);
         $sortie2->setEtat($etat);
@@ -56,9 +56,9 @@ class SortieFixtures extends Fixture
 
         $sortie3 = new Sortie();
         $sortie3->setNom('24h du mans');
-        $sortie3->setDateDebut((new \DateTime('now +5 days'))->setTime(0,0,0));
-        $sortie3->setDuree(72);
-        $sortie3->setDateCloture((new \DateTime('now -2 days'))->setTime(0,0,0));
+        $sortie3->setDateDebut((new \DateTime('now -60 days'))->setTime(0,0,0));
+        $sortie3->setDuree(3000);
+        $sortie3->setDateCloture((new \DateTime('now -70 days'))->setTime(0,0,0));
         $sortie3->setNbInscription(4);
         $sortie3->setDescription('Course de moto avec hôtel');
         $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE3);
@@ -72,12 +72,12 @@ class SortieFixtures extends Fixture
 
         $sortie4 = new Sortie();
         $sortie4->setNom('Gagner à l\'euro Millions');
-        $sortie4->setDateDebut((new \DateTime('now'))->setTime(0,0,0));
+        $sortie4->setDateDebut((new \DateTime('now +3 days'))->setTime(0,0,0));
         $sortie4->setDuree(30);
-        $sortie4->setDateCloture((new \DateTime('now -4 days'))->setTime(0,0,0));
+        $sortie4->setDateCloture((new \DateTime('now +2 days'))->setTime(0,0,0));
         $sortie4->setNbInscription(3);
         $sortie4->setDescription('190 millions €');
-        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE3);
+        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE4);
         $sortie4->setEtat($etat);
         $lieu = $this->getReference(LieuFixtures::LIEU_REFERENCE2);
         $sortie4->setLieu($lieu);
@@ -88,12 +88,12 @@ class SortieFixtures extends Fixture
 
         $sortie5 = new Sortie();
         $sortie5->setNom('Voyage Dubai');
-        $sortie5->setDateDebut((new \DateTime('now'))->setTime(0,0,0));
-        $sortie5->setDuree(480);
+        $sortie5->setDateDebut((new \DateTime('now -1 days'))->setTime(0,0,0));
+        $sortie5->setDuree(3000);
         $sortie5->setDateCloture((new \DateTime('now -7 days'))->setTime(0,0,0));
-        $sortie5->setNbInscription(10);
+        $sortie5->setNbInscription(7);
         $sortie5->setDescription('Course de moto avec hôtel');
-        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE4);
+        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE2);
         $sortie5->setEtat($etat);
         $lieu = $this->getReference(LieuFixtures::LIEU_REFERENCE1);
         $sortie5->setLieu($lieu);
@@ -106,7 +106,7 @@ class SortieFixtures extends Fixture
         $sortie6->setNom('Concert');
         $sortie6->setDateDebut((new \DateTime('now +8 days'))->setTime(0,0,0));
         $sortie6->setDuree(72);
-        $sortie6->setDateCloture((new \DateTime('now +1 days'))->setTime(0,0,0));
+        $sortie6->setDateCloture((new \DateTime('now +2 days'))->setTime(0,0,0));
         $sortie6->setNbInscription(25);
         $sortie6->setDescription('Au zenith de Nantes');
         $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE2);
@@ -121,11 +121,11 @@ class SortieFixtures extends Fixture
         $sortie7 = new Sortie();
         $sortie7->setNom('Sortie ');
         $sortie7->setDateDebut((new \DateTime('now -9 days'))->setTime(0,0,0));
-        $sortie7->setDuree(56);
+        $sortie7->setDuree(340);
         $sortie7->setDateCloture((new \DateTime('now -19 days'))->setTime(0,0,0));
-        $sortie7->setNbInscription(5);
+        $sortie7->setNbInscription(25);
         $sortie7->setDescription('Au zenith de Nantes');
-        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE3);
+        $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE5);
         $sortie7->setEtat($etat);
         $lieu = $this->getReference(LieuFixtures::LIEU_REFERENCE2);
         $sortie7->setLieu($lieu);
@@ -136,9 +136,9 @@ class SortieFixtures extends Fixture
 
         $sortie8 = new Sortie();
         $sortie8->setNom('Pizza');
-        $sortie8->setDateDebut((new \DateTime('now +13 days'))->setTime(0,0,0));
+        $sortie8->setDateDebut((new \DateTime('now +3 days'))->setTime(0,0,0));
         $sortie8->setDuree(48);
-        $sortie8->setDateCloture((new \DateTime('now +5 days'))->setTime(0,0,0));
+        $sortie8->setDateCloture((new \DateTime('now -1 days'))->setTime(0,0,0));
         $sortie8->setNbInscription(4);
         $sortie8->setDescription('Soirée Pizza');
         $etat = $this->getReference(EtatFixtures::ETAT_REFERENCE2);

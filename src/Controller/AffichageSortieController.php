@@ -34,13 +34,13 @@ class AffichageSortieController extends Controller
      * @param SortieRepository $sortieRepository
      * @return Response
      * @throws \Exception
-     * @Route("/sorties/list/", name="sortie_list")
+     * @Route("/sorties/list/{page}", name="sortie_list", defaults={"page"=1})
      *
      */
-    public function list(EntityManagerInterface $em, Request $request, SiteRepository $siteRepository, SortieRepository $sortieRepository)
-    {
+    public function list(EntityManagerInterface $em, Request $request,  SortieRepository $sortieRepository, $page)
+    {   $nbArticlesParPage = 5;
         // récupération de toutes les sorties
-        $sorties = $em->getRepository(Sortie::class)->findAll();
+        $sorties = $em->getRepository(Sortie::class)->findAllByPage($page, $nbArticlesParPage);
         // récupération des sites pour la liste déroulante(fitre)
         $sites = $em->getRepository(Site::class)->findAll();
         //récupération de l'utilisateur connecté
@@ -93,15 +93,18 @@ class AffichageSortieController extends Controller
             or $request->request->get("sortOrg") or $request->request->get("sortInsc") or $request->request->get("sortPasInsc") or $request->request->get("sortPass")){
             dump($dateEntre);
             /* Filtres sur les sorties*/
-            $sorties = $sortieRepository->findSortieByCriteria($siteSelect, $searchBar, $dateEntre, $dateEt, $sortOrg, $sortInsc,$user, $sortPasInsc, $sortPass);
-            /* if ($sortOrg or $sortInsc or $sortPasInsc or $sortPass ){
-                 $sorties = $sortieRepository->findSortieByCheckbox();
-             }*/
-
+            $sorties = $sortieRepository->findSortieByCriteriaByPage($siteSelect, $searchBar, $dateEntre, $dateEt, $sortOrg, $sortInsc,$user, $sortPasInsc, $sortPass, $page, $nbArticlesParPage);
         }
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($sorties) / $nbArticlesParPage),
+            'nomRoute' => 'sortie_list',
+            'paramsRoute' => array()
+        );
 
         return $this->render("affichage_sortie/list.html.twig",
             [
+                'pagination' => $pagination,
                 'sorties' => $sorties,
                 'sites' => $sites,
                 'user' => $user,
