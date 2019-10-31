@@ -5,17 +5,27 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GestionUserController extends Controller
 {
     /**
-     * @Route("/admin/listUser", name="list_users")
+     * @Route("/admin/listUser/{page}", name="list_users", defaults={"page"=1})
      */
-    public function listUsers(UserRepository $repo){
-        $users = $repo->findAll();
+    public function listUsers(EntityManagerInterface $em, $page){
+        $nbArticlesParPage = 5;
+        $users =$em->getRepository(User::class)->findAllByPage($page, $nbArticlesParPage);
+        //$users = $repo->findAll();
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($users) / $nbArticlesParPage),
+            'nomRoute' => 'list_users',
+            'paramsRoute' => array()
+        );
         return $this->render('gestion_user/listUsers.html.twig', [
+            'pagination' => $pagination,
             'users' =>$users
         ]);
     }
@@ -40,7 +50,24 @@ class GestionUserController extends Controller
     /**
      * @Route("/admin/deactivateUser/{id}", name="deactivate_user", requirements={"id":"\d+"})
      */
-    public function deactivateUser(ObjectManager $manager, UserRepository $repo, User $u){
+    public function deactivateUser(User $u, EntityManagerInterface $em){
+        $user = $em->getRepository(User::class)->find($u);
+        $user->setActif(false);
+        $em->persist($user);
+        $em->flush();
+        $this->addFlash('success', 'Désactivation réussie!');
+        return $this->redirectToRoute('list_users');
+    }
 
+    /**
+     * @Route("/admin/activateUser/{id}", name="activate_user", requirements={"id":"\d+"})
+     */
+    public function activateUser(User $u, EntityManagerInterface $em){
+        $user = $em->getRepository(User::class)->find($u);
+        $user->setActif(true);
+        $em->persist($user);
+        $em->flush();
+        $this->addFlash('success', 'Activation réussie!');
+        return $this->redirectToRoute('list_users');
     }
 }

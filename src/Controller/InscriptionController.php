@@ -35,20 +35,17 @@ class InscriptionController extends Controller
         //date d'inscription (aujourd'hui)
         $today = (new \DateTime('now'))->setTime(0,0,0);
 
-
         $inscription->setSortie($sortie);
         $inscription->setParticipant($participant);
         $inscription->setDateInscription($today);
 
         //update de la sortie
-
         $em->persist($inscription);
         $em->flush();
 
         $this->addFlash("success", "Inscription réussie !");
 
         return $this->redirectToRoute('sortie_list');
-
     }
 
     /**

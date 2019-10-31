@@ -29,9 +29,7 @@ class ArchivesController extends Controller
         //récupération des sorties archivées
         $sorties = $em->getRepository(Sortie::class)->findByDateArchive();
 
-
-
-        return $this->render("affichage_archives/list.html.twig",
+        return $this->render("affichage_archives/listArchives.html.twig",
             [
                 'sorties' => $sorties
             ]);

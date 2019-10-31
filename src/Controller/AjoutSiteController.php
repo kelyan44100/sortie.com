@@ -36,11 +36,8 @@ class AjoutSiteController extends Controller
 
         //gestion du formulaire
         $site = new Site();
-
         $form = $this->createForm(SiteType::class, $site);
-
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($site);
@@ -48,8 +45,6 @@ class AjoutSiteController extends Controller
             return $this->redirectToRoute('site_ajout', array('sites'=>$sites));
 
         }
-
-
         return $this->render('ajout_site/ajoutSite.html.twig', [
             'pagination' => $pagination,
             'sites' => $sites,
@@ -57,7 +52,6 @@ class AjoutSiteController extends Controller
         ]);
 
     }
-
 
     /**
      * @Route("/sites/supp/{id}", name="site_supp")
@@ -101,10 +95,9 @@ class AjoutSiteController extends Controller
 
             $this->addFlash("success", "Site modifié");
             return $this->redirectToRoute('site_ajout');
-
         }
 
-        return $this->render('ajout_site/site_modif.html.twig', [
+        return $this->render('ajout_site/siteModif.html.twig', [
             'siteForm' => $form->createView()
         ]);
     }

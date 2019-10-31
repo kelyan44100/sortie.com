@@ -47,7 +47,6 @@ class CreationSortieController extends Controller
             $Site = $Sortie->getOrganisateur()->getSite();
             $Sortie->setSite($Site);
             $Sortie->setEtat($etat);
-
         
             $manager->persist($Sortie);
             $manager->flush();

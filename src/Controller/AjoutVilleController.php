@@ -34,29 +34,22 @@ class AjoutVilleController extends Controller
             'nomRoute' => 'ville_ajout',
             'paramsRoute' => array()
         );
+
         // Gestion du formulaire
         $ville = new Ville();
-
         $form = $this->createForm(VilleType::class, $ville);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($ville);
             $em->flush();
             return $this->redirectToRoute('ville_ajout', array('villes' => $villes));
-
         }
-
-
         return $this->render('ajout_ville/ajoutVille.html.twig', [
             'villes' => $villes,
             'pagination' => $pagination,
             'villeForm' => $form->createView()
         ]);
-
-
     }
 
     /**
@@ -74,14 +67,12 @@ class AjoutVilleController extends Controller
             $this->addFlash('error', "Des lieux sont associés à cette ville, supprimez-les d'abord !");
             return $this->redirectToRoute('ville_ajout');
         }
-
         $em->remove($ville);
         $em->flush();
         $this->addFlash("success", "La ville a bien été supprimée de notre base");
         return $this->redirectToRoute('ville_ajout');
 
     }
-
 
     /**
      * @param Ville $ville
@@ -102,10 +93,9 @@ class AjoutVilleController extends Controller
 
             $this->addFlash("success", "Ville modifiée");
             return $this->redirectToRoute('ville_ajout');
-
         }
 
-        return $this->render('ajout_ville/ville_modif.html.twig', [
+        return $this->render('ajout_ville/villeModif.html.twig', [
         'villeForm' => $form->createView()
         ]);
     }

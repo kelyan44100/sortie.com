@@ -26,6 +26,7 @@ class RegistrationFormType extends AbstractType
             ->add('pseudo', TextType::class, ['label'=>'Pseudo'])
             ->add('email',EmailType::class, ['label'=>'Email'])
             ->add('password', PasswordType::class, [
+                    'label'=>'Mot de passe',
                      'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer un mot de passe',

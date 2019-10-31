@@ -11,6 +11,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Prenom</th>
                     <th scope="col">email</th>
+                    <th scope="col">Actif</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
@@ -26,18 +27,35 @@
                         <td>
                             {{ user.email }}
                         </td>
+                        <td class="text-center">
+                            {% if user.actif == true %}
+                            x
+                            {% endif %}
+                        </td>
                         <td>
                             <div class="row text-center">
 
-                                <div class="col-6">
-                                    <a class=" " title="Modifier l'utilisateur" href="#{#{{ path('site_modif', {'id' : site.id }) }}#}">
-                                        <ion-icon name="create"></ion-icon>
+                                <div class="col-4">
+                                    <a title="Désactiver" href="{{ path('deactivate_user', {'id' : user.id }) }}">
+                                        <ion-icon size="large" name="radio-button-off"></ion-icon>
                                     </a>
                                 </div>
-                                <div class="col-6">
-                                    <a title="Supprimer cet utilisateur" href="{{ path('delete_user', {'id' : user.id }) }}">
-                                        <ion-icon name="trash"></ion-icon>
+                                <div class="col-4">
+                                    <a title="Activer" href="{{ path('activate_user', {'id' : user.id }) }}">
+                                        <ion-icon size="large" name="radio-button-on"></ion-icon>
                                     </a>
+                                </div>
+                                <div class="col-4">
+                                {% if  user.inscriptions|length ==0 and user.sorties|length==0 %}
+                                    <a title="Supprimer cet utilisateur" href="{{ path('delete_user', {'id' : user.id }) }}"
+                                       onclick="return confirm('{{ user.nom }} {{ user.prenom }} : Etes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                        <ion-icon size="large" name="trash"></ion-icon>
+                                    </a>
+                                {% else %}
+                                    <span  title="Supprimer cet utilisateur'">
+                                        <ion-icon size="large" name="trash"></ion-icon>
+                                    </span>
+                                {% endif %}
                                 </div>
                             </div>
                         </td>
@@ -46,17 +64,21 @@
                 {% endfor %}
 
             </table>
+            <div class="text-center">
+                {% include('inc/pagination.html.twig') %}
+            </div>
         </div>
     </div>
-        <div class="text-center">
-            <a class="btn btn-outline-success" type="button" href="{{ path('app_register')}}">Ajouter un utilisateur</a>
-            <a class="btn btn-outline-warning" type="button" href="{{ path('main')}}">Retour</a>
+        <div class="text-center mt-2">
+            <a class="btn btn-outline-success" href="{{ path('app_register')}}">Ajouter un nouveau utilisateur</a>
+            <a class="btn btn-outline-danger"  href="{{ path('main')}}">Retour</a>
         </div>
 
 
 {% endblock %}
 
-{% block title %}
+{% block javascripts %}
 
+    <script src="{{ asset('js/script.js') }}"></script>
 {% endblock %}
 

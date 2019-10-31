@@ -22,6 +22,7 @@ class AjoutLieuController extends Controller
         $form->handleRequest($request);
         $user = $this->getUser();
         $villes = $villeRepository->findAll();
+
         if($form->isSubmitted() && $form->isValid()){
             $ville = $form->get('ville')->getData();
             $lieu->setVille($ville);
