@@ -131,14 +131,14 @@
                                     <ion-icon name="more"></ion-icon>
                                 </a>
                                 <!-- La sortie est ouverte et le user n'est pas inscrit ni organisateur et il y a de la place -->
-                                {% if (sortie.etat.id == 2) and (estInscrit == 'false') and (sortie.organisateur.id != user.id)
+                                {% if (sortie.etat.id == 2) and (estInscrit == 'false')
                                     and (sortie.inscriptions|length < sortie.nbInscription) %}
 
                                     <a title="S'inscrire" href="{{ path('sortie_inscription', {'id' : sortie.id} ) }}">
                                         <ion-icon name="log-in"></ion-icon>
                                     </a>
 
-                                {% elseif ((sortie.etat.id == 2) or (sortie.etat.id == 3)) and (sortie.organisateur.id != user.id) and (estInscrit == 'true')%}
+                                {% elseif ((sortie.etat.id == 2) or (sortie.etat.id == 3))  and (estInscrit == 'true')%}
                                     <a title="Se désister" href="{{ path('sortie_desinscription', {'id' : sortie.id} ) }}">
                                         <ion-icon name="log-out"></ion-icon>
                                     </a>

@@ -66,7 +66,6 @@ class AffichageSortieController extends Controller
 
                 } elseif (($sortie->getDateDebut() !== $today) && (count($sortie->getInscriptions()) !== 0) && (($sortie->getDateCloture() <= $today) || (count($sortie->getInscriptions()) == $sortie->getNbInscription()))) {
                     //cloturée
-
                     $etat = $em->getRepository(Etat::class)->findOneBy(['libelle' => 'Clôturée']);
                     $sortie->setEtat($etat);
                     $em->persist($sortie);

@@ -36,14 +36,27 @@
                             <div class="row text-center">
 
                                 <div class="col-4">
-                                    <a title="Désactiver" href="{{ path('deactivate_user', {'id' : user.id }) }}">
-                                        <ion-icon size="large" name="radio-button-off"></ion-icon>
-                                    </a>
+                                    {% if user.actif %}
+                                        <a title="Désactiver" href="{{ path('deactivate_user', {'id' : user.id }) }}">
+                                            <ion-icon size="large" name="radio-button-off"></ion-icon>
+                                        </a>
+                                    {% else %}
+                                        <span title="Désactiver" >
+                                            <ion-icon size="large" name="radio-button-off"></ion-icon>
+                                        </span>
+                                    {% endif %}
                                 </div>
+
                                 <div class="col-4">
-                                    <a title="Activer" href="{{ path('activate_user', {'id' : user.id }) }}">
-                                        <ion-icon size="large" name="radio-button-on"></ion-icon>
-                                    </a>
+                                    {% if user.actif == false %}
+                                        <a title="Activer" href="{{ path('activate_user', {'id' : user.id }) }}">
+                                            <ion-icon size="large" name="radio-button-on"></ion-icon>
+                                        </a>
+                                    {% else %}
+                                        <span title="Activer" >
+                                            <ion-icon size="large" name="radio-button-on"></ion-icon>
+                                        </span>
+                                    {% endif %}
                                 </div>
                                 <div class="col-4">
                                 {% if  user.inscriptions|length ==0 and user.sorties|length==0 %}
