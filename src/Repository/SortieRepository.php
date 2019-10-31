@@ -80,9 +80,7 @@ class SortieRepository extends ServiceEntityRepository
             ->innerJoin('sortie2.inscriptions', 'inscriptions2', 'WITH', 'inscriptions2.participant = :valParticipant2');
             $queryBuilder->andWhere($queryBuilder->expr()->notIn('sortie.id', $queryBuilder2->getDQL()))
             ->setParameter('valParticipant2', $userEnCours);
-            /*$queryBuilder
-                ->andWhere(':valParticipant NOT MEMBER OF sortie.inscriptions')
-                ->setParameter('valParticipant', $userEnCours);*/
+
         }
         //Sorties passées
         if ($sortiesPassees != null) {

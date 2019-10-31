@@ -137,17 +137,12 @@ class AffichageSortieController extends Controller
 //            }
 //    }
 
-
-
-
         $repo = $em->getRepository(Sortie::class);
         $sortie = $repo->find($id);
 
         $inscriptions = $InscriptionRepository->findBy([
             'sortie' => $sortie,
         ]);
-
-        dump($inscriptions);
 
         return $this->render("affichage_sortie/detail.html.twig", [
             "sortie" => $sortie,
@@ -167,9 +162,7 @@ class AffichageSortieController extends Controller
      */
     public function modifierSortie(Sortie $sortie, Request $request, EntityManagerInterface $manager, VilleRepository $villeRepository)
     {
-
         $user = $this->getUser();
-
         if(($user->getId() != $sortie->getOrganisateur()->getId()) and (!$this->isGranted("ROLE_ADMIN"))){
             return $this->redirectToRoute('sortie_list');
         }

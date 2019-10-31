@@ -5,8 +5,6 @@ use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
-use App\Entity\User;
-use App\Entity\Ville;
 use App\Form\CreationSortieType;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
@@ -61,7 +59,6 @@ class CreationSortieController extends Controller
         }
         return $this->render('creation_sortie/creationSortie.html.twig', [
             'formSortie' => $formSortie->createView(),
-//          'villes' => $villes,
             'lieux' => $lieux,
             'sites' => $sites,
             'user' => $user,
